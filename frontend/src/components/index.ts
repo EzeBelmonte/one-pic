@@ -1,6 +1,6 @@
 // MENU
 export { default as Sidebar } from "./navbar/Sidebar";
-export { default as Topbar } from "./navbar/Topbar";
+export { default as Movilbar } from "./navbar/Movilbar";
 
 // UI
 export { default as Button } from "./ui/Button";

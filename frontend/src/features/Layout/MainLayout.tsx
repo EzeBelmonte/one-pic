@@ -1,13 +1,13 @@
 import { Outlet } from "react-router-dom";
 
-import { Sidebar, Topbar } from "@/components";
+import { Sidebar, Movilbar } from "@/components";
 
 const MainLayout = () => {
   
   return (
     <div>
       {/* Cuando el ancho llega a 640px se oculta */}
-      <Topbar />
+      <Movilbar />
 
       {/* Cuando el ancho llega a 640px se hace visible */}
       <Sidebar />
