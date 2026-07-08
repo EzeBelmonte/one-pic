@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Menu, LogOut } from "lucide-react";
+import { Menu } from "lucide-react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 import { Button } from "@/components";
-import { navItems } from "../navItems";
 
-const LoginNav = () => {
+import NavMenu from "./NavMenu";
+
+const MobileMenu = () => {
   const { logout } = useAuth();
 
   // Abir y cerrar el menu
@@ -56,7 +56,7 @@ const LoginNav = () => {
           aria-hidden="true"
         />
       )}
-
+  
       <div className="fixed top-0 left-0 z-50 p-2">
         {/* Botón abrir */}
         {!openMenu && (
@@ -90,46 +90,16 @@ const LoginNav = () => {
             }
           `}
         >
-          <ul className="flex flex-col py-4">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-
-              return (
-                <li key={item.href}>
-                  <Link
-                    to={item.href}
-                    onClick={closeMenu}
-                    className="
-                      flex items-center gap-2
-                      px-6 py-3
-                      text-sm font-semibold
-                    "
-                  >
-                    <Icon size={18} />
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-
-          <Link
-            to={"/"}
-            onClick={logout}
-            className="
-              flex items-center gap-2
-              px-6 py-3
-              text-sm font-semibold
-              text-red-400
-            "
-          >
-            <LogOut size={18} />
-            Cerrar sesión
-          </Link>
+          <NavMenu 
+            onItemClick={closeMenu}
+            logout={logout}
+            className="flex flex-col py-4"
+            linkClassName="px-6 py-3 text-sm"
+          />
         </nav>
       </div>
     </div>
   );
 }
 
-export default LoginNav;
+export default MobileMenu;
