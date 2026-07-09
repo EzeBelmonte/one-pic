@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 
 import * as postService from "./posts.service.js";
-import type { UpdatePostDTO } from "../../shared/types/post.dto.js";
+import type { UpdatePost } from "@shared/index.js";
 
 // ========================================
 // CREAR POST
@@ -73,7 +73,7 @@ export async function updatePost(
     const postId = Number(req.params.postId);
 
     // Obtenmos los datos actualizados
-    const data: UpdatePostDTO = req.body;
+    const data: UpdatePost = req.body;
 
     // Obtenemos el post actualizado
     const post = await postService.updatePost(

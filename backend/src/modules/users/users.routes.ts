@@ -5,7 +5,10 @@ import { authenticate } from "../../shared/middlewares/auth.middleware.js";
 const router: Router = Router();
 
 router.get("/me", authenticate, authController.me);
-router.get("/profile", authenticate, authController.profile);
-router.patch("/edit", authenticate, authController.updateProfile);
+router.get("/me/profile", authenticate, authController.MyProfile);
+router.patch("/me", authenticate, authController.updateUser);
+
+// Público
+router.get("/:username", authenticate, authController.getProfile);
 
 export default router;

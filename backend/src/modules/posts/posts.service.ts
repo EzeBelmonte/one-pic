@@ -1,15 +1,16 @@
 import  * as postRepository from "./posts.repository.js";
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { PostDTO, CreatePostDTO, UpdatePostDTO } from "../../shared/types/post.dto.js";
+import type { CreatePost } from "./posts.type.js";
+import type { Post, UpdatePost } from "@shared/index.js";
 
 // ========================================
 // CREAR POST
 // ========================================
 export async function createPost(
   userId: number,
-  data: CreatePostDTO
-): Promise<PostDTO> {
+  data: CreatePost
+): Promise<Post> {
 
   if (!data.imageUrl) {
     throw new Error("La imagen es obligatoria");
@@ -49,7 +50,7 @@ export async function getPost(
 export async function updatePost(
   userId: number,
   postId: number,
-  data: UpdatePostDTO
+  data: UpdatePost
 ) {
   // Obtenemos el post
   const post = await postRepository.findById(postId);

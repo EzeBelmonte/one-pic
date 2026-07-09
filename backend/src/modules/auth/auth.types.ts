@@ -1,4 +1,4 @@
-import type { UserDTO } from "../../shared/types/user.dto.js";
+import type { User } from "@shared/index.js";
 
 export interface CreateUserDTO {
   email: string;
@@ -12,6 +12,6 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-  user: UserDTO;
+  user: User;
   token: string;
 }

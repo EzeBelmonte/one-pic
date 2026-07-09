@@ -1,11 +1,25 @@
 import * as userRepository from "./users.repository.js";
-import type { UpdateUserDTO, ProfileDTO } from "../../shared/types/user.dto.js";
-import { toProfileDTO, toUserDTO } from "../../shared/mappers/user.mapper.js";
+import type { UpdateUser, MyProfile, Profile } from "@shared/index.js";
+import { toMyProfileDTO, toProfileDTO, toUserDTO, toMyUserDTO } from "../../shared/mappers/user.mapper.js";
 
 // ========================================
-// OBTENER DATOS DEL USUARIO
+// OBTENER DATOS PROPIOS
 // ========================================
 export async function getMe(userId: number) {
+  // Obtenemos el usuario
+  const user = await userRepository.findById(userId);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+
+  return toMyUserDTO(user);
+}
+
+// ========================================
+// OBTENER DATOS DE USUARIO
+// ========================================
+export async function getUser(userId: number) {
   // Obtenemos el usuario
   const user = await userRepository.findById(userId);
 
@@ -17,11 +31,11 @@ export async function getMe(userId: number) {
 }
 
 // ========================================
-// OBTENER USUARIO MEDIANTE POST
+// OBTENER PERFIL MEDIANTE ID
 // ========================================
 export async function getProfile(
   userId: number
-): Promise<ProfileDTO> {
+): Promise<MyProfile> {
   // Obtenemos el usuario
   const user = await userRepository.findProfileById(userId);
 
@@ -29,7 +43,22 @@ export async function getProfile(
     throw new Error("El usuario no existe");
   }
 
-  return toProfileDTO(user);
+  return toMyProfileDTO(user);
+}
+
+// ========================================
+// OBTENER PERFIL MEDIANTE USERNAME
+// ========================================
+export async function getProfileByUsername(
+  username: string
+): Promise<Profile> {
+  const profile = await userRepository.findProfileByUsername(username);
+
+  if (!profile) {
+    throw new Error("El usuario no existe");
+  }
+
+  return toProfileDTO(profile);
 }
 
 // ========================================
@@ -37,12 +66,12 @@ export async function getProfile(
 // ========================================
 export async function updateProfile(
   userId: number,
-  data: UpdateUserDTO
+  data: UpdateUser
 ) {
   // Obtenemos el usuario
-  const user = await userRepository.findById(userId);
+  const profile = await userRepository.findById(userId);
 
-  if (!user) {
+  if (!profile) {
     throw new Error("El usuario no existe");
   }
 

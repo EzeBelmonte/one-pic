@@ -4,7 +4,7 @@ import type { InferInsertModel } from "drizzle-orm";
 import { posts } from "../../infrastructure/database/schemas/posts.js";
 import { db } from "../../infrastructure/database/db.js";
 
-import type { CreatePostDTO, UpdatePostDTO } from "../../shared/types/post.dto.js";
+import type { UpdatePost } from "@shared/index.js";
 
 type NewPost = InferInsertModel<typeof posts>;
 
@@ -39,7 +39,7 @@ export async function createPost(
 // ========================================
 export async function updateDescription(
   postId: number,
-  data: UpdatePostDTO
+  data: UpdatePost
 ) {
   const [post] = await db
     .update(posts)

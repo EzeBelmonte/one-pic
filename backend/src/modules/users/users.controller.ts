@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
 import * as userService from "./users.service.js";
-import type { UpdateUserDTO } from "../../shared/types/user.dto.js";
+import type { UpdateUser } from "@shared/index.js";
 
 // ========================================
-// OBTENER MI PERFIL
+// OBTENER MI USUARIO
 // ========================================
 export async function me(
   req: Request,
@@ -26,9 +26,9 @@ export async function me(
 }
 
 // ========================================
-// OBTENER PERFIL AJENO
+// OBTENER MI PERFIL
 // ========================================
-export async function profile(
+export async function MyProfile(
   req: Request,
   res: Response
 ) {
@@ -49,9 +49,32 @@ export async function profile(
 }
 
 // ========================================
+// OBTENER PERFIL AJENO
+// ========================================
+export async function getProfile(
+  req: Request,
+  res: Response
+) {
+  try {
+    /// Obtenemos el ID usuario logueado
+    const username = String(req.params.username);
+
+    // Obtener perfil del usuario
+    const profile = await userService.getProfileByUsername(username);
+
+    // Retornamos el perfil
+    return res.status(200).json(profile);
+  } catch (error) {
+    return res.status(401).json({
+      message: error instanceof Error ? error.message : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
 // ACTUALIZAR PERFIL
 // ========================================
-export async function updateProfile(
+export async function updateUser(
   req: Request,
   res: Response
 ) {
@@ -60,7 +83,7 @@ export async function updateProfile(
     const userId = req.user.userId;
 
     // Obtenemos los datos actualizados
-    const data: UpdateUserDTO = req.body;
+    const data: UpdateUser = req.body;
 
     // Obtener perfil del usuario
     const profile = await userService.updateProfile(

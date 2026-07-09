@@ -1,4 +1,4 @@
-import { email, z } from "zod";
+import { z } from "zod";
 
 // Datos que deberá ingresar el usuario al crease la cuenta
 export const registerSchema = z.object({

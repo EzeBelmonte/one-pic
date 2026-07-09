@@ -1,6 +1,7 @@
 import api from "axios";
 
-import type { User, Profile } from "@/shared/types/user.type";
+import type { Profile } from "@/shared/types/user.type";
+import type { User } from "@shared/index";
 
 // ========================================
 // MI PERFIL

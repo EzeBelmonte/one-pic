@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "../../infrastructure/database/db.js";
 import { users } from "../../infrastructure/database/schemas/users.js";
 
-import type { UpdateUserDTO } from "../../shared/types/user.dto.js";
+import type { UpdateUser } from "@shared/index.js";
 
 // ========================================
 // OBTENER DATOS DEL USUARIO
@@ -15,7 +15,7 @@ export async function findById(userId: number) {
 };
 
 // ========================================
-// OBTENER USUARIO MEDIANTE POST
+// OBTENER USUARIO MEDIANTE ID
 // ========================================
 export async function findProfileById(userId: number) {
   return await db.query.users.findFirst({
@@ -27,11 +27,23 @@ export async function findProfileById(userId: number) {
 }
 
 // ========================================
+// OBTENER USUARIO MEDIANTE USERNAME
+// ========================================
+export async function findProfileByUsername(username: string) {
+  return await db.query.users.findFirst({
+    where: (users, { eq }) => eq(users.username, username),
+    with: {
+      posts: true, // Representa información adicional
+    },
+  });
+}
+
+// ========================================
 // ACTUALIZAR USUARIO
 // ========================================
 export async function update(
   userId: number,
-  data: UpdateUserDTO
+  data: UpdateUser
 ) {
   const [user] = await db
     .update(users)

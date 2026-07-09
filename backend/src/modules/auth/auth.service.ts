@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import * as authRepository from "./auth.repository.js";
-import type { UserDTO } from "../../shared/types/user.dto.js";
+import type { User } from "@shared/index.js";
 import type { CreateUserDTO, LoginRequest, LoginResponse } from "./auth.types.js";
 import { generateToken } from "../../shared/utils/jwt.js";
 import { toUserDTO } from "../../shared/mappers/user.mapper.js";
@@ -10,7 +10,7 @@ import { toUserDTO } from "../../shared/mappers/user.mapper.js";
 // ========================================
 export async function register(
   data: CreateUserDTO
-): Promise<UserDTO> {
+): Promise<User> {
   // Buscamos si existe el email
   const existingEmail = await authRepository.findByEmail(data.email);
 
