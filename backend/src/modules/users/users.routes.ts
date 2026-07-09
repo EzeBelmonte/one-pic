@@ -6,6 +6,6 @@ const router: Router = Router();
 
 router.get("/me", authenticate, authController.me);
 router.get("/profile", authenticate, authController.profile);
-router.put("/edit", authenticate, authController.updateProfile);
+router.patch("/edit", authenticate, authController.updateProfile);
 
 export default router;

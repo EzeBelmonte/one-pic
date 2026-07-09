@@ -17,11 +17,6 @@ export interface CreateUserDTO {
   password: string;
 }
 
-export interface LoginRequest {
-  identifier: string;
-  password: string;
-}
-
 export interface LoginResponse {
   user: User;
   token: string;

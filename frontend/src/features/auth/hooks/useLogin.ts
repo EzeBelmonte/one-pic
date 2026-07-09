@@ -5,7 +5,7 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { getErrorMessage } from "@/shared/utils/getErrorMessage";
 
 import type { LoginSchema } from "../schemas/auth.schema";
-import * as authApi from "../api/auth.api";
+import * as authApi from "@/api/auth.api";
 
 export function useLogin() {
   const navigate = useNavigate();
