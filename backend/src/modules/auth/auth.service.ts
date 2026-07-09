@@ -1,13 +1,16 @@
 import bcrypt from "bcryptjs";
 import * as authRepository from "./auth.repository.js";
-import type { User } from "../../shared/types/user.dto.js";
+import type { UserDTO } from "../../shared/types/user.dto.js";
 import type { CreateUserDTO, LoginRequest, LoginResponse } from "./auth.types.js";
 import { generateToken } from "../../shared/utils/jwt.js";
+import { toUserDTO } from "../../shared/mappers/user.mapper.js";
 
 // ========================================
 // REGISTRO
 // ========================================
-export async function register(data: CreateUserDTO): Promise<User> {
+export async function register(
+  data: CreateUserDTO
+): Promise<UserDTO> {
   // Buscamos si existe el email
   const existingEmail = await authRepository.findByEmail(data.email);
 
@@ -35,16 +38,7 @@ export async function register(data: CreateUserDTO): Promise<User> {
     throw new Error("Error al crear el usuario");
   }
 
-  const safeUser: User = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    nickname: user.nickname,
-    createdAt: user.createdAt.toISOString(),
-    updatedAt: user.updatedAt.toISOString(),
-  };
-
-  return safeUser;
+  return toUserDTO(user);
 }
 
 // ========================================
@@ -75,14 +69,7 @@ export async function login(data: LoginRequest) {
     userId: user.id,
   });
 
-  const safeUser: User = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    nickname: user.nickname,
-    createdAt: user.createdAt.toISOString(),
-    updatedAt: user.updatedAt.toISOString(),
-  }
+  const safeUser = toUserDTO(user);
 
   const result: LoginResponse = {
     user: safeUser,
