@@ -1,6 +1,6 @@
 import api from "axios";
 
-import type { Post } from "@/shared/types/post.type";
+import type { Post } from "@shared/index";
 
 // ========================================
 // CREAR POST

@@ -1,8 +1,6 @@
 import api from "@/api/axios";
 
-import type {
-  LoginResponse,
-} from "@/shared/types/auth.type";
+import type { LoginResponse } from "@shared/index";
 
 import type { RegisterSchema, LoginSchema } from "@/features/auth/schemas/auth.schema";
 

@@ -15,7 +15,7 @@ app.use(
 app.use(express.json());
 
 app.use("/auth", authRouter);
-app.use("/", userRouter);
+app.use("/users", userRouter);
 app.use("/post", postRouter);
 
 export default app;

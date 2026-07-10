@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from "@/shared/utils/getToken";
+import { triggerLogout } from "@/shared/services/auth.service";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -12,7 +13,7 @@ api.interceptors.request.use(
   (config) => {
     const token = getToken();
 
-    if (!token) {
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
@@ -23,11 +24,11 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => response,
-
-  (error) => {
-    if (error.response?.this.status === 401) {
-      localStorage.removeItem("token");
-    }
+  
+  (error) => { 
+    if (error.response?.status === 401) {
+      triggerLogout();
+    }  
 
     return Promise.reject(error);
   }

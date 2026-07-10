@@ -3,7 +3,7 @@ import * as authRepository from "./auth.repository.js";
 import type { User } from "@shared/index.js";
 import type { CreateUserDTO, LoginRequest, LoginResponse } from "./auth.types.js";
 import { generateToken } from "../../shared/utils/jwt.js";
-import { toUserDTO } from "../../shared/mappers/user.mapper.js";
+import { toMyUserDTO } from "../../shared/mappers/user.mapper.js";
 
 // ========================================
 // REGISTRO
@@ -38,7 +38,7 @@ export async function register(
     throw new Error("Error al crear el usuario");
   }
 
-  return toUserDTO(user);
+  return toMyUserDTO(user);
 }
 
 // ========================================
@@ -69,7 +69,7 @@ export async function login(data: LoginRequest) {
     userId: user.id,
   });
 
-  const safeUser = toUserDTO(user);
+  const safeUser = toMyUserDTO(user);
 
   const result: LoginResponse = {
     user: safeUser,

@@ -20,7 +20,7 @@ export function useLogin() {
 
       const response = await authApi.login(data);
 
-      login(response.user, response.token);
+      login(response.token);
 
       navigate("/");
     } catch (error) {

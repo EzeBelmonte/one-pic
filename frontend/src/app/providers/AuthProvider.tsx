@@ -1,7 +1,8 @@
-import { createContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { User } from "@/shared/types/user.type";
-import type { AuthContextType } from "@/shared/types/auth.type";
+import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { MyUser } from "@shared/index";
+import type { AuthContextType } from "../types/app.type";
 import { getMe } from "@/api/user.api";
+import { registerLogout } from "@/shared/services/auth.service";
 
 export const AuthContext =
   createContext<AuthContextType | null>(null);
@@ -11,29 +12,36 @@ type Props = {
 };
 
 export function AuthProvider({ children }: Props) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<MyUser | null>(null);
   
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isAuthenticated = !!user;
 
-  function login(user: User, token: string) {
+  // El useCallback recuerda la función y no la está creando por cada render
+  const login = useCallback(async (token: string) => {
     localStorage.setItem("token", token);
-
-    setUser(user);
     setToken(token);
-  }
 
-  function logout() {
+    const user = await getMe();
+    setUser(user);
+  }, []);
+
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
 
     setUser(null);
     setToken(null);
-  }
+  }, []);
+
+  // Cuando alguien pide de manera global un logout, se ejecuta
+  useEffect(() => {
+    registerLogout(logout);
+  }, []);
 
   useEffect(() => {
     async function restoreSession() {
@@ -54,7 +62,7 @@ export function AuthProvider({ children }: Props) {
     }
 
     restoreSession();
-  }, []);
+  }, [token]);
 
   const value = useMemo(
     () => ({
