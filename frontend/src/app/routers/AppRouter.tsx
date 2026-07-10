@@ -4,7 +4,15 @@ import {
   Route,
 } from "react-router-dom";
 
-import { MainLayout, AuthLayout, HomePage, LoginPage, RegisterPage, ProfilePage } from "@/features";
+import { 
+  MainLayout, 
+  AuthLayout, 
+  HomePage, 
+  LoginPage, 
+  RegisterPage, 
+  MyProfilePage,
+  UserProfilePage,
+} from "@/features";
 
 import { ProtectedRoute } from "./ProtectedRoute";
 import { PublicRoute } from "./PublicRoute";
@@ -25,11 +33,19 @@ export function AppRouter() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <ProfilePage />
+                <MyProfilePage />
               </ProtectedRoute>
             }
           />
 
+          <Route
+            path="/users/:username"
+            element={
+              <ProtectedRoute>
+                <UserProfilePage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
 
         {/* AUTHLAYOUT */}

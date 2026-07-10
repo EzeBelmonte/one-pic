@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import type { InferInsertModel } from "drizzle-orm";
 
 import { posts } from "../../infrastructure/database/schemas/posts.js";
@@ -8,17 +8,6 @@ import type { UpdatePost } from "@shared/index.js";
 
 type NewPost = InferInsertModel<typeof posts>;
 
-// ========================================
-// OBTENER POST
-// ========================================
-export async function findById(id: number) {
-  return await db.query.posts.findFirst({
-    where: (posts, { eq }) => eq(posts.id, id),
-    with: {
-      user: true, // De manera adicional obtenemos el usuario del post
-    },
-  });
-}
 
 // ========================================
 // CREAR POST
@@ -32,6 +21,25 @@ export async function createPost(
     .returning();
   
   return post;
+}
+
+// ========================================
+// OBTENER POST
+// ========================================
+export async function findById(id: number) {
+  return await db.query.posts.findFirst({
+    where: (posts, { eq }) => eq(posts.id, id),
+  });
+}
+
+// ========================================
+// OBTENER TODOS LOS POST DE UN USUARIO
+// ========================================
+export async function findByUserId(userId: number) {
+  return await db.query.posts.findMany({ // findMany devuelve un arreglo con los post del usuario
+    where: (posts, { eq }) => eq(posts.userId, userId),
+    orderBy: (posts) => [desc(posts.createdAt)],
+  });
 }
 
 // ========================================

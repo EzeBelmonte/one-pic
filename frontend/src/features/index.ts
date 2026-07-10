@@ -10,4 +10,5 @@ export { default as LoginPage } from "./auth/pages/LoginPage";
 export { default as RegisterPage } from "./auth/pages/RegisterPage";
 
 // PROFILE
-export { default as ProfilePage } from "./profile/ProfilePage";
+export { default as MyProfilePage } from "./profile/MyProfilePage";
+export { default as UserProfilePage } from "./profile/UserProfilePage";

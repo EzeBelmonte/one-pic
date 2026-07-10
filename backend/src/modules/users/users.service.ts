@@ -1,6 +1,6 @@
 import * as userRepository from "./users.repository.js";
-import type { UpdateUser, MyProfile, Profile } from "@shared/index.js";
-import { toMyProfileDTO, toProfileDTO, toUserDTO, toMyUserDTO } from "../../shared/mappers/user.mapper.js";
+import type { UpdateUser } from "@shared/index.js";
+import { toUserDTO, toMyUserDTO } from "../../shared/mappers/user.mapper.js";
 
 // ========================================
 // OBTENER DATOS PROPIOS
@@ -19,46 +19,15 @@ export async function getMe(userId: number) {
 // ========================================
 // OBTENER DATOS DE USUARIO
 // ========================================
-export async function getUser(userId: number) {
+export async function getUser(username: string) {
   // Obtenemos el usuario
-  const user = await userRepository.findById(userId);
-
+  const user = await userRepository.findUserByUsername(username);
+  
   if (!user) {
     throw new Error("El usuario no existe");
   }
 
   return toUserDTO(user);
-}
-
-// ========================================
-// OBTENER PERFIL MEDIANTE ID
-// ========================================
-export async function getProfile(
-  userId: number
-): Promise<MyProfile> {
-  // Obtenemos el usuario
-  const user = await userRepository.findProfileById(userId);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-
-  return toMyProfileDTO(user);
-}
-
-// ========================================
-// OBTENER PERFIL MEDIANTE USERNAME
-// ========================================
-export async function getProfileByUsername(
-  username: string
-): Promise<Profile> {
-  const profile = await userRepository.findProfileByUsername(username);
-
-  if (!profile) {
-    throw new Error("El usuario no existe");
-  }
-
-  return toProfileDTO(profile);
 }
 
 // ========================================

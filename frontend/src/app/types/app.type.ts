@@ -7,6 +7,8 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
 
-  login: (token: string) => void;
+  login: (token: string) => Promise<void>;
   logout: () => void;
+
+    updateUser: (data: Partial<MyUser>) => void;
 }

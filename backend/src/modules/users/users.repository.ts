@@ -14,22 +14,11 @@ export async function findById(userId: number) {
   });
 };
 
-// ========================================
-// OBTENER USUARIO MEDIANTE ID
-// ========================================
-export async function findProfileById(userId: number) {
-  return await db.query.users.findFirst({
-    where: (users, { eq }) => eq(users.id, userId),
-    with: {
-      posts: true, // Representa información adicional
-    },
-  });
-}
 
 // ========================================
 // OBTENER USUARIO MEDIANTE USERNAME
 // ========================================
-export async function findProfileByUsername(username: string) {
+export async function findUserByUsername(username: string) {
   return await db.query.users.findFirst({
     where: (users, { eq }) => eq(users.username, username),
     with: {

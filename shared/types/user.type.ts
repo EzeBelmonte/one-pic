@@ -23,47 +23,10 @@ export interface MyUser extends User {
 }
 
 // ========================================
-// PERFIL OTROS
-// ========================================
-export interface Profile extends User {
-  posts: Post[];
-}
-
-// ========================================
-// PERFIL PROPIO
-// ========================================
-export interface MyProfile extends MyUser {
-  posts: Post[];
-}
-
-// ========================================
 // DATOS EDITABLES
 // ========================================
 export interface UpdateUser {
   avatarUrl: string | null;
   nickname: string | null;
   bio: string | null;
-}
-
-
-
-
-
-
-
-// Luego pensar donde ubicarlos
-export interface PostAuthorDTO {
-  id: number;
-  username: string;
-  avatarUrl: string | null;
-  nickname: string | null;
-}
-
-export interface FeedPostDTO {
-  id: number;
-  imageUrl: string;
-  description: string | null;
-  createdAt: string;
-
-  user: PostAuthorDTO;
 }

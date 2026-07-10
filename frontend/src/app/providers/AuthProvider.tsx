@@ -64,10 +64,20 @@ export function AuthProvider({ children }: Props) {
     restoreSession();
   }, [token]);
 
+  const updateUser = useCallback(
+    (data: Partial<MyUser>) => {
+      setUser((current) =>
+        current ? { ...current, ...data } : null
+      );
+    }, []
+  );
+
   const value = useMemo(
     () => ({
       user,
       token,
+
+      updateUser,
 
       isAuthenticated,
       isLoading,

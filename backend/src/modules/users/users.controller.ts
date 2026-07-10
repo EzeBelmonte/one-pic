@@ -26,44 +26,21 @@ export async function me(
 }
 
 // ========================================
-// OBTENER MI PERFIL
+// OBTENER OTRO USUARIO 
 // ========================================
-export async function MyProfile(
+export async function getUser(
   req: Request,
   res: Response
 ) {
   try {
-    /// Obtenemos el ID usuario logueado
-    const userId = req.user.userId;
-
-    // Obtener perfil del usuario
-    const profile = await userService.getProfile(userId);
-
-    // Retornamos el perfil
-    return res.status(200).json(profile);
-  } catch (error) {
-    return res.status(401).json({
-      message: error instanceof Error ? error.message : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// OBTENER PERFIL AJENO
-// ========================================
-export async function getProfile(
-  req: Request,
-  res: Response
-) {
-  try {
-    /// Obtenemos el ID usuario logueado
+    // Obtenemos el usuario buscado
     const username = String(req.params.username);
 
-    // Obtener perfil del usuario
-    const profile = await userService.getProfileByUsername(username);
+    // Obtenemos el perfil propio
+    const user = await userService.getUser(username);
 
     // Retornamos el perfil
-    return res.status(200).json(profile);
+    return res.status(200).json(user);
   } catch (error) {
     return res.status(401).json({
       message: error instanceof Error ? error.message : "Error desconocido",

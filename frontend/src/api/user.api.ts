@@ -1,9 +1,8 @@
 import api from "./axios";
 
 import type {  
+  User,
   MyUser, 
-  Profile, 
-  MyProfile, 
   UpdateUser 
 } from "@shared/index";
 
@@ -18,24 +17,13 @@ export async function getMe() {
 }
 
 // ========================================
-// MI PERFIL
+// OTRO USUARIO
 // ========================================
-export async function getMyProfile() {
-
-  const response =
-    await api.get<MyProfile>("/users/me/profile");
-
-  return response.data;
-}
-
-// ========================================
-// PERFIL PÚBLICO
-// ========================================
-export async function getProfile(
+export async function getUser(
   username: string
 ) {
   const response =
-    await api.get<Profile>(`/users/${username}`);
+    await api.get<User>(`/users/${username}`);
 
   return response.data;
 }
@@ -43,7 +31,7 @@ export async function getProfile(
 // ========================================
 // ACTUALIZAR PERFIL
 // ========================================
-export async function updateProfile(
+export async function updateUser(
   data: UpdateUser
 ) {
   const response = 

@@ -1,4 +1,6 @@
-import  * as postRepository from "./posts.repository.js";
+import * as userRepository from "../users/users.repository.js";
+
+import * as postRepository from "./posts.repository.js";
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
 import type { CreatePost } from "./posts.type.js";
@@ -42,6 +44,34 @@ export async function getPost(
   }
 
   return toPostDTO(post);
+}
+
+// ========================================
+// OBTENER MIS POST
+// ========================================
+export async function getMyPosts(
+  userId: number
+): Promise<Post[]> {  
+  const posts = await postRepository.findByUserId(userId);
+
+  return posts.map(toPostDTO);
+}
+
+// ========================================
+// OBTENER MIS POST
+// ========================================
+export async function getPostsByUsername(
+  username: string
+): Promise<Post[]> {
+  const user = await userRepository.findUserByUsername(username);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+
+  const posts = await postRepository.findByUserId(user.id);
+
+  return posts.map(toPostDTO);
 }
 
 // ========================================
