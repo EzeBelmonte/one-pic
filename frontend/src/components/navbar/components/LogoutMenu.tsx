@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Button } from "../..";
 
-const LogoutNav = () => {
+const LogoutMenu = () => {
 
   const navigate = useNavigate();
 
@@ -47,4 +47,4 @@ const LogoutNav = () => {
   );
 }
 
-export default LogoutNav;
+export default LogoutMenu;

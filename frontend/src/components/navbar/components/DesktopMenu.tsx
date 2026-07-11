@@ -1,16 +1,14 @@
-import { useAuth } from "@/app/hooks/useAuth";
-
 import NavMenu from "./NavMenu";
 
 const DesktopMenu = () => {
-  const { logout } = useAuth();
+
   return (
     <div className="
       hidden 
-      sm:flex
-      flex-col 
+      sm:block
       h-screen
-      max-w-[220px]">
+      max-w-[220px]
+      mt-10">
       <nav className="
         flex 
         flex-col
@@ -19,11 +17,10 @@ const DesktopMenu = () => {
         py-5
       ">
         <NavMenu 
-          logout={logout}
           className="
-            flex
-            flex-col
-            gap-2
+            flex  flex-col
+            fixed
+            gap-2 mt-10
             text-white
           "
           linkClassName="

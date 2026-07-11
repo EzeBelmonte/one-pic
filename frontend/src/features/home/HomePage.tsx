@@ -3,7 +3,11 @@
 const HomePage = () => {
 
   return (
-    <h1>HOME</h1>
+    <div className=" text-white">
+      <p>
+        Reiciendiste eaque, itaque vitae blanditiis ab? Saepe, inventore ratione?
+      </p>
+    </div>
   );
 }
 

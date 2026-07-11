@@ -1,8 +1,10 @@
 import { useAuth } from "@/app/hooks/useAuth";
 
-import LogoutNav from "./components/LogoutMenu";
-import MobileMenu from "./components/MobileMenu";
-import DesktopMenu from "./components/DesktopMenu";
+import { 
+  DesktopMenu,
+  MobileMenu,
+  LogoutMenu,
+} from "../navbar/components";
 
 const Navbar = () => {
 
@@ -12,9 +14,10 @@ const Navbar = () => {
     <>
 
       {!isAuthenticated ? (
-        <LogoutNav />
+        <LogoutMenu />
       ) : (
         <>
+          {/* Menú */}
           <MobileMenu />
           <DesktopMenu />
         </>

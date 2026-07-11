@@ -1,24 +1,33 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { LogOut } from "lucide-react";
 
 import { cn } from "@/shared/utils/cn";
 import { navItems } from "../constants/navItems";
 
+import { Modal } from "@/components";
+import CreatePosts from "@/shared/components/CreatePosts";
+
+
 type NavMenuProps = {
-  onItemClick?: () => void;
-  logout: () => void;
   className?: string;
   linkClassName?: string;
+  mobile?: boolean;
 }
 
 const NavMenu = ({ 
-  onItemClick, 
-  logout,
   className, 
   linkClassName, 
+  mobile = false
 }: NavMenuProps 
 ) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const baseStyle = "flex gap-2 font-semibold";
+
+  // Abrir el modal
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -28,33 +37,46 @@ const NavMenu = ({
 
           return (
             <li key={item.href}>
-              <Link
-                to={item.href}
-                onClick={onItemClick}
-                className={cn(
-                  baseStyle,
-                  linkClassName
-                )}
-              >
-                <Icon size={18} />
-                {item.label}
-              </Link>
+              {item.href === "post" ? (
+                <div 
+                  onClick={handleOpenModal}
+                  className={cn(
+                    baseStyle,
+                    linkClassName
+                  )}
+                >
+                  <Icon size={18} />
+                  {!mobile &&
+                    item.label
+                  }
+                </div>
+              ) : (
+                <Link
+                  to={item.href}
+                  className={cn(
+                    baseStyle,
+                    linkClassName
+                  )}
+                >
+                  <Icon size={18} />
+                  {!mobile &&
+                    item.label
+                  }
+                </Link>
+              )}
             </li>
           );
         })}
       </ul>
 
-      <Link
-        to={"/"}
-        onClick={logout}
-        className={cn(
-          `${baseStyle} text-red-400`,
-          linkClassName
-        )}
+      {/* Modal que abre la creación de la publicación */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Crear publicación"
       >
-        <LogOut size={18} />
-        Cerrar sesión
-      </Link>
+        <CreatePosts />
+      </Modal>
     </>
   );
 }

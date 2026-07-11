@@ -1,7 +1,7 @@
 import { useAuth } from "@/app/hooks/useAuth";
 
 import Header from "./components/Header";
-import CreatePosts from "@/shared/components/CreatePost";
+import CreatePosts from "@/shared/components/CreatePosts";
 
 const MyProfile = () => {
   const { user, isLoading } = useAuth();
@@ -18,7 +18,6 @@ const MyProfile = () => {
     <div>
       <Header data={user} />
 
-      <CreatePosts />
     </div>
   );
 }

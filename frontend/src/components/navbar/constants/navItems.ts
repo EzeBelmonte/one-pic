@@ -1,7 +1,12 @@
-import { House, UserRound, Settings } from "lucide-react";
+import { House, UserRound, DiamondPlus, Search, Settings } from "lucide-react";
 
 // Opciones del menú
 export const navItems = [
+  {
+    label: "Publicar",
+    href: "post",
+    icon: DiamondPlus,
+  },
   { 
     label: "Inicio", 
     href: "/",
@@ -11,6 +16,11 @@ export const navItems = [
     label: "Perfil", 
     href: "/profile",
     icon: UserRound,
+  },
+  {
+    label: "Buscar",
+    href: "",
+    icon: Search
   },
   { 
     label: "Configuración",
