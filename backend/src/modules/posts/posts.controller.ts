@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
 
 import * as postService from "./posts.service.js";
+import * as imageService from "../../infrastructure/cloudinary/cloudinary.service.js";
+
 import type { UpdatePost } from "@shared/index.js";
 
 // ========================================
@@ -13,15 +15,31 @@ export async function createPost(
   try {
     // Obtenemos el ID del usuario
     const userId = req.user.userId;
+    
+    if (!req.file) {
+      return res.status(400).json({
+        message: "La imagen es obligatoria",
+      });
+    }
+
+    // Datos del post, en este caso el único que tenemos que es la descripción
+    const data = req.body;
+
+    // Subimos la imagen y obtenemos los datos que necesitamos
+    const { imageUrl, imagePublicId } = await imageService.uploadImage(
+      req.file.buffer
+    );
 
     // Creamos el post
     const post = await postService.createPost(
       userId,
-      req.body
+      imageUrl,
+      imagePublicId,
+      data,
     );
 
     // Retornamos el post
-    return res.status(201).json(post);
+    //return res.status(201).json(post);
 
   } catch (error) {
     return res.status(400).json({

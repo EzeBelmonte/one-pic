@@ -17,7 +17,7 @@ const Header = ({ data, featured = false }: HeaderProps) => {
   const followButton = "border border-white/20 px-3 rounded bg-[rgba(34,34,34,0.8)] text-white";
 
   return (
-    <div className="w-full p-3 bg-[#12345c]">
+    <div className="w-full p-3">
 
       <div className="flex gap-5 items-center">
         {/* Imagen de perfil */}

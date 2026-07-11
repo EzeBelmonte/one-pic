@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { Upload } from "lucide-react";
+import { Camera } from "lucide-react";
 
-import { Button } from "@/components";
+import { Button, Input } from "@/components";
 
 type ImageUploadProps = {
   onSelect: (file: File) => void;
@@ -29,11 +29,14 @@ export default function ImageUpload({
     }
 
     onSelect(file);
+
+    // Permite volver a seleccionar el mismo archivo
+    e.target.value = "";
   }
 
   return (
-    <>
-      <input 
+    <div className="flex justify-center">
+      <Input 
         ref={inputRef}
         type="file"
         accept="image/"
@@ -44,11 +47,14 @@ export default function ImageUpload({
       <Button
         type="button"
         onClick={handleOpenExplorer}
-        className="flex items-center gap-2 rounded-lg border px-4 py-2"
-      >
-        <Upload size={18} />
-        Seleccionar imagen
+        className="
+          flex items-center 
+          gap-2 px-2 py-1
+          bg-[rgba(0,0,0,0.4)] rounded
+          text-white
+        ">
+        <Camera size={18} />
       </Button>
-    </>
+    </div>
   );
 }

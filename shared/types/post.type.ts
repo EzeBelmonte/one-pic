@@ -4,6 +4,7 @@ export interface CreatePost {
 
 export interface Post extends CreatePost {
   imageUrl: string;
+  imagePublicId: string;
   id: number;
   createdAt: string;
 }

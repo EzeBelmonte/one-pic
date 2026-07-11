@@ -1,4 +1,4 @@
-import api from "axios";
+import api from "./axios";
 
 import type { CreatePost, Post, UpdatePost } from "@shared/index";
 
@@ -13,9 +13,12 @@ export async function createPost(
 
   formData.append("image", image);
 
-  if (data.description) {
-    formData.append("description", data.description);
-  }
+  // Obtenemos todos los datos que tengan el CreatePost
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
+    }
+  });
 
   const response =
     await api.post("/posts", formData);

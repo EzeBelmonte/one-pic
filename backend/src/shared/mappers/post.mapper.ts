@@ -12,7 +12,8 @@ export function toPostDTO(
   return {
     id: post.id,
     imageUrl: post.imageUrl,
-    description: post.description,
+    imagePublicId: post.imagePublicId,
+    description: post.description ?? "",
     createdAt: post.createdAt.toISOString(),
   };
 }

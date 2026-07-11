@@ -1,6 +1,6 @@
 import * as userRepository from "../users/users.repository.js";
-
 import * as postRepository from "./posts.repository.js";
+
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
 import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
@@ -10,17 +10,20 @@ import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
 // ========================================
 export async function createPost(
   userId: number,
-  data: CreatePost
+  imageUrl: string,
+  imagePublicId: string,
+  data: CreatePost,
 ): Promise<Post> {
 
-  if (!data.imageUrl) {
+  if (!data) {
     throw new Error("La imagen es obligatoria");
   }
 
   const post = await postRepository.createPost({
     userId,
-    imageUrl: data.imageUrl,
-    description: data.description ? data.description : "",
+    imageUrl,
+    imagePublicId,
+    ...data,
   });
 
   if (!post) {

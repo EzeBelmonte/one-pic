@@ -20,6 +20,10 @@ export const posts = pgTable("posts", {
     length: 500,
   }).notNull(),
 
+  imagePublicId: varchar("image_public_id", { 
+    length: 255 
+  }).notNull(),
+
   description: text("description"),
 
   createdAt: timestamp("created_at")
