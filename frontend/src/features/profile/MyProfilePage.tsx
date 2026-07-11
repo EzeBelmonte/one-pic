@@ -1,5 +1,8 @@
 import { useAuth } from "@/app/hooks/useAuth";
 
+import Header from "./components/Header";
+import CreatePost from "@/shared/components/CreatePost";
+
 const MyProfile = () => {
   const { user, isLoading } = useAuth();
 
@@ -7,12 +10,15 @@ const MyProfile = () => {
     return <p>Cargando perfil...</p>;
   }
 
+  if (!user) {
+    return <p>No existe el usuario</p>;
+  }
+
   return (
     <div>
-      <header>
-        <p className="text-amber-200">Hola</p>
-        <h2 className="text-white">{user?.username}</h2>
-      </header>
+      <Header data={user} />
+
+      <CreatePost />
     </div>
   );
 }

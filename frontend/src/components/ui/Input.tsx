@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { forwardRef} from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
 }
 
-const Input: React.FC<InputProps> = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
   label,
   error,
   className = '',
   id,
   ...props
-}) => {
+}, ref) => {
   return (
     <div className="flex flex-col gap-1">
       {label && (
@@ -21,9 +21,9 @@ const Input: React.FC<InputProps> = ({
       )}
 
       <input
+        ref={ref}
         id={id}
         className={`
-          w-full
           rounded-md
           border
           border-gray-300
@@ -48,6 +48,8 @@ const Input: React.FC<InputProps> = ({
       )}
     </div>
   );
-};
+});
+
+Input.displayName = 'Input';
 
 export default Input;

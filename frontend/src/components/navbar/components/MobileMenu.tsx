@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 import { Button } from "@/components";
@@ -47,7 +47,9 @@ const MobileMenu = () => {
   }, []);
 
   return (
-    <div className="sm:hidden">
+    <div className="
+      w-full h-12 border border-b-white/40 items-center sm:hidden
+    ">
       {/* Overlay */}
       {openMenu && (
         <div
@@ -56,22 +58,31 @@ const MobileMenu = () => {
           aria-hidden="true"
         />
       )}
-  
-      <div className="fixed top-0 left-0 z-50 p-2">
-        {/* Botón abrir */}
-        {!openMenu && (
-          <Button
-            onClick={toggleMenu}
-            aria-label="Abrir menú"
-            aria-expanded={openMenu}
-            aria-controls="mobile-menu"
-          >
-            <Menu
-              className="bg-[#3d3a3a] rounded-[7px] w-7.5 h-7.5 p-1 opacity-90 border border-white/30"
-              color="white"
+
+      <div className="fixed top-0 right-0 z-50 p-2">
+        <div className="flex gap-4">
+          {/* Botón de buscar */}
+          <Button>
+            <Search 
+              className="text-white/80"
             />
           </Button>
-        )}
+
+          {/* Botón abrir */}
+          {!openMenu && (
+            <Button
+              onClick={toggleMenu}
+              aria-label="Abrir menú"
+              aria-expanded={openMenu}
+              aria-controls="mobile-menu"
+            >
+              <Menu
+                className="bg-[#3d3a3a] rounded-[7px] w-7.5 h-7.5 p-1 opacity-90 border border-white/30"
+                color="white"
+              />
+            </Button>
+          )}
+        </div>
 
         {/* Menú */}
         <nav

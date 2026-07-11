@@ -1,10 +1,8 @@
-import type { Post } from "./post.type";
-
-
 // ========================================
 // DATOS EN COMUN
 // ========================================
 export interface User {
+  id: number;
   username: string;
   avatarUrl: string | null;
   nickname: string | null;
@@ -15,7 +13,6 @@ export interface User {
 // DATOS PROPIO
 // ========================================
 export interface MyUser extends User {
-  id: number;
   email: string;
 
   createdAt: string;

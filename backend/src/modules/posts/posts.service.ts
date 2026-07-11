@@ -3,8 +3,7 @@ import * as userRepository from "../users/users.repository.js";
 import * as postRepository from "./posts.repository.js";
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
-import type { CreatePost } from "./posts.type.js";
-import type { Post, UpdatePost } from "@shared/index.js";
+import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
 
 // ========================================
 // CREAR POST

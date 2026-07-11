@@ -1,7 +1,10 @@
-export interface Post {
-  id: number;
+export interface CreatePost {
+  description?: string;
+}
+
+export interface Post extends CreatePost {
   imageUrl: string;
-  description?: string | null;
+  id: number;
   createdAt: string;
 }
 

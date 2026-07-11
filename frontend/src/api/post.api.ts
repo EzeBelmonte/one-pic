@@ -1,13 +1,24 @@
 import api from "axios";
 
-import type { Post } from "@shared/index";
+import type { CreatePost, Post, UpdatePost } from "@shared/index";
 
 // ========================================
 // CREAR POST
 // ========================================
-export async function createPost() {
+export async function createPost(
+  image: File,
+  data: CreatePost
+) {
+  const formData = new FormData();
+
+  formData.append("image", image);
+
+  if (data.description) {
+    formData.append("description", data.description);
+  }
+
   const response =
-    await api.post("/post/create");
+    await api.post("/posts", formData);
 
   return response.data;
 }
@@ -15,9 +26,9 @@ export async function createPost() {
 // ========================================
 // OBTENER POST
 // ========================================
-export async function getPost() {
+export async function getMyPost() {
   const response =
-    await api.get<Post>("/post/create");
+    await api.get<Post>("/posts/me");
 
   return response.data;
 }
@@ -25,9 +36,11 @@ export async function getPost() {
 // ========================================
 // EDITAR POST
 // ========================================
-export async function editPost() {
+export async function editPost(
+  postId: number
+) {
   const response =
-    await api.patch("/post/:postId");
+    await api.patch<UpdatePost>(`/posts/${postId}`);
 
   return response.data;
 }
@@ -35,9 +48,35 @@ export async function editPost() {
 // ========================================
 // ELIMINAR POST
 // ========================================
-export async function deletePost() {
+export async function deletePost(
+  postId: number
+) {
   const response = 
-    await api.delete("/post/postId");
+    await api.delete(`/posts/${postId}`);
+
+  return response.data;
+}
+
+// ========================================
+// OBTENER POST DE USUARIO
+// ========================================
+export async function getPost(
+  postId: number
+) {
+  const response =
+    await api.get<Post>(`/posts/${postId}`);
+
+  return response.data;
+}
+
+// ========================================
+// OBTENER TODOS LOS POSTS DE USUARIO
+// ========================================
+export async function getUserPosts(
+  username: string
+) {
+  const response =
+    await api.get<Post[]>(`/posts/${username}`);
 
   return response.data;
 }

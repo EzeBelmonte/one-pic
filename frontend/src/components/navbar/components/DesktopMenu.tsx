@@ -23,7 +23,7 @@ const DesktopMenu = () => {
           className="
             flex
             flex-col
-            gap-7
+            gap-2
             text-white
           "
           linkClassName="

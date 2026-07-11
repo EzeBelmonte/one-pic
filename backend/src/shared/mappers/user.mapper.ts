@@ -10,6 +10,7 @@ export function toUserDTO(
   user: Users
 ): User {
   return {
+    id: user.id,
     username: user.username,
     avatarUrl: user.avatarUrl,
     nickname: user.nickname,

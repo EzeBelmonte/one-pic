@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useUser } from "@/shared/hooks/useUser";
+import Header from "./components/Header";
 
 const UserProfilePage = () => {
   const { selectedUser, getUserByUsername, isLoading } = useUser();
@@ -21,12 +22,16 @@ const UserProfilePage = () => {
     return <p>Cargando perfil...</p>;
   }
 
+  if (!selectedUser) {
+    return <p>No existe el usuario</p>;
+  }
+
   return (
     <div>
-      <header>
-        <p className="text-amber-200">Hola</p>
-        <h2 className="text-green-400">Perfil de {selectedUser?.username}</h2>
-      </header>
+      <Header 
+        data={selectedUser} 
+        featured={true}
+      />
     </div>
   );
 }
