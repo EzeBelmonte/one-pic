@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/shared/utils/cn";
 import { navItems } from "../constants/navItems";
 
-import { Modal } from "@/components";
-import CreatePosts from "@/shared/components/CreatePosts";
-
+import { Modal, CreatePosts } from "@/components";
 
 type NavMenuProps = {
   className?: string;
@@ -75,7 +73,9 @@ const NavMenu = ({
         onClose={() => setIsModalOpen(false)}
         title="Crear publicación"
       >
-        <CreatePosts />
+        <CreatePosts
+          onClose={() => setIsModalOpen(false)}
+        />
       </Modal>
     </>
   );

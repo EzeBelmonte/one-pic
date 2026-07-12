@@ -27,11 +27,11 @@ export async function createPost(
 }
 
 // ========================================
-// OBTENER POST
+// OBTENER POSTS
 // ========================================
-export async function getMyPost() {
+export async function getMyPosts() {
   const response =
-    await api.get<Post>("/posts/me");
+    await api.get<Post[]>("/posts/me");
 
   return response.data;
 }

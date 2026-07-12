@@ -39,7 +39,7 @@ export async function createPost(
     );
 
     // Retornamos el post
-    //return res.status(201).json(post);
+    return res.status(201).json(post);
 
   } catch (error) {
     return res.status(400).json({

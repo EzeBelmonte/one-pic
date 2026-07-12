@@ -1,10 +1,12 @@
 import { useAuth } from "@/app/hooks/useAuth";
+import { usePost } from "@/shared/hooks/usePost";
 
 import Header from "./components/Header";
-import CreatePosts from "@/shared/components/CreatePosts";
+import { PostView } from "@/components";
 
 const MyProfile = () => {
   const { user, isLoading } = useAuth();
+  const { myPosts } = usePost();
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
@@ -14,10 +16,15 @@ const MyProfile = () => {
     return <p>No existe el usuario</p>;
   }
 
+  if (!myPosts) {
+    return <p className="text-white text-center mt-5">No existen publicaciones</p>;
+  }
+
   return (
     <div>
       <Header data={user} />
-
+      
+      <PostView posts={myPosts} />
     </div>
   );
 }

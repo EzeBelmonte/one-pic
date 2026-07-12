@@ -1,15 +1,17 @@
 import { useState } from "react";
 
-import { usePost } from "../hooks/usePost";
+import { usePost } from "../../shared/hooks/usePost";
 
-import ImagePreview from "@/shared/components/post/image/ImagePreview";
-import ImageUpload from "@/shared/components/post/image/ImageUpload";
-
+import { ImagePreview, ImageUpload, Button, Textarea } from "@/components";
 import type { CreatePost } from "@shared/index";
-import { Button, Textarea } from "@/components";
 
-const CreatePosts = () => {
-  const { createPost, loading, error } = usePost();
+
+type CreatePostsProps = {
+  onClose: () => void;
+}
+
+const CreatePosts = ({ onClose }: CreatePostsProps) => {
+  const { createPost, error } = usePost();
 
   const [image, setImage] = useState<File | null>(null);
   const [description, setDescription] = useState("");
@@ -25,10 +27,9 @@ const CreatePosts = () => {
     };
 
     await createPost(image, data);
-  }
-
-  if (loading) {
-    return <p>Creando post...</p>;
+    setImage(null);
+    setDescription("");
+    onClose();
   }
 
   if (error) {
