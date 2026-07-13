@@ -1,4 +1,5 @@
 import { Trash, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import { usePost } from "@/shared/hooks/usePost";
 
@@ -14,16 +15,26 @@ type PostCardProps = {
 const PostCard = ({ post }: PostCardProps) => {
   const { deletePost } = usePost();
 
+  const navigate = useNavigate();
+
+  // Función para eliminar la publicación
+  const handleDelete = async(postId: number) => {
+    await deletePost(postId);
+    navigate("/profile");
+  }
+
   return (
     <div className="
+      max-w-[750px]
       flex flex-col 
       justify-center items-center 
-      bg-[rgba(255,255,255,0.1)] rounded
+      bg-[rgba(44,44,44,0.2)] rounded
+      mx-auto mt-10 p-4
     ">
       <Image 
         src={post.imageUrl}
         alt="Imagen publicada"
-        className="rounded w-full"
+        className="rounded"
       />
 
       {/* Descripción */}
@@ -49,7 +60,7 @@ const PostCard = ({ post }: PostCardProps) => {
         {/* Eliminar publicación */}
         <Button 
           className="ms-auto cursor-pointer"
-          onClick={() => deletePost}
+          onClick={() => handleDelete(post.id)}
         >
           <Trash 
             size={20} 

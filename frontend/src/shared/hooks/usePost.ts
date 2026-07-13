@@ -10,6 +10,7 @@ export function usePost() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState<Post[] | null>([]);
+  const [post, setPost] = useState<Post | null>(null);
 
   // ========================================
   // CREAR POST
@@ -63,6 +64,24 @@ export function usePost() {
     }
   }
 
+    // ========================================
+  // OBTENER UN POST
+  // ========================================
+  async function getPost(
+    postId: number
+  ) {
+    try {
+      setLoading(true);
+      setError(null);
+      const post = await postApi.getPost(postId);
+      setPost(post);
+    } catch (error) {
+      setError(getErrorMessage(error)); 
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // ========================================
   // ELIMINAR POST
   // ========================================
@@ -88,8 +107,10 @@ export function usePost() {
   return {
     createPost,
     posts,
+    post,
     deletePost,
 
+    getPost,
     getMyPosts,
     getUserPosts,
 

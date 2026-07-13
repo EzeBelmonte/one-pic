@@ -1,11 +1,32 @@
-import type { Post } from "@shared/index";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
+import { usePost } from "@/shared/hooks/usePost";
+
+import { PostCard } from "@/components";
 
 const PostPage = () => {
+  const { post, getPost, loading } = usePost();
+  
+  const { postId } = useParams();
 
+  useEffect(() => {
+    if (postId) {
+      getPost(Number(postId));
+    }
+  }, [postId]);
+
+  if (post === null) {
+    return <p className="text-white">La publicación no existe</p>;
+  }
+
+  if (loading) {
+    return <p className="text-white">Cargando la publicación</p>;
+  }
+  
   return (
     <>
-     
+      <PostCard post={post} />
     </>
   );
 }

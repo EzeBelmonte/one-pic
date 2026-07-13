@@ -15,10 +15,23 @@ const PostSection = ({ posts }: PostViewProps) => {
     return <p>Sin pubicaciones</p>
   }
 
+  // Función para ir a una publicación en específico
+  const handleGoPost = (postId: number) => {
+    navigate(`/posts/${postId}`);
+  }
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3">
       {posts.map((post) => (
-        <PostPreview key={post.id} imageUrl={post.imageUrl} />
+        <div
+          onClick={() => handleGoPost(post.id)}
+          className="cursor-pointer"
+        >
+          <PostPreview 
+            key={post.id} 
+            imageUrl={post.imageUrl}
+          />
+        </div>
       ))}
     </div>
   );

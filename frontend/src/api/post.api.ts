@@ -27,7 +27,7 @@ export async function createPost(
 }
 
 // ========================================
-// OBTENER POSTS
+// OBTENER MIS POSTS
 // ========================================
 export async function getMyPosts() {
   const response =
@@ -61,7 +61,7 @@ export async function deletePost(
 }
 
 // ========================================
-// OBTENER POST DE USUARIO
+// OBTENER UN POST
 // ========================================
 export async function getPost(
   postId: number

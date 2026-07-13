@@ -12,6 +12,7 @@ import {
   RegisterPage, 
   ProfilePage,
   UserProfilePage,
+  PostPage,
 } from "@/features";
 
 import { ProtectedRoute } from "./ProtectedRoute";
@@ -43,6 +44,15 @@ export function AppRouter() {
             element={
               <ProtectedRoute>
                 <UserProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/posts/:postId"
+            element={
+              <ProtectedRoute>
+                <PostPage />
               </ProtectedRoute>
             }
           />
