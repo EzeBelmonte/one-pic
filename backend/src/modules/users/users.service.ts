@@ -1,6 +1,8 @@
 import * as userRepository from "./users.repository.js";
 import type { UpdateUser } from "@shared/index.js";
+import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 import { toUserDTO, toMyUserDTO } from "../../shared/mappers/user.mapper.js";
+import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 // ========================================
 // OBTENER DATOS PROPIOS
@@ -35,6 +37,7 @@ export async function getUser(username: string) {
 // ========================================
 export async function updateProfile(
   userId: number,
+  imageBuffer: Buffer | undefined,
   data: UpdateUser
 ) {
   // Obtenemos el usuario
@@ -44,7 +47,20 @@ export async function updateProfile(
     throw new Error("El usuario no existe");
   }
 
-  const updateUser = await userRepository.update(userId, data);
+  let image: ImageItem | undefined;
+
+  if (imageBuffer) {
+    // Si el ID es igual a "", significa que tiene la imagen de perfil por defecto
+    // Si no, va a tener el id de la imagen que subio la vez anterior
+    if (profile.profileImagePublicId !== "") {
+      await cloudinaryService.deleteImage(profile.profileImagePublicId);
+    }
+
+    // Subimos la nueva imagen de perfil
+    image = await cloudinaryService.uploadImage(imageBuffer);
+  }
+
+  const updateUser = await userRepository.update(userId, data, image);
 
   return updateUser;
 }

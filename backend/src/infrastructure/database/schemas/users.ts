@@ -22,7 +22,13 @@ export const users = pgTable("users", {
 
   nickname: varchar("nickname", { length: 30 }),
 
-  avatarUrl: varchar("avatar_url", { length: 500 }),
+  profileImageUrl: varchar("profile_image_url", { length: 500 })
+    .default("https://res.cloudinary.com/drbnfdrja/image/upload/v1783727171/user_default_ictjsq.png")
+    .notNull(),
+  
+  profileImagePublicId: varchar("profile_image_public_id", { length: 255 })
+    .default("")
+    .notNull(),
 
   bio: text("bio"),
 

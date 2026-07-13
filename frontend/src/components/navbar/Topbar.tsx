@@ -1,10 +1,13 @@
 import { LogOut } from "lucide-react";
 
+import { useAuth } from "@/app/hooks/useAuth";
 import { useScroll } from "@/shared/hooks/useScroll";
+
 import { Button } from "@/components";
 
 const Topbar = () => {
-  const { scrollingUp} = useScroll();
+  const { scrollingUp } = useScroll();
+  const { logout } = useAuth();
 
   return (
     <nav
@@ -24,6 +27,7 @@ const Topbar = () => {
     >
       <Button
         className="ms-auto"
+        onClick={() => logout()}
       >
         <LogOut />
       </Button>

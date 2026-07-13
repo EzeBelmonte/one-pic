@@ -7,26 +7,29 @@ type Users = InferSelectModel<typeof users>;
 
 
 export function toUserDTO(
-  user: Users
+  user: Users,
 ): User {
   return {
     id: user.id,
     username: user.username,
-    avatarUrl: user.avatarUrl,
+    profileImageUrl: user.profileImageUrl,
+    profileImagePublicId: user.profileImagePublicId,
     nickname: user.nickname,
     bio: user.bio,
   }
 }
 
 export function toMyUserDTO(
-  user: Users
+  user: Users,
 ): MyUser {
   return {
     id: user.id,
     email: user.email,
     username: user.username,
-    avatarUrl: user.avatarUrl,
+    profileImageUrl: user.profileImageUrl,
+    profileImagePublicId: user.profileImagePublicId,
     nickname: user.nickname,
+    isPrivate: user.isPrivate,
     bio: user.bio,
     createdAt: user.createdAt.toISOString(),
     updatedAt: user.updatedAt.toISOString(),

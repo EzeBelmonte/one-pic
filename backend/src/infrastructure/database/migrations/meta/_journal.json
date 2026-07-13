@@ -5,22 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1782944065354,
-      "tag": "0000_crazy_katie_power",
+      "when": 1783980089414,
+      "tag": "0000_brainy_proudstar",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1783542741985,
-      "tag": "0001_curious_lady_ursula",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1783784419955,
-      "tag": "0002_natural_venom",
+      "when": 1783982561444,
+      "tag": "0001_cool_dracula",
       "breakpoints": true
     }
   ]

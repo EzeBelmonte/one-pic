@@ -12,6 +12,7 @@ import {
   RegisterPage, 
   ProfilePage,
   UserProfilePage,
+  Configuration,
   PostPage,
 } from "@/features";
 
@@ -35,6 +36,15 @@ export function AppRouter() {
             element={
               <ProtectedRoute>
                 <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route 
+            path="/config"
+            element={
+              <ProtectedRoute>
+                <Configuration />
               </ProtectedRoute>
             }
           />

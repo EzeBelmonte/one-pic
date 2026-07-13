@@ -18,13 +18,14 @@ export function useUser() {
   // ACTUALIZAR MI PERFIL
   // ========================================
   async function updateProfile(
+    image: File | null,
     data: UpdateUser
   ) {
     try {
       setIsLoading(true);
       setError(null);
 
-      const updatedUser  = await authApi.updateUser(data);
+      const updatedUser  = await authApi.updateUser(image, data);
       
       // Actualizamos el usuario del contexto
       updateUser(updatedUser );

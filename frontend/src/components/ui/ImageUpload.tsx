@@ -1,14 +1,17 @@
 import { useRef } from "react";
 import { Camera } from "lucide-react";
 
+import { cn } from "@/shared/utils/cn";
 import { Button, Input } from "@/components";
 
 type ImageUploadProps = {
   onSelect: (file: File) => void;
+  className?: string;
 }
 
 export default function ImageUpload({
   onSelect,
+  className = "",
 }: ImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -35,7 +38,10 @@ export default function ImageUpload({
   }
 
   return (
-    <div className="flex justify-center">
+    <div className={cn(
+      "flex justify-center",
+      className
+    )}>
       <Input 
         ref={inputRef}
         type="file"

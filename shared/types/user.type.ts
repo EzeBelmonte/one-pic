@@ -4,7 +4,8 @@
 export interface User {
   id: number;
   username: string;
-  avatarUrl: string | null;
+  profileImageUrl: string;
+  profileImagePublicId: string;
   nickname: string | null;
   bio: string | null;
 }
@@ -14,7 +15,7 @@ export interface User {
 // ========================================
 export interface MyUser extends User {
   email: string;
-
+  isPrivate: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -23,7 +24,7 @@ export interface MyUser extends User {
 // DATOS EDITABLES
 // ========================================
 export interface UpdateUser {
-  avatarUrl: string | null;
-  nickname: string | null;
-  bio: string | null;
+  nickname?: string | null;
+  bio?: string | null;
+  isPrivate?: boolean;
 }

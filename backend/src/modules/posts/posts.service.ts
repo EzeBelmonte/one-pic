@@ -1,6 +1,6 @@
 import * as userRepository from "../users/users.repository.js";
 import * as postRepository from "./posts.repository.js";
-import * as coudinaryServices from "../../infrastructure/cloudinary/cloudinary.service.js";
+import * as cloudinaryService from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
@@ -11,8 +11,7 @@ import type { CreatePost, Post, UpdatePost } from "@shared/index.js";
 // ========================================
 export async function createPost(
   userId: number,
-  imageUrl: string,
-  imagePublicId: string,
+  imageBuffer: Buffer | undefined,
   data: CreatePost,
 ): Promise<Post> {
 
@@ -20,6 +19,18 @@ export async function createPost(
     throw new Error("La imagen es obligatoria");
   }
 
+  let imageUrl: string;
+  let imagePublicId: string;
+
+  if (imageBuffer === undefined || imageBuffer === null) {
+    throw new Error ("La imagen es obligatoria");
+  }
+
+  // Subimos la imagen y obtenemos los datos que necesitamos
+  const upload = await cloudinaryService.uploadImage(imageBuffer);
+  imageUrl = upload.imageUrl;
+  imagePublicId = upload.imagePublicId;
+  
   const post = await postRepository.createPost({
     userId,
     imageUrl,
@@ -119,6 +130,6 @@ export async function deletePost(
     throw new Error("No tienes permiso para eliminar este post");
   }
 
-  await coudinaryServices.deleteImage(post.imagePublicId);
+  await cloudinaryService.deleteImage(post.imagePublicId);
   await postRepository.deletePost(postId);
 }

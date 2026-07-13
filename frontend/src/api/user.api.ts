@@ -32,10 +32,23 @@ export async function getUser(
 // ACTUALIZAR PERFIL
 // ========================================
 export async function updateUser(
+  image: File | null,
   data: UpdateUser
 ) {
+  const formData = new FormData();
+
+  if (image) {
+    formData.append("image", image);
+  }
+  // Obtenemos todos los datos recibidos
+  Object.entries(data).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      formData.append(key, String(value));
+    }
+  });
+  
   const response = 
-    await api.patch<MyUser>("/users/me", data);
+    await api.patch<MyUser>("/users/me", formData);
 
   return response.data;
 }

@@ -26,11 +26,13 @@ const ProfilePage = () => {
     <div>
       <Header data={user} />
 
-      {loading ? (
-        <p>Cargando publicaciones</p>
-      ) : (
-        <PostSection posts={posts} />
-      )}
+      <div className="mt-10">
+        {loading ? (
+          <p>Cargando publicaciones</p>
+        ) : (
+          <PostSection posts={posts} />
+        )}
+      </div>
     </div>
   );
 }

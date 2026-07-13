@@ -24,7 +24,7 @@ export const navItems = [
   },
   { 
     label: "Configuración",
-    href: "",
+    href: "/config",
     icon: Settings
   },
 ];

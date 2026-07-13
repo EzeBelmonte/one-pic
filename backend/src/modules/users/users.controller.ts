@@ -65,6 +65,7 @@ export async function updateUser(
     // Obtener perfil del usuario
     const profile = await userService.updateProfile(
       userId,
+      req.file?.buffer,
       data
     );
 

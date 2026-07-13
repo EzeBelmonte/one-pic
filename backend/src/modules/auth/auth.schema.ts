@@ -12,7 +12,6 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(8),
-
 });
 
 // Datos para iniciar sesión

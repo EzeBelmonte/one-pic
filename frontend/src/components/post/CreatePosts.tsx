@@ -53,6 +53,7 @@ const CreatePosts = ({ onClose }: CreatePostsProps) => {
         file={image} 
         setImage={setImage}
         className="w-40"
+        buttonClassName="top-2 right-2"
       />
 
       <div className="flex items-center gap-2 mt-5">

@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
+import { cn } from "@/shared/utils/cn";
 import { Image, Button } from "@/components";
 
-type ImagePreviewProps  = {
+type ImagePreviewProps = {
   file: File | null;
   setImage: React.Dispatch<React.SetStateAction<File | null>>;
   className?: string;
-}
+  imageClassName?: string;
+  buttonClassName?: string;
+};
 
-export default function ImagePreview({ 
-  file, 
+export default function ImagePreview({
+  file,
   setImage,
-  className }: ImagePreviewProps 
-) {
+  className,
+  imageClassName,
+  buttonClassName,
+}: ImagePreviewProps) {
   const [preview, setPreview] = useState("");
 
   useEffect(() => {
@@ -22,48 +27,36 @@ export default function ImagePreview({
       return;
     }
 
-    const ObjectUrl = URL.createObjectURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    setPreview(objectUrl);
 
-    setPreview(ObjectUrl);
-
-    return () => URL.revokeObjectURL(ObjectUrl);
+    return () => URL.revokeObjectURL(objectUrl);
   }, [file]);
 
-  // Cancelar la selección
   const handleCancel = () => {
     setPreview("");
     setImage(null);
-  }
+  };
 
-  if (!preview) return;
+  if (!preview) return null;
 
   return (
-    <div className="
-      flex justify-center
-      mb-5
-    ">
-      <div className="relative">
-        <Button
-          className="
-            absolute
-            top-1 right-1
-            bg-[rgba(0,0,0,0.4)] rounded-full
-            p-0.5
-          "
-          onClick={handleCancel}
-        >
-          <X className="w-4 h-4 text-white/70" />
-        </Button>
+    <div className={cn("relative", className)}>
+      <Button
+        className={cn(
+          "absolute z-10 bg-black/40 rounded-full p-0.5",
+          buttonClassName
+        )}
+        onClick={handleCancel}
+      >
+        <X className="w-4 h-4 text-white/70" />
+      </Button>
 
-        <Image
-          src={preview}
-          alt="Preview"
-          className={`
-            rounded object-cover
-            ${className}  
-          `}
-        />
-      </div>
+      <Image
+        src={preview}
+        alt="Preview"
+        className={cn("rounded", imageClassName)}
+      />
     </div>
-  )
+  );
 }

@@ -13,5 +13,8 @@ export { default as RegisterPage } from "./auth/pages/RegisterPage";
 export { default as ProfilePage } from "./profile/ProfilePage";
 export { default as UserProfilePage } from "./profile/UserProfilePage";
 
+// CONFIGURATION
+export { default as Configuration } from "./configuration/Configuration";
+
 // POST
 export { default as PostPage } from "./post/PostPage";

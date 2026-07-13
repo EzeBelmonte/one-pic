@@ -1,6 +1,6 @@
 {
-  "id": "f3e6956c-4997-4b34-b606-6c2ace25eb14",
-  "prevId": "90ff0a7b-0bb6-4b48-a81f-5ae174cfd46b",
+  "id": "bdb7d8c0-3de2-4e32-9796-347cf6766ded",
+  "prevId": "363ac61f-77e9-41a1-9919-51a1e4a816f0",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -38,11 +38,19 @@
           "primaryKey": false,
           "notNull": false
         },
-        "avatar_url": {
-          "name": "avatar_url",
+        "profile_image_url": {
+          "name": "profile_image_url",
           "type": "varchar(500)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "'https://res.cloudinary.com/drbnfdrja/image/upload/v1783727171/user_default_ictjsq.png'"
+        },
+        "profile_image_public_id": {
+          "name": "profile_image_public_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
         },
         "bio": {
           "name": "bio",
@@ -114,6 +122,12 @@
         "image_url": {
           "name": "image_url",
           "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image_public_id": {
+          "name": "image_public_id",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },

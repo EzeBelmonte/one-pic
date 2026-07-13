@@ -40,11 +40,13 @@ const UserProfilePage = () => {
         featured={true}
       />
 
-      {loading ? (
-        <p>Cargando publicaciones</p>
-      ) : (
-        <PostSection posts={posts} />
-      )}
+      <div className="mt-10">
+        {loading ? (
+          <p>Cargando publicaciones</p>
+        ) : (
+          <PostSection posts={posts} />
+        )}
+      </div>
     </div>
   );
 }

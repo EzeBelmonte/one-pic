@@ -26,9 +26,9 @@ const PostSection = ({ posts }: PostViewProps) => {
         <div
           onClick={() => handleGoPost(post.id)}
           className="cursor-pointer"
+          key={post.id} 
         >
           <PostPreview 
-            key={post.id} 
             imageUrl={post.imageUrl}
           />
         </div>
