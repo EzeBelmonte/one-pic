@@ -1,12 +1,18 @@
+import { useEffect } from "react";
+
 import { useAuth } from "@/app/hooks/useAuth";
 import { usePost } from "@/shared/hooks/usePost";
 
 import Header from "./components/Header";
-import { PostView } from "@/components";
+import { PostSection } from "@/components";
 
-const MyProfile = () => {
+const ProfilePage = () => {
   const { user, isLoading } = useAuth();
-  const { myPosts } = usePost();
+  const { posts, getMyPosts, loading } = usePost();
+
+  useEffect(() => {
+    getMyPosts();
+  }, []);
 
   if (isLoading) {
     return <p>Cargando perfil...</p>;
@@ -16,17 +22,17 @@ const MyProfile = () => {
     return <p>No existe el usuario</p>;
   }
 
-  if (!myPosts) {
-    return <p className="text-white text-center mt-5">No existen publicaciones</p>;
-  }
-
   return (
     <div>
       <Header data={user} />
-      
-      <PostView posts={myPosts} />
+
+      {loading ? (
+        <p>Cargando publicaciones</p>
+      ) : (
+        <PostSection posts={posts} />
+      )}
     </div>
   );
 }
 
-export default MyProfile;
+export default ProfilePage;

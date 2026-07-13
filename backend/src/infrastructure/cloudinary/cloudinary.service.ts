@@ -2,6 +2,9 @@ import { Readable } from "stream";
 
 import cloudinary from "./cloudinary.js";
 
+// ========================================
+// SUBIR IMAGEN
+// ========================================
 export async function uploadImage(
   buffer: Buffer
 ): Promise<{
@@ -27,4 +30,17 @@ export async function uploadImage(
 
     Readable.from(buffer).pipe(uploadStream);
   });
+}
+
+// ========================================
+// ELIMINAR IMAGEN
+// ========================================
+export async function deleteImage(
+  imagePublicId: string
+): Promise<void> {
+  const result = await cloudinary.uploader.destroy(imagePublicId);
+
+  if (result.result !== "ok") {
+    throw new Error("Error al eliminar la imagen");
+  }
 }

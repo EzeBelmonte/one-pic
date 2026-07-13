@@ -7,7 +7,7 @@ const Topbar = () => {
   const { scrollingUp} = useScroll();
 
   return (
-    <div 
+    <nav
       className={`
         fixed top-0 left-0 w-full
         bg-[rgb(50,51,53)] text-white
@@ -27,7 +27,7 @@ const Topbar = () => {
       >
         <LogOut />
       </Button>
-    </div>
+    </nav>
   );
 }
 

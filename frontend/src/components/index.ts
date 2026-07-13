@@ -14,4 +14,6 @@ export { default as AlertError } from "./ui/AlertError";
 
 // POST
 export { default as CreatePosts } from "./post/CreatePosts";
-export { default as PostView } from "./post/PostView";
+export { default as PostSection } from "./post/PostSection";
+export { default as PostPreview } from "./post/components/PostPreview";
+export { default as PostCard } from "./post/components/PostCard";

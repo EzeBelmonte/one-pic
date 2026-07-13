@@ -1,5 +1,6 @@
 import * as userRepository from "../users/users.repository.js";
 import * as postRepository from "./posts.repository.js";
+import * as coudinaryServices from "../../infrastructure/cloudinary/cloudinary.service.js";
 
 import { toPostDTO } from "../../shared/mappers/post.mapper.js";
 
@@ -118,5 +119,6 @@ export async function deletePost(
     throw new Error("No tienes permiso para eliminar este post");
   }
 
+  await coudinaryServices.deleteImage(post.imagePublicId);
   await postRepository.deletePost(postId);
 }

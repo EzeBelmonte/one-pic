@@ -10,7 +10,7 @@ import {
   HomePage, 
   LoginPage, 
   RegisterPage, 
-  MyProfilePage,
+  ProfilePage,
   UserProfilePage,
 } from "@/features";
 
@@ -33,7 +33,7 @@ export function AppRouter() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <MyProfilePage />
+                <ProfilePage />
               </ProtectedRoute>
             }
           />

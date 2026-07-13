@@ -5,19 +5,17 @@ import { Navbar, Topbar } from "@/components";
 const MainLayout = () => {
   
   return (
-    <>
-      {/* Este es un submenu donde esta el botón de logout sin importar si es movil o pc */}
+    <div className="min-h-screen">
       <Topbar />
 
-      <div className="mt-10 sm:grid sm:grid-cols-[220px_1fr]">
-        {/* Cuando el ancho llega a 640px se oculta */}
+      <div className="mt-10 grid min-h-[calc(100vh-2.5rem)] grid-cols-1 sm:grid-cols-[220px_minmax(0,1fr)]">
         <Navbar />
-      
-        <main>
+
+        <main className="min-w-0">
           <Outlet />
         </main>
       </div>
-    </>
+    </div>
   );
 }
 

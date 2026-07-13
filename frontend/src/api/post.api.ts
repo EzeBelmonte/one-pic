@@ -79,7 +79,7 @@ export async function getUserPosts(
   username: string
 ) {
   const response =
-    await api.get<Post[]>(`/posts/${username}`);
+    await api.get<Post[]>(`/posts/user/${username}`);
 
   return response.data;
 }

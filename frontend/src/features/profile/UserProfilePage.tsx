@@ -2,15 +2,22 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useUser } from "@/shared/hooks/useUser";
+import { usePost } from "@/shared/hooks/usePost";
+
+import { PostSection } from "@/components";
 import Header from "./components/Header";
+
 
 const UserProfilePage = () => {
   const { selectedUser, getUserByUsername, isLoading } = useUser();
+  const { posts, getUserPosts, loading } = usePost();
+
   const { username } = useParams();
 
   useEffect(() => {
     if (username) {
       getUserByUsername(username);
+      getUserPosts(username);
     }
   }, [username]);
 
@@ -32,6 +39,12 @@ const UserProfilePage = () => {
         data={selectedUser} 
         featured={true}
       />
+
+      {loading ? (
+        <p>Cargando publicaciones</p>
+      ) : (
+        <PostSection posts={posts} />
+      )}
     </div>
   );
 }

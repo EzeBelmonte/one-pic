@@ -4,21 +4,16 @@ const DesktopMenu = () => {
 
   return (
     <div className="
-      hidden 
-      sm:block
-      h-screen
-      max-w-[220px]
+      h-screen max-w-[220px]
       mt-10">
       <nav className="
-        flex 
-        flex-col
+        flex flex-col
         h-screen
-        px-3
-        py-5
+        px-3 py-5
       ">
         <NavMenu 
           className="
-            flex  flex-col
+            flex flex-col
             fixed
             gap-2 mt-10
             text-white
