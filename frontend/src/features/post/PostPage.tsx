@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { usePost } from "@/shared/hooks/usePost";
 
-import { PostCard } from "@/components";
+import  PostCard  from "./components/PostCard";
 
 const PostPage = () => {
   const { post, getPost, loading } = usePost();

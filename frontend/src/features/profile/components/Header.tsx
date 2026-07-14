@@ -1,5 +1,6 @@
+import { LockKeyhole, UserLock } from "lucide-react";
+
 import type { User } from "@shared/index";
-import { DEFAULT_AVATAR } from "../constants/DEFAULT_AVATAR";
 
 import { Image, Button } from "@/components";
 
@@ -22,7 +23,7 @@ const Header = ({ data, featured = false }: HeaderProps) => {
       <div className="flex gap-5 items-center">
         {/* Imagen de perfil */}
         <Image 
-          src={data.avatarUrl ?? DEFAULT_AVATAR}
+          src={data.profileImageUrl}
           alt="Foto de perfil"
           className="
             w-25 h-25
@@ -34,7 +35,20 @@ const Header = ({ data, featured = false }: HeaderProps) => {
           {/* Usuario y nickname */}
           <div>
             <p className="text-[1.1rem] font-semibold text-white">{data.nickname ?? data.username+data.id}</p>
-            <p className="text-[.85rem] text-gray-500">@{data.username}</p>
+            <div className="flex gap-1 items-center">
+              {!featured ? (
+                <LockKeyhole 
+                  size={13}
+                  className="text-white"
+                />
+              ): (
+                <UserLock
+                  size={13}
+                  className="text-white"
+                />
+              )}
+              <p className="text-[.85rem] text-gray-500">@{data.username}</p>
+            </div>
           </div>
 
           {/* Botón de seguir y bloquear */}
@@ -57,8 +71,8 @@ const Header = ({ data, featured = false }: HeaderProps) => {
       </div>
 
       {/* Biografía */}
-      <div className="mt-3 px-2 text-[.9rem] text-[rgba(255,255,255,0.9)]">
-        <p>{data.bio} asdasdasdasd</p>
+      <div className="mt-3 px-2 text-[.9rem] text-[rgba(255,255,255,0.9)] sm:w-[400px] md:w-[600px]">
+        <p>{data.bio}</p>
       </div>
 
     </div>

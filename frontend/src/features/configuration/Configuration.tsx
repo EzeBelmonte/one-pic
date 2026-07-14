@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "@/app/hooks/useAuth";
 import { useUser } from "@/shared/hooks/useUser";
-import { configSchema, type ConfigSchema } from "./schemas/config.schema";
+
+import { 
+  configSchema, 
+  type ConfigSchema 
+} from "./schemas/config.schema";
 
 import { cn } from "@/shared/utils/cn";
 
-import { Input, Button, AlertError, Image, ImageUpload, ImagePreview } from "@/components";
+import { 
+  Input, 
+  Textarea, 
+  Button, 
+  AlertError, 
+  Image, 
+  ImageUpload, 
+  ImagePreview 
+} from "@/components";
 
 const Configuration = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: {
       errors,
       isSubmitting,
@@ -31,10 +44,20 @@ const Configuration = () => {
   }
 
   // Seteamos la privacidad con el valor original
-  const [privacy, setPrivacy] = useState(user?.isPrivate)
+  const [privacy, setPrivacy] = useState(user.isPrivate);
   
   // Guardamos la imagen seleccionada
   const [image, setImage] = useState<File | null>(null);
+
+  // Cargamos los datos actuales del usuario en el formulario
+  useEffect(() => {
+    reset({
+      nickname: user.nickname ?? "",
+      bio: user.bio ?? "",
+    });
+
+    setPrivacy(user.isPrivate);
+  }, [user, reset]);
 
   // Función que envia el formulario al backend
   async function onSubmit(
@@ -53,10 +76,11 @@ const Configuration = () => {
 
   return (
     <section className="w-full flex flex-col items-center">
-      <form onSubmit={handleSubmit(onSubmit)} 
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
         className="w-[300px] flex flex-col gap-4 sm:w-[400px]"
       >
-        {/* Manejo de imagen de perfil */}
+        {/* Imagen */}
         <div className="relative w-[150px] h-[150px] rounded-full overflow-hidden mx-auto">
           {!image ? (
             <Image
@@ -90,11 +114,11 @@ const Configuration = () => {
           {...register("nickname")}
         />
 
-        <Input 
+        <Textarea 
           id="bio"
           placeholder="Biografía"
-          type="text"
           error={errors.bio?.message}
+          className="w-[80vw] sm:w-[390px] mx-auto mb-3"
           {...register("bio")}
         />
 
@@ -107,15 +131,11 @@ const Configuration = () => {
               `w-[100px] rounded cursor-pointer
               transition-colors duration-200`,
               privacy
-              ? "bg-amber-600"
-              : "bg-green-600"
+                ? "bg-amber-600"
+                : "bg-green-600"
             )}
           >
-            {privacy ? (
-              <>Privado</>
-            ) : (
-              <>Público</>
-            )}
+            {privacy ? "Privado" : "Público"}
           </Button>
         </div>
 

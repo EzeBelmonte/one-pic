@@ -2,17 +2,35 @@ import { useNavigate } from "react-router-dom";
 
 import type { Post } from "@shared/index";
 
-import { PostPreview } from "@/components";
+import { Image } from "@/components";
 
 type PostViewProps = {
   posts: Post[] | null;
 }
 
-const PostSection = ({ posts }: PostViewProps) => {
+const ProfileSection = ({ posts }: PostViewProps) => {
   const navigate = useNavigate();
 
   if (posts === null || posts.length === 0) {
-    return <p>Sin pubicaciones</p>
+    return (
+      <div
+        className="
+          w-[200px]
+          flex flex-col 
+          mx-auto items-center
+          py-2
+          rounded-2xl
+          border border-white/20
+          bg-[rgba(34,34,34,0.5)]
+        "
+      >
+        <p
+          className="text-white"
+        >
+          Sin pubicaciones
+        </p>
+      </div>
+    );  
   }
 
   // Función para ir a una publicación en específico
@@ -28,8 +46,9 @@ const PostSection = ({ posts }: PostViewProps) => {
           className="cursor-pointer"
           key={post.id} 
         >
-          <PostPreview 
-            imageUrl={post.imageUrl}
+          <Image
+            src={post.imageUrl}
+            alt="Previsualización de la imagen de la publicación"
           />
         </div>
       ))}
@@ -37,4 +56,4 @@ const PostSection = ({ posts }: PostViewProps) => {
   );
 }
 
-export default PostSection;
+export default ProfileSection;

@@ -4,7 +4,7 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { usePost } from "@/shared/hooks/usePost";
 
 import Header from "./components/Header";
-import { PostSection } from "@/components";
+import ProfileSection from "./components/ProfileSection";
 
 const ProfilePage = () => {
   const { user, isLoading } = useAuth();
@@ -15,11 +15,11 @@ const ProfilePage = () => {
   }, []);
 
   if (isLoading) {
-    return <p>Cargando perfil...</p>;
+    return <p className="text-white">Cargando perfil...</p>;
   }
 
   if (!user) {
-    return <p>No existe el usuario</p>;
+    return <p className="text-white">No existe el usuario</p>;
   }
 
   return (
@@ -30,7 +30,7 @@ const ProfilePage = () => {
         {loading ? (
           <p>Cargando publicaciones</p>
         ) : (
-          <PostSection posts={posts} />
+          <ProfileSection posts={posts} />
         )}
       </div>
     </div>

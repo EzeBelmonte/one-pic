@@ -40,6 +40,7 @@ export async function updateProfile(
   imageBuffer: Buffer | undefined,
   data: UpdateUser
 ) {
+
   // Obtenemos el usuario
   const profile = await userRepository.findById(userId);
 

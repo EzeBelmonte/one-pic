@@ -6,6 +6,7 @@ export interface User {
   username: string;
   profileImageUrl: string;
   profileImagePublicId: string;
+  isPrivate: boolean;
   nickname: string | null;
   bio: string | null;
 }
@@ -15,7 +16,6 @@ export interface User {
 // ========================================
 export interface MyUser extends User {
   email: string;
-  isPrivate: boolean;
   createdAt: string;
   updatedAt: string;
 }

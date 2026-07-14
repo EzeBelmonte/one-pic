@@ -62,12 +62,13 @@ const Modal = ({
 
       {isOpen && (
 
+        // Fondo general del Modal
         <motion.div
           className="
             fixed inset-0 z-50
             flex items-center justify-center
             bg-black/50 backdrop-blur-sm
-            p-2
+            p-2 sm:p-6
           "
           onClick={onClose}
           initial={{ opacity: 0 }}
@@ -75,11 +76,11 @@ const Modal = ({
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-
+          {/* Contenedor interno */}
           <motion.div
             className="
               relative
-              w-full max-w-7xl 
+              w-full md:w-[700px]
               rounded
               bg-[rgba(32,36,37,0.88)]
               px-2 pb-6 pt-4
@@ -124,7 +125,7 @@ const Modal = ({
 
             </div>
 
-            <div>
+            <div className="flex flex-col items-center">
               {children}
             </div>
 

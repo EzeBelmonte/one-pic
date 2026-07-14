@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 
@@ -28,7 +28,7 @@ export function useUser() {
       const updatedUser  = await authApi.updateUser(image, data);
       
       // Actualizamos el usuario del contexto
-      updateUser(updatedUser );
+      updateUser(updatedUser);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {

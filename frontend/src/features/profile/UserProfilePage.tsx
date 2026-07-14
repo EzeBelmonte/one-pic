@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom";
 import { useUser } from "@/shared/hooks/useUser";
 import { usePost } from "@/shared/hooks/usePost";
 
-import { PostSection } from "@/components";
 import Header from "./components/Header";
-
+import ProfileSection from "./components/ProfileSection";
 
 const UserProfilePage = () => {
   const { selectedUser, getUserByUsername, isLoading } = useUser();
@@ -34,7 +33,7 @@ const UserProfilePage = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col">
       <Header 
         data={selectedUser} 
         featured={true}
@@ -44,7 +43,7 @@ const UserProfilePage = () => {
         {loading ? (
           <p>Cargando publicaciones</p>
         ) : (
-          <PostSection posts={posts} />
+          <ProfileSection posts={posts} />
         )}
       </div>
     </div>

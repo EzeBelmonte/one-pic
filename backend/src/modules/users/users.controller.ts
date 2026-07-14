@@ -56,6 +56,7 @@ export async function updateUser(
   res: Response
 ) {
   try {
+  
     // Obtenemos el ID usuario logueado
     const userId = req.user.userId;
 

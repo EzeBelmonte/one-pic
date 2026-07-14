@@ -46,7 +46,7 @@ export async function updateUser(
       formData.append(key, String(value));
     }
   });
-  
+
   const response = 
     await api.patch<MyUser>("/users/me", formData);
 

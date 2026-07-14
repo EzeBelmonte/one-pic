@@ -38,7 +38,7 @@ const CreatePosts = ({ onClose }: CreatePostsProps) => {
 
   return (
     <div className="
-      w-full 
+      w-full sm:w-[550px]
       px-2 pt-4 pb-2 mt-5
       bg-[rgba(111,112,112,0.17)]
     ">
@@ -46,7 +46,7 @@ const CreatePosts = ({ onClose }: CreatePostsProps) => {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Escribe una descripción..."
-        className="w-[80vw] sm:w-[55vw] md:w-[60vw] mx-auto mb-3"
+        className="w-[80vw] sm:w-[390px] mx-auto mb-3"
       />
 
       <ImagePreview 
