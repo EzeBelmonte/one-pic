@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import { usePost } from "@/app/hooks/usePost";
+import { usePosts } from "@/app/hooks/usePosts";
 
 import ProfileSection from "./ProfileSection";
 
 const OwnProfileSection = () => {
-  const { posts, getPosts, isLoading } = usePost();
+  const { posts, getPosts, isLoading } = usePosts();
 
   useEffect(() => {
     getPosts()

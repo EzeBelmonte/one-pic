@@ -9,7 +9,7 @@ export const AuthContext =
 
 type Props = {
   children: ReactNode;
-};
+}
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<MyUser | null>(null);

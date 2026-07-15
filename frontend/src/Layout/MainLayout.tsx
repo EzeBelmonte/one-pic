@@ -1,11 +1,20 @@
 import { Outlet } from "react-router-dom";
 
 import { useAuth } from "@/app/hooks/useAuth";
+import { usePosts } from "@/app/hooks/usePosts";
 
 import { Navbar, Topbar, Logoutbar } from "@/components";
+import { useEffect } from "react";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
+  const { clearPosts } = usePosts();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      clearPosts();
+    }
+  }, [isAuthenticated, clearPosts]);
 
   return (
     <div className="min-h-screen">ç

@@ -1,7 +1,7 @@
 import { Trash, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { usePost } from "@/app/hooks/usePost";
+import { usePosts } from "@/app/hooks/usePosts";
 
 import type { Post } from "@shared/index";
 
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const PostCard = ({ post }: Props) => {
-  const { deletePost } = usePost();
+  const { deletePost } = usePosts();
 
   const navigate = useNavigate();
 

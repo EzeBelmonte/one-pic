@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { usePost } from "../../app/hooks/usePost";
+import { usePosts } from "@/app/hooks/usePosts";
 
 import { ImagePreview, ImageUpload, Button, Textarea } from "@/components";
 import type { CreatePost } from "@shared/index";
@@ -11,7 +11,7 @@ type CreatePostsProps = {
 }
 
 const CreatePosts = ({ onClose }: CreatePostsProps) => {
-  const { createPost, error } = usePost();
+  const { createPost, error } = usePosts();
 
   const [image, setImage] = useState<File | null>(null);
   const [description, setDescription] = useState("");
