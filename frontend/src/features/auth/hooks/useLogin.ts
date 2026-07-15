@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/app/hooks/useAuth";
-import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 import type { LoginSchema } from "../schemas/auth.schema";
 import * as authApi from "@/api/auth.api";

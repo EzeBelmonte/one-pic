@@ -1,6 +1,6 @@
 // LAYOUT
-export { default as MainLayout } from "./Layout/MainLayout";
-export { default as AuthLayout } from "./Layout/AuthLayout";
+export { default as MainLayout } from "../Layout/MainLayout";
+export { default as AuthLayout } from "../Layout/AuthLayout";
 
 // HOME
 export { default as HomePage } from "./home/HomePage";

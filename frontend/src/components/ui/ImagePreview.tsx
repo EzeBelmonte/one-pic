@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
-import { cn } from "@/shared/utils/cn";
+import { cn } from "@/utils/cn";
 import { Image, Button } from "@/components";
 
 type ImagePreviewProps = {

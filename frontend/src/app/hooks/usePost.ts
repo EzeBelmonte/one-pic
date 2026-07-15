@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import * as postApi from "@/api/post.api";
-import { getErrorMessage } from "../utils/getErrorMessage";
+import { getErrorMessage } from "../../utils/getErrorMessage";
 
-import type { PostSchema } from "../schemas/post.schema";
+import type { PostSchema } from "../../shared/schemas/post.schema";
 import type { Post } from "@shared/index";
 
 export function usePost() {

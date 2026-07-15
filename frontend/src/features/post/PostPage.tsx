@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { usePost } from "@/shared/hooks/usePost";
+import { usePost } from "@/app/hooks/usePost";
 
 import  PostCard  from "./components/PostCard";
 

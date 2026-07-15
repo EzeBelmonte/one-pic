@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { usePost } from "../../shared/hooks/usePost";
+import { usePost } from "../../app/hooks/usePost";
 
 import { ImagePreview, ImageUpload, Button, Textarea } from "@/components";
 import type { CreatePost } from "@shared/index";

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { cn } from "@/shared/utils/cn";
+import { cn } from "@/utils/cn";
 import { navItems } from "../constants/navItems";
 
 import { Modal, CreatePosts } from "@/components";

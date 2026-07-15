@@ -1,7 +1,7 @@
 import { LogOut } from "lucide-react";
 
 import { useAuth } from "@/app/hooks/useAuth";
-import { useScroll } from "@/shared/hooks/useScroll";
+import { useScroll } from "@/hooks/useScroll";
 
 import { Button } from "@/components";
 

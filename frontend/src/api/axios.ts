@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "@/shared/utils/getToken";
+import { getToken } from "@/utils/getToken";
 import { triggerLogout } from "@/app/services/auth.service";
 
 const api = axios.create({

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 
-import { usePost } from "@/shared/hooks/usePost";
+import { usePost } from "@/app/hooks/usePost";
 
 import Header from "./components/Header";
 import ProfileSection from "./components/ProfileSection";

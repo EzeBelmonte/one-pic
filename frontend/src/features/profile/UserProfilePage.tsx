@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { useUser } from "@/shared/hooks/useUser";
-import { usePost } from "@/shared/hooks/usePost";
+import { useUser } from "@/app/hooks/useUser";
+import { usePost } from "@/app/hooks/usePost";
 
 import Header from "./components/Header";
 import ProfileSection from "./components/ProfileSection";

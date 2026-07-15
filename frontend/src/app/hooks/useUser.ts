@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 
-import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { getErrorMessage } from "@/utils/getErrorMessage";
 import * as authApi from "@/api/user.api";
 import type { User, UpdateUser } from "@shared/index";
 

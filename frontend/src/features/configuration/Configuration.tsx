@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "@/app/hooks/useAuth";
-import { useUser } from "@/shared/hooks/useUser";
+import { useUser } from "@/app/hooks/useUser";
 
 import { 
   configSchema, 
   type ConfigSchema 
 } from "./schemas/config.schema";
 
-import { cn } from "@/shared/utils/cn";
+import { cn } from "@/utils/cn";
 
 import { 
   Input, 

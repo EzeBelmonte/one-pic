@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Camera } from "lucide-react";
 
-import { cn } from "@/shared/utils/cn";
+import { cn } from "@/utils/cn";
 import { Button, Input } from "@/components";
 
 type ImageUploadProps = {

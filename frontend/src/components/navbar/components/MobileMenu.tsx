@@ -1,4 +1,4 @@
-import { useScroll } from "@/shared/hooks/useScroll";
+import { useScroll } from "@/hooks/useScroll";
 
 import { NavMenu } from "./";
 

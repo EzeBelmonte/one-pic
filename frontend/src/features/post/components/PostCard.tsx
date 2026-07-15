@@ -1,7 +1,7 @@
 import { Trash, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { usePost } from "@/shared/hooks/usePost";
+import { usePost } from "@/app/hooks/usePost";
 
 import type { Post } from "@shared/index";
 
