@@ -25,7 +25,7 @@ const MobileMenu = () => {
     >
       <NavMenu 
         className="w-full flex justify-between"
-        linkClassName="px-6 p-2 text-sm"
+        linkClassName="px-4 py-2 text-sm"
         mobile={true}
       />
     </nav>

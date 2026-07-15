@@ -5,7 +5,7 @@ import { getErrorMessage } from "../utils/getErrorMessage";
 
 import type { Post } from "@shared/index";
 
-export function useUserPost() {
+export function useUserPosts() {
   // ========================================
   // ESTADO
   // ========================================
