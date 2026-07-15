@@ -61,7 +61,10 @@ export async function updateUser(
     const userId = req.user.userId;
 
     // Obtenemos los datos actualizados
-    const data: UpdateUser = req.body;
+    const data: UpdateUser = {
+      ...req.body,
+      isPrivate: req.body.isPrivate === "true",
+    };
 
     // Obtener perfil del usuario
     const profile = await userService.updateUser(

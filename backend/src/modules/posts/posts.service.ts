@@ -129,6 +129,10 @@ export async function getPostsByUsername(
     throw new Error("El usuario no existe");
   }
 
+  if (user.isPrivate) {
+    return [];
+  }
+  
   const posts = await postRepository.findByUserId(user.id);
 
   return posts.map(toPostDTO);

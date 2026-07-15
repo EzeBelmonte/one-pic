@@ -1,4 +1,4 @@
-import { LockKeyhole } from "lucide-react";
+import { LockKeyhole, LockOpen } from "lucide-react";
 
 import { useAuth } from "@/app/hooks/useAuth";
 
@@ -15,7 +15,7 @@ const OwnProfileHeader = () => {
     <div className="mb-10">
       <ProfileHeaderBase 
         data={user}
-        Icon={LockKeyhole} 
+        Icon={user.isPrivate ? LockKeyhole : LockOpen} 
       />
     </div>
   );
