@@ -7,10 +7,14 @@ import type { PostSchema } from "../schemas/post.schema";
 import type { Post } from "@shared/index";
 
 export function usePost() {
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState<Post[] | null>([]);
+  // ========================================
+  // ESTADO
+  // ========================================
+  const [posts, setPosts] = useState<Post[]>([]);
   const [post, setPost] = useState<Post | null>(null);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // ========================================
   // CREAR POST
@@ -20,13 +24,17 @@ export function usePost() {
     data: PostSchema
   ) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
-      await postApi.createPost(image, data);
+
+      const newPost = await postApi.createPost(image, data);
+
+      return newPost;
     } catch (error) {
       setError(getErrorMessage(error));
+      throw error;
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -35,50 +43,59 @@ export function usePost() {
   // ========================================
   async function getMyPosts() {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
+
       const posts = await postApi.getMyPosts();
+
       setPosts(posts);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
   // ========================================
-  // OBTENER POST DE USUARIO
+  // OBTENER POSTS DE USUARIO
   // ========================================
   async function getUserPosts(
     username: string
   ) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
+
       const posts = await postApi.getUserPosts(username);
+
       setPosts(posts);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
-    // ========================================
+  // ========================================
   // OBTENER UN POST
   // ========================================
   async function getPost(
     postId: number
   ) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
+
       const post = await postApi.getPost(postId);
+
       setPost(post);
+
+      return post;
     } catch (error) {
       setError(getErrorMessage(error)); 
+      throw error;
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -89,33 +106,36 @@ export function usePost() {
     postId: number
   ) {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
+
       await postApi.deletePost(postId);
+
       setPosts((currentPosts) =>
-        currentPosts
-          ? currentPosts.filter((post) => post.id !== postId)
-          : null
+        currentPosts.filter((post) => post.id !== postId)
       );
+      
     } catch (error) {
       setError(getErrorMessage(error));
+      throw error;
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }
 
   return {
-    createPost,
+    // Estado
     posts,
     post,
+    isLoading,
+    error,
+
+    // Acciones
+    createPost,
     deletePost,
 
     getPost,
     getMyPosts,
     getUserPosts,
-
-    loading,
-    setLoading,
-    error,
   };
 }

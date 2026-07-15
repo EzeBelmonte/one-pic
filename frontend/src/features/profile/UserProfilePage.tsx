@@ -8,8 +8,8 @@ import Header from "./components/Header";
 import ProfileSection from "./components/ProfileSection";
 
 const UserProfilePage = () => {
-  const { selectedUser, getUserByUsername, isLoading } = useUser();
-  const { posts, getUserPosts, loading } = usePost();
+  const { selectedUser, getUserByUsername } = useUser();
+  const { posts, getUserPosts, isLoading } = usePost();
 
   const { username } = useParams();
 
@@ -24,10 +24,6 @@ const UserProfilePage = () => {
     return <p>No existe el usuario</p>;
   }
 
-  if (isLoading) {
-    return <p>Cargando perfil...</p>;
-  }
-
   if (!selectedUser) {
     return <p>No existe el usuario</p>;
   }
@@ -38,14 +34,11 @@ const UserProfilePage = () => {
         data={selectedUser} 
         featured={true}
       />
-
-      <div className="mt-10">
-        {loading ? (
-          <p>Cargando publicaciones</p>
-        ) : (
-          <ProfileSection posts={posts} />
-        )}
-      </div>
+      {isLoading ? (
+        <p>Cargando publicaciones</p>
+      ) : (
+        <ProfileSection posts={posts} />
+      )}
     </div>
   );
 }

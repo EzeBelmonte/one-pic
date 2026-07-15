@@ -66,7 +66,7 @@ export async function getPost(
 // ========================================
 // OBTENER MIS POST
 // ========================================
-export async function getMyPosts(
+export async function getPosts(
   req: Request,
   res: Response
 ) {
@@ -74,31 +74,7 @@ export async function getMyPosts(
     // Obtenemos el ID del usuario
     const userId = req.user.userId;
 
-    const posts = await postService.getMyPosts(userId);
-
-    // Retornamos los posts
-    return res.status(201).json(posts);
-  } catch (error) {
-    return res.status(400).json({
-      message: error instanceof Error 
-        ? error.message 
-        : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// OBTENER POSTS DE USUARIO
-// ========================================
-export async function getUserPosts(
-  req: Request,
-  res: Response
-) {
-  try {
-    // Obtenemos el ID del usuario
-    const username = String(req.params.username);
-
-    const posts = await postService.getPostsByUsername(username);
+    const posts = await postService.getPosts(userId);
 
     // Retornamos los posts
     return res.status(201).json(posts);
@@ -170,6 +146,30 @@ export async function deletePost(
     // Devolvemos mensaje de exito
     return res.status(200).send();
 
+  } catch (error) {
+    return res.status(400).json({
+      message: error instanceof Error 
+        ? error.message 
+        : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER POSTS DE USUARIO
+// ========================================
+export async function getUserPosts(
+  req: Request,
+  res: Response
+) {
+  try {
+    // Obtenemos el ID del usuario
+    const username = String(req.params.username);
+
+    const posts = await postService.getPostsByUsername(username);
+
+    // Retornamos los posts
+    return res.status(201).json(posts);
   } catch (error) {
     return res.status(400).json({
       message: error instanceof Error 

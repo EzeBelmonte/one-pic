@@ -5,7 +5,7 @@ import type { UpdateUser } from "@shared/index.js";
 // ========================================
 // OBTENER MI USUARIO
 // ========================================
-export async function me(
+export async function getMe(
   req: Request,
   res: Response
 ) {
@@ -64,7 +64,7 @@ export async function updateUser(
     const data: UpdateUser = req.body;
 
     // Obtener perfil del usuario
-    const profile = await userService.updateProfile(
+    const profile = await userService.updateUser(
       userId,
       req.file?.buffer,
       data

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken } from "@/shared/utils/getToken";
-import { triggerLogout } from "@/shared/services/auth.service";
+import { triggerLogout } from "@/app/services/auth.service";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

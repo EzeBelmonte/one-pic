@@ -6,7 +6,7 @@ import { upload } from "../../shared/middlewares/upload.middleware.js";
 const router: Router = Router();
 
 router.post("/", authenticate, upload.single("image"), postController.createPost);
-router.get("/me", authenticate, postController.getMyPosts);
+router.get("/me", authenticate, postController.getPosts);
 router.patch("/:postId", authenticate, postController.updatePost);
 router.delete("/:postId", authenticate, postController.deletePost);
 

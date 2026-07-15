@@ -6,7 +6,7 @@ import { usePost } from "@/shared/hooks/usePost";
 import  PostCard  from "./components/PostCard";
 
 const PostPage = () => {
-  const { post, getPost, loading } = usePost();
+  const { post, getPost, isLoading } = usePost();
   
   const { postId } = useParams();
 
@@ -20,12 +20,19 @@ const PostPage = () => {
     return <p className="text-white">La publicación no existe</p>;
   }
 
-  if (loading) {
+  if (isLoading) {
     return <p className="text-white">Cargando la publicación</p>;
   }
   
   return (
     <>
+      {isLoading &&
+        <div
+          className="flex flex-col items-center justify-center"
+        >
+          <p className="text-white">Eliminando publicación</p>
+        </div>
+      }
       <PostCard post={post} />
     </>
   );

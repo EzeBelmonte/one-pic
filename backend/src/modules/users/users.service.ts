@@ -35,7 +35,7 @@ export async function getUser(username: string) {
 // ========================================
 // ACTUALIZAR PERFIL
 // ========================================
-export async function updateProfile(
+export async function updateUser(
   userId: number,
   imageBuffer: Buffer | undefined,
   data: UpdateUser

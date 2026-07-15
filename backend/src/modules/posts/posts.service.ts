@@ -63,27 +63,10 @@ export async function getPost(
 // ========================================
 // OBTENER MIS POST
 // ========================================
-export async function getMyPosts(
+export async function getPosts(
   userId: number
 ): Promise<Post[]> {  
   const posts = await postRepository.findByUserId(userId);
-
-  return posts.map(toPostDTO);
-}
-
-// ========================================
-// OBTENER MIS POST
-// ========================================
-export async function getPostsByUsername(
-  username: string
-): Promise<Post[]> {
-  const user = await userRepository.findUserByUsername(username);
-
-  if (!user) {
-    throw new Error("El usuario no existe");
-  }
-
-  const posts = await postRepository.findByUserId(user.id);
 
   return posts.map(toPostDTO);
 }
@@ -107,7 +90,7 @@ export async function updatePost(
     throw new Error("No tienes permiso para editar este post");
   }
 
-  const updatePost = await postRepository.updateDescription(postId, data);
+  const updatePost = await postRepository.updatePost(postId, data);
 
   return updatePost;
 }
@@ -132,4 +115,21 @@ export async function deletePost(
 
   await cloudinaryService.deleteImage(post.imagePublicId);
   await postRepository.deletePost(postId);
+}
+
+// ========================================
+// OBTENER POST DE USUARIO
+// ========================================
+export async function getPostsByUsername(
+  username: string
+): Promise<Post[]> {
+  const user = await userRepository.findUserByUsername(username);
+
+  if (!user) {
+    throw new Error("El usuario no existe");
+  }
+
+  const posts = await postRepository.findByUserId(user.id);
+
+  return posts.map(toPostDTO);
 }

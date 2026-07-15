@@ -5,7 +5,7 @@ import { upload } from "../../shared/middlewares/upload.middleware.js";
 
 const router: Router = Router();
 
-router.get("/me", authenticate, authController.me);
+router.get("/me", authenticate, authController.getMe);
 router.patch("/me", authenticate, upload.single("image"), authController.updateUser);
 
 // Público

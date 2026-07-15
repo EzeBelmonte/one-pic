@@ -43,9 +43,9 @@ export async function findByUserId(userId: number) {
 }
 
 // ========================================
-// EDITAR DESCRIPCIÓN
+// EDITAR POST
 // ========================================
-export async function updateDescription(
+export async function updatePost(
   postId: number,
   data: UpdatePost
 ) {

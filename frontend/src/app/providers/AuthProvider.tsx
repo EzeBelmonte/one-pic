@@ -2,7 +2,7 @@ import { createContext, useCallback, useEffect, useMemo, useState, type ReactNod
 import type { MyUser } from "@shared/index";
 import type { AuthContextType } from "../types/app.type";
 import { getMe } from "@/api/user.api";
-import { registerLogout } from "@/shared/services/auth.service";
+import { registerLogout } from "@/app/services/auth.service";
 
 export const AuthContext =
   createContext<AuthContextType | null>(null);
