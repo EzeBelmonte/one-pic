@@ -10,11 +10,11 @@ export { default as LoginPage } from "./auth/pages/LoginPage";
 export { default as RegisterPage } from "./auth/pages/RegisterPage";
 
 // PROFILE
-export { default as ProfilePage } from "./profile/ProfilePage";
-export { default as UserProfilePage } from "./profile/UserProfilePage";
+export { default as ProfilePage } from "./profile/pages/ProfilePage";
+export { default as VisitorProfilePage } from "./profile/pages/VisitorProfilePage";
 
 // CONFIGURATION
-export { default as Configuration } from "./configuration/Configuration";
+export { default as ConfigPage } from "./configuration/pages/ConfigPage";
 
 // POST
-export { default as PostPage } from "./post/PostPage";
+export { default as PostPage } from "./post/pages/PostPage";

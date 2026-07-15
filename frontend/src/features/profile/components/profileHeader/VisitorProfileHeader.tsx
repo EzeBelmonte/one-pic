@@ -1,0 +1,52 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { UserLock } from "lucide-react";
+
+import { useUser } from "@/app/hooks/useUser";
+
+import { Button } from "@/components";
+import ProfileHeaderBase from "./ProfileHeaderBase";
+
+const VisitorProfileHeader = () => {
+  const { selectedUser, getUserByUsername } = useUser();
+  
+  const { username } = useParams();
+
+  useEffect(() => {
+    if (username) {
+      getUserByUsername(username);
+    }
+  }, [username]);
+
+  if (!selectedUser) {
+    return <p>No existe el usuario</p>;
+  }
+
+  // Estilo de botón seguir
+  const followButton = "border border-white/20 px-3 rounded bg-[rgba(34,34,34,0.8)] text-white";
+
+  return (
+    <div className="mb-10">
+      <ProfileHeaderBase 
+        data={selectedUser}
+        Icon={UserLock}
+      />
+      {/* Botón de seguir y bloquear */}
+      <div className="flex gap-3">
+        <Button
+          className={followButton}
+        >
+          Seguir
+        </Button>
+
+        <Button
+          className={followButton}
+        >
+          Bloquear
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default VisitorProfileHeader;

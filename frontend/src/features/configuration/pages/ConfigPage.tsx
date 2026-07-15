@@ -9,7 +9,7 @@ import { useUser } from "@/app/hooks/useUser";
 import { 
   configSchema, 
   type ConfigSchema 
-} from "./schemas/config.schema";
+} from "../schemas/config.schema";
 
 import { cn } from "@/utils/cn";
 
@@ -23,7 +23,7 @@ import {
   ImagePreview 
 } from "@/components";
 
-const Configuration = () => {
+const ConfigPage = () => {
   const {
     register,
     handleSubmit,
@@ -118,7 +118,7 @@ const Configuration = () => {
           id="bio"
           placeholder="Biografía"
           error={errors.bio?.message}
-          className="w-[80vw] sm:w-[390px] mx-auto mb-3"
+          className="w-full sm:w-[400px] mx-auto mb-3"
           {...register("bio")}
         />
 
@@ -161,4 +161,4 @@ const Configuration = () => {
   );
 }
 
-export default Configuration;
+export default ConfigPage;

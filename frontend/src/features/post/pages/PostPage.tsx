@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { usePost } from "@/app/hooks/usePost";
 
-import  PostCard  from "./components/PostCard";
+import  PostCard  from "../components/PostCard";
 
 const PostPage = () => {
   const { post, getPost, isLoading } = usePost();
@@ -26,13 +26,6 @@ const PostPage = () => {
   
   return (
     <>
-      {isLoading &&
-        <div
-          className="flex flex-col items-center justify-center"
-        >
-          <p className="text-white">Eliminando publicación</p>
-        </div>
-      }
       <PostCard post={post} />
     </>
   );

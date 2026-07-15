@@ -8,11 +8,11 @@ import type { Post } from "@shared/index";
 import { formatNormalDate } from "@/helpers/formatterDate.helper";
 import { Image, Button } from "@/components";
 
-type PostCardProps = {
+type Props = {
   post: Post;
 }
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post }: Props) => {
   const { deletePost } = usePost();
 
   const navigate = useNavigate();

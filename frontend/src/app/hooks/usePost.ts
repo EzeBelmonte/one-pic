@@ -41,16 +41,40 @@ export function usePost() {
   // ========================================
   // OBTENER MIS POST
   // ========================================
-  async function getMyPosts() {
+  async function getPosts() {
     try {
       setIsLoading(true);
       setError(null);
 
-      const posts = await postApi.getMyPosts();
+      const posts = await postApi.getPosts();
 
       setPosts(posts);
     } catch (error) {
       setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // ========================================
+  // ELIMINAR POST
+  // ========================================
+  async function deletePost(
+    postId: number
+  ) {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      await postApi.deletePost(postId);
+
+      setPosts((currentPosts) =>
+        currentPosts.filter((post) => post.id !== postId)
+      );
+      
+    } catch (error) {
+      setError(getErrorMessage(error));
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -99,30 +123,6 @@ export function usePost() {
     }
   }
 
-  // ========================================
-  // ELIMINAR POST
-  // ========================================
-  async function deletePost(
-    postId: number
-  ) {
-    try {
-      setIsLoading(true);
-      setError(null);
-
-      await postApi.deletePost(postId);
-
-      setPosts((currentPosts) =>
-        currentPosts.filter((post) => post.id !== postId)
-      );
-      
-    } catch (error) {
-      setError(getErrorMessage(error));
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
   return {
     // Estado
     posts,
@@ -135,7 +135,7 @@ export function usePost() {
     deletePost,
 
     getPost,
-    getMyPosts,
+    getPosts,
     getUserPosts,
   };
 }

@@ -29,7 +29,7 @@ export async function createPost(
 // ========================================
 // OBTENER MIS POSTS
 // ========================================
-export async function getMyPosts() {
+export async function getPosts() {
   const response =
     await api.get<Post[]>("/posts/me");
 
@@ -73,7 +73,7 @@ export async function getPost(
 }
 
 // ========================================
-// OBTENER TODOS LOS POSTS DE USUARIO
+// OBTENER TODOS LOS POSTS DE UN USUARIO
 // ========================================
 export async function getUserPosts(
   username: string

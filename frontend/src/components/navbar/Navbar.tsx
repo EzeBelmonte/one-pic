@@ -1,17 +1,9 @@
-import { useAuth } from "@/app/hooks/useAuth";
-
 import { 
   DesktopMenu,
   MobileMenu,
-  LogoutMenu,
 } from "../navbar/components";
 
 const Navbar = () => {
-  const { isAuthenticated } = useAuth();
-
-  if (!isAuthenticated) {
-    return <LogoutMenu />;
-  }
 
   return (
     <div>
