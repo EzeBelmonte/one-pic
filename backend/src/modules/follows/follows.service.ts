@@ -61,9 +61,17 @@ export async function createRelation(
 // ========================================
 export async function findRelation(
   followerId: number,
-  followingId: number,
+  username: string
 ) {
   
+  const targetUser = await getExistingUserByUsername(username);
+
+  if (!targetUser) {
+    throw new Error("El usuario no existe");
+  }
+
+  const followingId = targetUser.id;
+
   return await followRepository.findRelation(
     followerId,
     followingId
@@ -71,28 +79,64 @@ export async function findRelation(
 }
 
 // ========================================
-// ACTULIZAR ESTADO
+// ACEPTAR SOLICITUD
 // ========================================
-export async function updateStatus(
-  followerId: number,
-  followingId: number,
-  status: FollowStatus
+export async function acceptRequest(
+  userId: number,
+  username: string
 ) {
 
+  // Usuario que envió la solicitud
+  const follower =
+    await getExistingUserByUsername(username);
+
+  // Verificamos que exista la relación
   const relation =
     await followRepository.findRelation(
-      followerId,
-      followingId
+      follower.id,
+      userId
     );
-  
+
   if (!relation) {
-    throw new Error("La relación no existe");
+    throw new Error("La solicitud no existe");
+  }
+
+  if (relation.status === FOLLOW_STATUS.ACCEPTED) {
+    throw new Error("La solicitud ya fue aceptada");
   }
 
   return await followRepository.updateStatus(
-    followerId,
-    followingId,
-    status
+    follower.id,
+    userId,
+    FOLLOW_STATUS.ACCEPTED
+  );
+}
+
+// ========================================
+// RECHAZAR SOLICITUD
+// ========================================
+export async function rejectRequest(
+  userId: number,
+  username: string
+) {
+  // Usuario que envio la solicitud
+  const follower =
+    await getExistingUserByUsername(username);
+
+  // Verificamos que exista la relación
+  const relation = 
+    await followRepository.findRelation(
+      follower.id,
+      userId
+    );
+  
+  if (!relation) {
+    throw new Error("La solicitud no existe");
+  }
+
+  return await followRepository.deleteRelation(
+    follower.id,
+    userId
   );
 }
 

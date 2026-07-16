@@ -6,6 +6,11 @@ type FollowParams = {
   username: string;
 }
 
+type UpdateFollowBody = {
+  followingId: number;
+  status: "pending" | "accepted";
+};
+
 // ========================================
 // CREAR RELACIÓN
 // ========================================
@@ -31,6 +36,162 @@ export async function createRelation(
       );
 
     return res.status(201).json(relation);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER RELACIÓN
+// ========================================
+export async function findRelation(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const followerId = req.user.userId;
+    const { username } = req.params;
+
+    const relation = await followService.findRelation(
+      followerId,
+      username
+    );
+
+    return res.status(200).json(relation);
+
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// ACEPTAR SOLICITUD
+// ========================================
+export async function acceptRequest(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const userId = req.user.userId;
+    const { username } = req.params;
+
+    const relation =
+      await followService.acceptRequest(
+        userId,
+        username
+      );
+
+    return res.status(200).json(relation);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// RECHAZAR SOLICITUD
+// ========================================
+export async function rejectRequest(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const userId = req.user.userId;
+    const { username } = req.params;
+
+    await followService.rejectRequest(
+      userId,
+      username
+    );
+
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER SEGUIDORES
+// ========================================
+export async function getFollowers(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const { username } = req.params;
+
+    const followers = await followService.findFollowers(username);
+
+    return res.status(201).json(followers);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER SEGUIDOS
+// ========================================
+export async function getFollowing(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const { username } = req.params;
+
+    const following = await followService.findFollowing(username);
+
+    return res.status(201).json(following);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// ELIMINAR RELACIÓN
+// ========================================
+export async function deleteRelation(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const followerId = req.user.userId;
+    const { username } = req.params;
+
+    await followService.deleteRelation(
+      followerId,
+      username
+    );
+
+    return res.sendStatus(204);
   } catch (error) {
     return res.status(400).json({
       message:
