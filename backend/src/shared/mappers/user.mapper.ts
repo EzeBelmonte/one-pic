@@ -14,6 +14,7 @@ export function toUserDTO(
     username: user.username,
     profileImageUrl: user.profileImageUrl,
     profileImagePublicId: user.profileImagePublicId,
+    isPrivate: user.isPrivate,
     nickname: user.nickname,
     bio: user.bio,
   }

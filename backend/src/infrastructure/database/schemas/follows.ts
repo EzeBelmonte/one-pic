@@ -1,13 +1,20 @@
 import {
   pgTable,
+  pgEnum,
   serial,
   timestamp,
   integer,
-  varchar,
   unique,
 } from "drizzle-orm/pg-core";
 
 import { users } from "./users.js";
+
+import { FOLLOW_STATUS } from "../../../constants/follow.js";
+
+export const followStatusEnum = pgEnum("follow_status", [
+  FOLLOW_STATUS.PENDING,
+  FOLLOW_STATUS.ACCEPTED,
+]);
 
 export const follows = pgTable(
   "follows",
@@ -29,11 +36,9 @@ export const follows = pgTable(
       }),
 
     // pending | accepted
-    status: varchar("status", {
-      length: 20,
-    })
+    status: followStatusEnum("status")
       .notNull()
-      .default("accepted"),
+      .default(FOLLOW_STATUS.ACCEPTED),
 
     createdAt: timestamp("created_at")
       .defaultNow()
