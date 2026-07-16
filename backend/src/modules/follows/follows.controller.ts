@@ -6,11 +6,6 @@ type FollowParams = {
   username: string;
 }
 
-type UpdateFollowBody = {
-  followingId: number;
-  status: "pending" | "accepted";
-};
-
 // ========================================
 // CREAR RELACIÓN
 // ========================================
@@ -36,34 +31,6 @@ export async function createRelation(
       );
 
     return res.status(201).json(relation);
-  } catch (error) {
-    return res.status(400).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// OBTENER RELACIÓN
-// ========================================
-export async function findRelation(
-  req: Request<{ username: string }>,
-  res: Response
-) {
-  try {
-    const followerId = req.user.userId;
-    const { username } = req.params;
-
-    const relation = await followService.findRelation(
-      followerId,
-      username
-    );
-
-    return res.status(200).json(relation);
-
   } catch (error) {
     return res.status(400).json({
       message:
