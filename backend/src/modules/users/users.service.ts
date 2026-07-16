@@ -1,4 +1,6 @@
 import * as userRepository from "./users.repository.js";
+import * as followRepository from "../follows/follows.repository.js";
+
 import type { UpdateUser } from "@shared/index.js";
 import type { ImageItem } from "../../shared/types/uploadedImage.type.js";
 import { toUserDTO, toMyUserDTO } from "../../shared/mappers/user.mapper.js";
@@ -24,10 +26,27 @@ export async function getMe(userId: number) {
 export async function getUser(username: string) {
   // Obtenemos el usuario
   const user = await userRepository.findUserByUsername(username);
-  
+
   if (!user) {
     throw new Error("El usuario no existe");
   }
+  /*
+  const followersCount = await followRepository.countFollowers(user.id);
+
+  const followingCount = await followRepository.countFollowing(user.id);
+
+  const relation = await followRepository.findRelation(
+    currentUserId,
+    user.id
+  );
+
+  return toProfileUserDTO(
+      user,
+      followersCount,
+      followingCount,
+      relation?.status ?? null
+  );
+  */
 
   return toUserDTO(user);
 }

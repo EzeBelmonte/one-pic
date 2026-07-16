@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, count } from "drizzle-orm";
 import type { InferInsertModel } from "drizzle-orm";
 
 import { db } from "../../infrastructure/database/db.js";
@@ -111,4 +111,46 @@ export async function deleteRelation(
   .returning();
 
   return follow;
+}
+
+// ========================================
+// CONTAR SEGUIDORES
+// ========================================
+export async function countFollowers(
+  userId: number
+) {
+  const [result] = await db
+    .select({
+      count: count(),
+    })
+    .from(follows)
+    .where(
+      and(
+        eq(follows.followingId, userId),
+        eq(follows.status, "accepted")
+      )
+    );
+
+  return result?.count;
+}
+
+// ========================================
+// CONTAR SEGUIDOS
+// ========================================
+export async function countFollowing(
+  userId: number
+) {
+  const [result] = await db
+    .select({
+      count: count(),
+    })
+    .from(follows)
+    .where(
+      and(
+        eq(follows.followerId, userId),
+        eq(follows.status, "accepted")
+      )
+    );
+
+  return result?.count;
 }

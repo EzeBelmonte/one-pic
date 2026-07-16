@@ -32,6 +32,7 @@ const VisitorProfileHeader = () => {
         Icon={UserLock}
       />
       {/* Botón de seguir y bloquear */}
+
       <div className="flex gap-3">
         <Button
           className={followButton}

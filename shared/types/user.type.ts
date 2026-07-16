@@ -1,3 +1,11 @@
+const FOLLOW_STATUS = {
+  PENDING: "pending",
+  ACCEPTED: "accepted",
+} as const;
+
+export type FollowStatus =
+  typeof FOLLOW_STATUS[keyof typeof FOLLOW_STATUS];
+
 // ========================================
 // DATOS EN COMUN
 // ========================================
@@ -21,6 +29,23 @@ export interface MyUser extends User {
 }
 
 // ========================================
+// DATOS DEL PERFIL DEL USUARIO VISITADO
+// ========================================
+export interface ProfileUser extends User {
+  followersCount: number;
+  followingCount: number;
+  followStatus: FollowStatus | null;
+}
+
+// ========================================
+// DATOS PROPIO DEL PERFIL
+// ========================================
+export interface MyProfile extends MyUser {
+  followersCount: number;
+  followingCount: number;
+}
+
+// ========================================
 // DATOS EDITABLES
 // ========================================
 export interface UpdateUser {
@@ -28,3 +53,4 @@ export interface UpdateUser {
   bio?: string | null;
   isPrivate?: boolean;
 }
+

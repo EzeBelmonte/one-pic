@@ -29,7 +29,8 @@ export async function createRelation(
         followerId,
         username
       );
-
+    
+    console.log(relation);
     return res.status(201).json(relation);
   } catch (error) {
     return res.status(400).json({
