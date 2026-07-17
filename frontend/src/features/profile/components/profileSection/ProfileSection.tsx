@@ -17,7 +17,7 @@ const ProfileSection = ({ data }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 px-2 sm:px-5 md:px-10">
+    <div className="grid grid-cols-2 sm:grid-cols-3">
       {data.map((post) => (
         <div
           onClick={() => handleGoPost(post.id)}

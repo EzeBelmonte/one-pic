@@ -4,7 +4,7 @@ import OwnProfileSection from "../components/profileSection/OwnProfileSection";
 const ProfilePage = () => {
   
   return (
-    <div>
+    <div className="px-1 sm:px-2 md:px-3 lg:px-10">
       <OwnProfileHeader />
 
       <OwnProfileSection />
