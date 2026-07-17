@@ -1,18 +1,16 @@
-import { useEffect } from "react";
-
 import { LockKeyhole, LockOpen } from "lucide-react";
 
-import { useProfile } from "@/hooks/myUser/useProfile";
+import { useProfile } from "@/app/hooks/useProfile";
 
 import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const OwnProfileHeader = () => {
-  const { profile, getProfile } = useProfile();
+  const { profile, isLoading } = useProfile();
 
-  useEffect(() => {
-    getProfile();
-  }, []);
-  
+  if (isLoading) {
+    return <p className="text-white">Cargando el perfil</p>;
+  }
+
   if (!profile) {
     return <p className="text-white">No existe el usuario</p>;
   }

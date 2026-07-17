@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { usePosts } from "@/app/hooks/usePosts";
+import { useProfile } from "@/app/hooks/useProfile";
 
 import { ImagePreview, ImageUpload, Button, Textarea } from "@/components";
 import type { CreatePost } from "@shared/index";
@@ -12,6 +13,7 @@ type CreatePostsProps = {
 
 const CreatePosts = ({ onClose }: CreatePostsProps) => {
   const { createPost, error } = usePosts();
+  const { getProfile } = useProfile();
 
   const [image, setImage] = useState<File | null>(null);
   const [description, setDescription] = useState("");
@@ -27,6 +29,8 @@ const CreatePosts = ({ onClose }: CreatePostsProps) => {
     };
 
     await createPost(image, data);
+    await getProfile(true);
+
     setImage(null);
     setDescription("");
     onClose();

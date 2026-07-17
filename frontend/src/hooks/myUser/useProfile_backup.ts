@@ -4,7 +4,7 @@ import { getErrorMessage } from "@/utils/getErrorMessage";
 import * as profileApi from "@/api/profile.api";
 import type { UpdateProfile, MyProfile } from "@shared/index";
 
-export function useProfile() {
+export function useProfile_backup() {
   const [profile, setProfile] = useState<MyProfile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

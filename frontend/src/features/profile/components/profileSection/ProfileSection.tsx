@@ -17,16 +17,17 @@ const ProfileSection = ({ data }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 px-2 sm:px-5 md:px-10">
       {data.map((post) => (
         <div
           onClick={() => handleGoPost(post.id)}
-          className="cursor-pointer"
           key={post.id} 
+          className="aspect-auto overflow-hidden cursor-pointer"
         >
           <Image
             src={post.imageUrl}
-            alt="Previsualización de la imagen de la publicación"
+            alt="Previsualización"
+            className="w-full h-full object-cover"
           />
         </div>
       ))}

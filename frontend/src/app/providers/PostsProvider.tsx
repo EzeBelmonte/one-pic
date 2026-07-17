@@ -1,9 +1,12 @@
 import { createContext, useCallback, useMemo, useState, type ReactNode } from "react";
-import type { Post } from "@shared/index";
-import type { PostContextType } from "../types/app.type";
+
 import * as postApi from "@/api/post.api";
-import { getErrorMessage } from "@/utils/getErrorMessage";
+
+import type { PostContextType } from "../types/app.type";
+import type { Post } from "@shared/index";
 import type { PostSchema } from "../schemas/post.schema";
+
+import { getErrorMessage } from "@/utils/getErrorMessage";
 
 export const PostContext =
   createContext<PostContextType | null>(null);

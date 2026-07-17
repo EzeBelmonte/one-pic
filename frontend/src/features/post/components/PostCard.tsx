@@ -2,6 +2,7 @@ import { Trash, Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { usePosts } from "@/app/hooks/usePosts";
+import { useProfile } from "@/app/hooks/useProfile";
 
 import type { Post } from "@shared/index";
 
@@ -14,12 +15,15 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   const { deletePost } = usePosts();
+  const { getProfile } = useProfile();
 
   const navigate = useNavigate();
 
   // Función para eliminar la publicación
   const handleDelete = async(postId: number) => {
     await deletePost(postId);
+    await getProfile(true);
+    
     navigate("/profile");
   }
 
@@ -41,7 +45,7 @@ const PostCard = ({ post }: Props) => {
       <p className="text-white mt-3 mb-5">{post.description}</p>
 
       {/* Botones */}
-      <div className="max-w-[750px] flex mb-3 justify-between">
+      <div className="w-full max-w-[350px] flex mb-3 justify-between">
         {/* Me gusta y listado de gente que dio "me gustas" */}
         <div className="flex gap-1.5">
           <Button>
