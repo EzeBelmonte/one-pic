@@ -1,6 +1,7 @@
 import * as userRepository from "../users/users.repository.js";
 import * as followRepository from "../follows/follows.repository.js";
 import * as profileRepository from "./profile.repository.js";
+import * as postsRepository from "../posts/posts.repository.js";
 
 import type { UpdateProfile } from "@shared/index.js";
 
@@ -25,14 +26,18 @@ export async function getMyProfile(userId: number) {
     throw new Error("El usuario no existe");
   }
 
+  // Obtener cantidad de seguidores y seguidos
   const followersCount = await followRepository.countFollowers(user.id);
-
   const followingCount = await followRepository.countFollowing(user.id);
+
+  // Obtener cantidad de fotos
+  const postsCount = await postsRepository.countPost(user.id);
 
   return toMyProfileDTO(
       user,
       followersCount ?? 0,
       followingCount ?? 0,
+      postsCount ?? 0,
   );
   
 }
@@ -57,7 +62,6 @@ export async function getUserProfile(username: string) {
   const followingId = targetUser.id;
   
   const followersCount = await followRepository.countFollowers(user.id);
-
   const followingCount = await followRepository.countFollowing(user.id);
 
   /*const relation = await followRepository.findRelation(
@@ -69,11 +73,15 @@ export async function getUserProfile(username: string) {
     throw new Error("Relación indefinida");
   }*/
 
+  // Obtener cantidad de fotos
+  const postsCount = await postsRepository.countPost(user.id);
+
   return toUserProfileDTO(
       user,
       followersCount ?? 0,
       followingCount ?? 0,
       //relation?.status,
+      postsCount ?? 0,
   );
   
 }

@@ -120,7 +120,7 @@ export async function deleteRelation(
 // ========================================
 export async function countFollowers(
   userId: number
-) {
+): Promise<number> {
   const [result] = await db
     .select({
       count: count(),
@@ -133,7 +133,7 @@ export async function countFollowers(
       )
     );
 
-  return result?.count;
+  return result?.count ?? 0;
 }
 
 // ========================================
@@ -141,7 +141,7 @@ export async function countFollowers(
 // ========================================
 export async function countFollowing(
   userId: number
-) {
+): Promise<number> {
   const [result] = await db
     .select({
       count: count(),
@@ -154,5 +154,5 @@ export async function countFollowing(
       )
     );
 
-  return result?.count;
+  return result?.count ?? 0;
 }

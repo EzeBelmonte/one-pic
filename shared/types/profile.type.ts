@@ -10,6 +10,7 @@ export interface ProfileBase extends User {
   bio: string | null;
   followersCount: number;
   followingCount: number;
+  postsCount: number;
 }
 
 // ========================================

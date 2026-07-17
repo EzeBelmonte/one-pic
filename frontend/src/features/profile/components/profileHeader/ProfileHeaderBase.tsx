@@ -4,7 +4,6 @@ import type { ProfileBase } from "@shared/index";
 
 import { Image } from "@/components";
 
-
 type Props = {
   data: ProfileBase;
   Icon: LucideIcon;
@@ -26,19 +25,39 @@ const ProfileHeaderBase = ({ data, Icon }: Props) => {
           "
         />
 
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-1">
           {/* Usuario y nickname */}
-          <p className="text-[1.1rem] font-semibold text-white">{data.nickname ?? data.username+data.id}</p>
-          
           <div className="flex gap-1 items-center">
             <Icon 
               size={13}
               className="text-white"
             />
 
-            <p className="text-[.85rem] text-gray-500">@{data.username}</p>
+            <p className="text-[.7rem] text-gray-500">@{data.username}</p>
           </div>
 
+          <p className="font-semibold text-white">{data.nickname ?? data.username}</p>
+
+          {/* Contadores */}
+          <div className="
+            text-white text-[.7rem]
+            flex gap-3
+          ">
+            <div>
+              <p>Fotos</p>
+              {data.postsCount}
+            </div>
+
+            <div>
+              <p>Seguidores</p>
+              {data.followersCount}
+            </div>
+
+            <div>
+              <p>Seguidos</p>
+              {data.followingCount}
+            </div>
+          </div>
         </div>
       </div>
 

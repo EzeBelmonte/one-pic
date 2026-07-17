@@ -41,7 +41,7 @@ const PostCard = ({ post }: Props) => {
       <p className="text-white mt-3 mb-5">{post.description}</p>
 
       {/* Botones */}
-      <div className="flex mb-3">
+      <div className="max-w-[750px] flex mb-3 justify-between">
         {/* Me gusta y listado de gente que dio "me gustas" */}
         <div className="flex gap-1.5">
           <Button>
@@ -50,6 +50,7 @@ const PostCard = ({ post }: Props) => {
               className="text-red-400 cursor-pointer"
             />
           </Button>
+
           <Button
             className="text-white cursor-pointer"
           >
@@ -71,7 +72,7 @@ const PostCard = ({ post }: Props) => {
 
       {/* Fecha */}
       <p className="text-white/50 text-[.75rem] ms-auto">{formatNormalDate(post.createdAt)}</p>
-  </div>
+    </div>
   );
 }
 

@@ -13,7 +13,8 @@ type Users = InferSelectModel<typeof users>;
 export function toMyProfileDTO(
   user: Users,
   followersCount: number,
-  followingCount: number
+  followingCount: number,
+  postsCount: number,
 ): MyProfile {
   return {
     id: user.id,
@@ -25,6 +26,8 @@ export function toMyProfileDTO(
 
     followersCount,
     followingCount,
+    
+    postsCount,
 
     createdAt: user.createdAt.toISOString(),
   }
@@ -37,7 +40,8 @@ export function toUserProfileDTO(
   user: Users,
   followersCount: number,
   followingCount: number,
-  //followStatus: FollowStatus
+  //followStatus: FollowStatus,
+  postsCount: number,
 ): UserProfile {
   return {
     id: user.id,
@@ -50,5 +54,7 @@ export function toUserProfileDTO(
     followersCount,
     followingCount,
     //followStatus,
+
+    postsCount
   }
 }

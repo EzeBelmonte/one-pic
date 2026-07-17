@@ -1,4 +1,4 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, count } from "drizzle-orm";
 import type { InferInsertModel } from "drizzle-orm";
 
 import { posts } from "../../infrastructure/database/schemas/posts.js";
@@ -73,4 +73,20 @@ export async function deletePost(
     .returning()
 
   return post;
+}
+
+// ========================================
+// CONTAR FOTOS SUBIDAS
+// ========================================
+export async function countPost(
+  userId: number
+): Promise<number> {
+  const [result] = await db
+    .select({
+      count: count(),
+    })
+    .from(posts)
+    .where(eq(posts.userId, userId));
+
+  return result?.count ?? 0;
 }
