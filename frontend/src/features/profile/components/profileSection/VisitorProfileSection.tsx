@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useUserPosts } from "@/hooks/useUserPosts";
+import { useVisitPosts } from "@/hooks/visitUser/useVisitPosts";
 
 import ProfileSection from "./ProfileSection";
 
@@ -9,7 +9,7 @@ type Props = {
 }
 
 const VisitorProfileSection = ({ username }: Props) => {
-  const { posts, getUserPosts, isLoading } = useUserPosts();
+  const { posts, getUserPosts, isLoading } = useVisitPosts();
 
   useEffect(() => {
     getUserPosts(username);

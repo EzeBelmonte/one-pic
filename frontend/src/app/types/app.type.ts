@@ -1,4 +1,4 @@
-import type { MyUser } from "@shared/index";
+import type { User } from "@shared/index";
 import type { Post } from "@shared/index";
 import type { PostSchema } from "../schemas/post.schema";
 
@@ -6,7 +6,7 @@ import type { PostSchema } from "../schemas/post.schema";
 // AUTH
 // ========================================
 export interface AuthContextType {
-  user: MyUser | null;
+  user: User | null;
   token: string | null;
 
   isAuthenticated: boolean;
@@ -15,7 +15,6 @@ export interface AuthContextType {
   login: (token: string) => Promise<void>;
   logout: () => void;
 
-  updateUser: (data: Partial<MyUser>) => void;
 }
 
 // ========================================

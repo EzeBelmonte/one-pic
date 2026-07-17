@@ -4,6 +4,8 @@ import type { InferInsertModel } from "drizzle-orm";
 import { db } from "../../infrastructure/database/db.js";
 import { follows } from "../../infrastructure/database/schemas/follows.js";
 
+import type { FollowStatus } from "@shared/index.js";
+
 type NewFollow = InferInsertModel<typeof follows>;
 
 // ========================================
@@ -42,7 +44,7 @@ export async function findRelation(
 export async function updateStatus(
   followerId: number,
   followingId: number,
-  status: "pending" | "accepted"
+  status: FollowStatus
 ) {
   const [follow] = await db
     .update(follows)

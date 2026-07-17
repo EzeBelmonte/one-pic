@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { MyUser } from "@shared/index";
+import type { User } from "@shared/index";
 import type { AuthContextType } from "../types/app.type";
 import { getMe } from "@/api/user.api";
 import { registerLogout } from "@/app/services/auth.service";
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [user, setUser] = useState<MyUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
@@ -64,20 +64,11 @@ export function AuthProvider({ children }: Props) {
     restoreSession();
   }, [token]);
 
-  const updateUser = useCallback(
-    (data: Partial<MyUser>) => {
-      setUser((current) =>
-        current ? { ...current, ...data } : null
-      );
-    }, []
-  );
 
   const value = useMemo(
     () => ({
       user,
       token,
-
-      updateUser,
 
       isAuthenticated,
       isLoading,

@@ -3,24 +3,23 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useAuth } from "@/app/hooks/useAuth";
-import { useUser } from "@/app/hooks/useUser";
+import { useProfile } from "@/hooks/myUser/useProfile";
 
-import { 
-  configSchema, 
-  type ConfigSchema 
+import {
+  configSchema,
+  type ConfigSchema,
 } from "../schemas/config.schema";
 
 import { cn } from "@/utils/cn";
 
-import { 
-  Input, 
-  Textarea, 
-  Button, 
-  AlertError, 
-  Image, 
-  ImageUpload, 
-  ImagePreview 
+import {
+  Input,
+  Textarea,
+  Button,
+  AlertError,
+  Image,
+  ImageUpload,
+  ImagePreview,
 } from "@/components";
 
 const ConfigPage = () => {
@@ -36,55 +35,64 @@ const ConfigPage = () => {
     resolver: zodResolver(configSchema),
   });
 
-  const { user } = useAuth();
-  const { updateProfile, error } = useUser();
+  const {
+    profile,
+    getProfile,
+    updateProfile,
+    error,
+  } = useProfile();
 
-  if (!user) {
-    return <p>El usuario no existe</p>;
-  }
+  // Estado de la privacidad
+  const [privacy, setPrivacy] = useState(false);
 
-  // Seteamos la privacidad con el valor original
-  const [privacy, setPrivacy] = useState(user.isPrivate);
-  
-  // Guardamos la imagen seleccionada
+  // Imagen seleccionada
   const [image, setImage] = useState<File | null>(null);
 
-  // Cargamos los datos actuales del usuario en el formulario
+  // Obtener perfil al montar el componente
   useEffect(() => {
+    getProfile();
+  }, [getProfile]);
+
+  // Cuando llega el perfil, rellenar el formulario
+  useEffect(() => {
+    if (!profile) return;
+
     reset({
-      nickname: user.nickname ?? "",
-      bio: user.bio ?? "",
+      nickname: profile.nickname ?? "",
+      bio: profile.bio ?? "",
     });
 
-    setPrivacy(user.isPrivate);
-  }, [user, reset]);
+    setPrivacy(profile.isPrivate);
+  }, [profile, reset]);
 
-  // Función que envia el formulario al backend
-  async function onSubmit(
-    data: ConfigSchema
-  ) {
-    // Seteamos con la privacidad elegida
+  // Enviar formulario
+  async function onSubmit(data: ConfigSchema) {
     data.isPrivate = privacy;
 
     await updateProfile(image, data);
   }
 
-  // Función que cambia la privacidad
-  const handlePrivacy = () =>{
-    setPrivacy(!privacy);
+  // Cambiar privacidad
+  const handlePrivacy = () => {
+    setPrivacy((prev) => !prev);
+  };
+
+  // Recién ahora hacemos el return condicional
+  if (!profile) {
+    return <p className="text-white">No existe el perfil</p>;
   }
 
   return (
     <section className="w-full flex flex-col items-center">
-      <form 
-        onSubmit={handleSubmit(onSubmit)} 
+      <form
+        onSubmit={handleSubmit(onSubmit)}
         className="w-[300px] flex flex-col gap-4 sm:w-[400px]"
       >
         {/* Imagen */}
         <div className="relative w-[150px] h-[150px] rounded-full overflow-hidden mx-auto">
           {!image ? (
             <Image
-              src={user.profileImageUrl}
+              src={profile.profileImageUrl}
               alt="Foto de perfil"
               className="w-full h-full object-cover"
             />
@@ -114,7 +122,7 @@ const ConfigPage = () => {
           {...register("nickname")}
         />
 
-        <Textarea 
+        <Textarea
           id="bio"
           placeholder="Biografía"
           error={errors.bio?.message}
@@ -124,15 +132,13 @@ const ConfigPage = () => {
 
         <div className="text-white flex gap-3">
           <p>Privacidad</p>
+
           <Button
             type="button"
             onClick={handlePrivacy}
             className={cn(
-              `w-[100px] rounded cursor-pointer
-              transition-colors duration-200`,
-              privacy
-                ? "bg-amber-600"
-                : "bg-green-600"
+              "w-[100px] rounded cursor-pointer transition-colors duration-200",
+              privacy ? "bg-amber-600" : "bg-green-600"
             )}
           >
             {privacy ? "Privado" : "Público"}
@@ -146,19 +152,20 @@ const ConfigPage = () => {
           disabled={isSubmitting}
           className="
             w-[110px]
-            border border-[#125c7a] 
-            bg-[#3b8aaf] rounded
-            text-white font-semibold 
-            px-2 mt-10
+            border border-[#125c7a]
+            bg-[#3b8aaf]
+            rounded
+            text-white
+            font-semibold
+            px-2
+            mt-10
           "
         >
           Actualizar
         </Button>
       </form>
-
-      
     </section>
   );
-}
+};
 
 export default ConfigPage;

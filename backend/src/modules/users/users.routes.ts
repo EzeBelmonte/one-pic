@@ -12,12 +12,6 @@ const router: Router = Router();
 // RUTAS DEL MÓDOLO USERS - PRIVADAS
 // ========================================
 router.get("/me", authenticate, authController.getMe);
-router.patch("/me", authenticate, upload.single("image"), authController.updateUser);
-
-// ========================================
-// RUTAS DEL MÓDOLO USERS - PÚBLICAS
-// ========================================
-router.get("/:username", authenticate, authController.getUser);
 
 // ========================================
 // RUTAS DEL MÓDULO FOLLOWS

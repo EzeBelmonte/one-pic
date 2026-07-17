@@ -1,12 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 
-import type { User } from "@shared/index";
+import type { ProfileBase } from "@shared/index";
 
 import { Image } from "@/components";
 
 
 type Props = {
-  data: User;
+  data: ProfileBase;
   Icon: LucideIcon;
 }
 

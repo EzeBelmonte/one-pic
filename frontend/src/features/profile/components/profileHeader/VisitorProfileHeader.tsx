@@ -2,23 +2,23 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserLock } from "lucide-react";
 
-import { useUser } from "@/app/hooks/useUser";
+import { useVisitProfile } from "@/hooks/visitUser/useVisitProfile";
 
 import { Button } from "@/components";
 import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const VisitorProfileHeader = () => {
-  const { selectedUser, getUserByUsername } = useUser();
+  const { selectedProfile, getUserProfile } = useVisitProfile();
   
   const { username } = useParams();
 
   useEffect(() => {
     if (username) {
-      getUserByUsername(username);
+      getUserProfile(username);
     }
   }, [username]);
 
-  if (!selectedUser) {
+  if (!selectedProfile) {
     return <p>No existe el usuario</p>;
   }
 
@@ -28,7 +28,7 @@ const VisitorProfileHeader = () => {
   return (
     <div className="mb-10">
       <ProfileHeaderBase 
-        data={selectedUser}
+        data={selectedProfile}
         Icon={UserLock}
       />
       {/* Botón de seguir y bloquear */}

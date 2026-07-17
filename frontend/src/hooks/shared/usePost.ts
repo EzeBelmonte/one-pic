@@ -1,33 +1,37 @@
 import { useState } from "react";
 
 import * as postApi from "@/api/post.api";
-import { getErrorMessage } from "../utils/getErrorMessage";
+import { getErrorMessage } from "../../utils/getErrorMessage";
 
 import type { Post } from "@shared/index";
 
-export function useUserPosts() {
+export function usePost() {
   // ========================================
   // ESTADO
   // ========================================
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [post, setPost] = useState<Post | null>(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   // ========================================
-  // OBTENER POSTS DE USUARIO
+  // OBTENER UN POST
   // ========================================
-  async function getUserPosts(
-    username: string
+  async function getPost(
+    postId: number
   ) {
     try {
       setIsLoading(true);
       setError(null);
 
-      const posts = await postApi.getUserPosts(username);
+      const post = await postApi.getPost(postId);
 
-      setPosts(posts);
+      setPost(post);
+
+      return post;
     } catch (error) {
-      setError(getErrorMessage(error));
+      setError(getErrorMessage(error)); 
+      throw error;
     } finally {
       setIsLoading(false);
     }
@@ -35,10 +39,10 @@ export function useUserPosts() {
 
   return {
     // Estado
-    posts,
+    post,
     isLoading,
     error,
 
-    getUserPosts,
+    getPost,
   };
 }

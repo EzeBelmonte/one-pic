@@ -1,4 +1,3 @@
-//import { eq } from "drizzle-orm";
 import { db } from "../../infrastructure/database/db.js";
 import { users } from "../../infrastructure/database/schemas/index.js";
 import type { CreateUserDTO } from "./auth.types.js";

@@ -50,7 +50,7 @@ export function AppRouter() {
           />
 
           <Route
-            path="/users/:username"
+            path="/profile/:username"
             element={
               <ProtectedRoute>
                 <VisitorProfilePage />
