@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { UserLock } from "lucide-react";
+import { UserLock, User } from "lucide-react";
 
 import { useVisitProfile } from "@/hooks/visitUser/useVisitProfile";
 import { useFollows } from "@/hooks/visitUser/useFollows";
@@ -10,7 +10,7 @@ import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const VisitorProfileHeader = () => {
   const { selectedProfile, getUserProfile } = useVisitProfile();
-  const { status, getStatus, follow, unfollow } = useFollows();
+  const { status, getRelation } = useFollows();
   
   const { username } = useParams();
 
@@ -26,7 +26,7 @@ const VisitorProfileHeader = () => {
 
   useEffect(() => {
     const loadUsers = async () => {
-      await getStatus(username);
+      await getRelation(username);
     };
 
     loadUsers();
@@ -36,8 +36,6 @@ const VisitorProfileHeader = () => {
     return <p>No existe el usuario</p>;
   }
 
-  const action = status === null ? () => follow : () => unfollow;
-
   // Estilo de botón seguir
   const followButton = "border border-white/20 px-3 rounded bg-[rgba(34,34,34,0.8)] text-white cursor-pointer";
 
@@ -45,18 +43,21 @@ const VisitorProfileHeader = () => {
     <div className="mb-10">
       <ProfileHeaderBase 
         data={selectedProfile}
-        Icon={UserLock}
+        Icon={
+          selectedProfile.isPrivate 
+            ? UserLock
+            : User
+        }
       />
       {/* Botón de seguir y bloquear */}
 
       <div className="flex gap-3">
         <Button
           className={followButton}
-          onClick={() => action}
         >
-          {status === "accepted"
+          {status?.isFollowing
             ? "Siguiendo"
-            : status === "pending"
+            : status?.isPending
               ? "Cancelar"
               : "Seguir"
           }

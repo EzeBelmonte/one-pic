@@ -13,6 +13,36 @@ import { FOLLOW_STATUS, type FollowStatus } from "../../constants/follow.js";
 import { toFollowDTO } from "../../shared/mappers/follow.mapper.js";
 
 // ========================================
+// COMPROBAR RELACIÓN
+// ========================================
+export async function findRelation(
+  followerId: number,
+  username: string
+) {
+  if (!username) {
+    throw new Error("El usuario no existe");
+  }
+
+  const targetUser = await getExistingUserByUsername(username);
+
+  if (!targetUser) {
+    throw new Error("El usuario no existe");
+  }
+
+  const followingId = targetUser.id;
+
+  const relation = await followRepository.findRelation(
+    followerId,
+    followingId
+  );
+
+  return {
+    isFollowing: relation?.status === "accepted",
+    isPending: relation?.status === "pending",
+  };
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(
@@ -52,38 +82,11 @@ export async function createRelation(
     ? FOLLOW_STATUS.PENDING
     : FOLLOW_STATUS.ACCEPTED;
 
-  return await followRepository.create({
+  return await followRepository.createRelation({
     followerId,
     followingId,
     status,
   });
-}
-
-// ========================================
-// COMPROBAR RELACIÓN
-// ========================================
-export async function findStatus(
-  followerId: number,
-  username: string
-) {
-  if (!username) {
-    throw new Error("El usuario no existe");
-  }
-
-  const targetUser = await getExistingUserByUsername(username);
-
-  if (!targetUser) {
-    throw new Error("El usuario no existe");
-  }
-
-  const followingId = targetUser.id;
-
-  const relation = await followRepository.findRelation(
-    followerId,
-    followingId
-  );
-
-  return relation?.status;
 }
 
 // ========================================

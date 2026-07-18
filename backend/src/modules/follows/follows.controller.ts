@@ -7,6 +7,36 @@ type FollowParams = {
 }
 
 // ========================================
+// COMPROBAR RELACIÓN
+// ========================================
+export async function getRelation(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    // Usuario autenticado (el que sigue)
+    const followerId = req.user.userId;
+
+    // Usuario que quiero seguir
+    const { username } = req.params;
+
+    const response = await followService.findRelation(
+      followerId,
+      username
+    );
+
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(
@@ -20,45 +50,13 @@ export async function createRelation(
     // Usuario que quiero seguir
     const { username } = req.params;
 
-    const relation =
+    const response =
       await followService.createRelation(
         followerId,
         username
       );
     
-    return res.status(201).json(relation);
-  } catch (error) {
-    return res.status(400).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// COMPROBAR RELACIÓN
-// ========================================
-export async function getStatus(
-  req: Request<{ username: string }>,
-  res: Response
-) {
-  try {
-    // Usuario autenticado (el que sigue)
-    const followerId = req.user.userId;
-
-    // Usuario que quiero seguir
-    const { username } = req.params;
-
-    const relation = followService.findStatus(
-      followerId,
-      username
-    );
-
-    console.log(relation)
-
-    return res.status(200).json(relation);
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(400).json({
       message:
@@ -80,13 +78,13 @@ export async function acceptRequest(
     const userId = req.user.userId;
     const { username } = req.params;
 
-    const relation =
+    const response =
       await followService.acceptRequest(
         userId,
         username
       );
 
-    return res.status(200).json(relation);
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({
       message:
@@ -134,9 +132,9 @@ export async function getFollowers(
   try {
     const { username } = req.params;
 
-    const followers = await followService.findFollowers(username);
+    const response = await followService.findFollowers(username);
 
-    return res.status(201).json(followers);
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(400).json({
       message:
@@ -157,9 +155,9 @@ export async function getFollowing(
   try {
     const { username } = req.params;
 
-    const following = await followService.findFollowing(username);
+    const response = await followService.findFollowing(username);
 
-    return res.status(201).json(following);
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(400).json({
       message:

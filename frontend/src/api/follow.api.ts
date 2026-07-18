@@ -1,6 +1,19 @@
 import api from "./axios";
 
 // ========================================
+// COMPROBAR RELACIÓN
+// ========================================
+export async function getRelation(
+  username: string
+) {
+
+  const response =
+    await api.get(`/users/${username}/follow-status`);
+
+  return response.data;
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(
@@ -13,44 +26,21 @@ export async function createRelation(
 }
 
 // ========================================
-// STATUS DE LA SOLICITUD
-// ========================================
-export async function getStatus(
-  username: string
-) {
-  const response =
-    await api.get(`/users/${username}/follow-status`);
-
-  console.log(response.data)
-  return response.data;
-}
-
-// ========================================
-// ACEPTAR SOLICITUD
-// ========================================
-export async function acceptRequest(
-  username: string
-) {
-  const response = await api.patch(`/users/${username}/follow/accept`);
-
-  return response.data;
-}
-
-// ========================================
-// RECHAZAR SOLICITUD
-// ========================================
-export async function rejectRequest(
-  username: string
-) {
-  await api.delete(`/users/${username}/follow/reject`);
-}
-
-// ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-export async function deleteRelation(
+/*export async function deleteRelation(
   username: string
 ) {
-  await api.delete(`/users/${username}/follow`);
-
+  const response = 
+    await api.delete(`/users/${username}/follow`);
+  
+  return response.data;
+}*/
+export async function rejectRelation(
+  username: string
+) {
+  const response = 
+    await api.delete(`/users/${username}/follow/reject`);
+  
+  return response.data;
 }

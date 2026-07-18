@@ -9,20 +9,6 @@ import type { FollowStatus } from "@shared/index.js";
 type NewFollow = InferInsertModel<typeof follows>;
 
 // ========================================
-// CREAR RELACIÓN
-// ========================================
-export async function create(
-  data: NewFollow
-) {
-  const [follow] = await db
-    .insert(follows)
-    .values(data)
-    .returning();
-
-  return follow;
-}
-
-// ========================================
 // OBTENER RELACIÓN
 // ========================================
 export async function findRelation(
@@ -36,6 +22,20 @@ export async function findRelation(
         eq(follows.followingId, followingId)
       ),
   });
+}
+
+// ========================================
+// CREAR RELACIÓN
+// ========================================
+export async function createRelation(
+  data: NewFollow
+) {
+  const [follow] = await db
+    .insert(follows)
+    .values(data)
+    .returning();
+
+  return follow;
 }
 
 // ========================================
