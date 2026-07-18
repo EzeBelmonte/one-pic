@@ -24,7 +24,7 @@ router.get("/:username/follow-status", authenticate, followsController.getRelati
 router.get("/:username/followers", authenticate, followsController.getFollowers);
 router.get("/:username/following", authenticate, followsController.getFollowing);
 
-router.patch("/:username/follow/accept", authenticate, followsController.acceptRequest);
-router.delete("/:username/follow/reject", authenticate, followsController.rejectRequest);
+router.patch("/:username/follow-accept", authenticate, followsController.acceptRequest);
+router.delete("/:username/follow-reject", authenticate, followsController.rejectRequest);
 
 export default router;

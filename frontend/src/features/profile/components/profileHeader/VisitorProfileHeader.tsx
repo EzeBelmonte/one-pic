@@ -10,7 +10,10 @@ import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const VisitorProfileHeader = () => {
   const { selectedProfile, getUserProfile } = useVisitProfile();
-  const { relation, getRelation, createRelation, deleteRelation } = useFollows();
+  const { 
+    relation, getRelation, 
+    createRelation, deleteRelation,
+  } = useFollows();
   
   const { username } = useParams();
 
@@ -36,19 +39,27 @@ const VisitorProfileHeader = () => {
     return <p>No existe el usuario</p>;
   }
 
-  // Función para seguir/dejar de seguir
-  const handleRelation = async() => {
-    !relation?.isFollowing 
-      ? await createRelation(username)
-      : await deleteRelation(username);
-  }
-
   const status = 
     relation?.isFollowing
       ? "Siguiendo"
       : relation?.isPending
-        ? "Cancelar"
+        ? "Pendiente"
         : "Seguir"
+
+  // Función para seguir, dejar de seguir o cancelar la solicitud
+  const handleRelation = async () => {
+    if (relation?.isFollowing) {
+      await deleteRelation(username);
+      return;
+    }
+
+    if (relation?.isPending) {
+      await deleteRelation(username);
+      return;
+    }
+
+    await createRelation(username);
+  };
 
   console.log("following: " + relation?.isFollowing);
   console.log("pending: " + relation?.isPending)

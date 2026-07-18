@@ -47,10 +47,8 @@ export function useFollows() {
       setError(null);
       
       // Crear relación
-      await followApi.createRelation(username);
+      const response = await followApi.createRelation(username);
 
-      // Obtener el nuevo estado de la relacón
-      const response = await followApi.getRelation(username);
       setRelation(response);
     } catch (error) {
       setError(getErrorMessage(error));

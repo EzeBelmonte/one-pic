@@ -82,11 +82,16 @@ export async function createRelation(
     ? FOLLOW_STATUS.PENDING
     : FOLLOW_STATUS.ACCEPTED;
 
-  return await followRepository.createRelation({
+  await followRepository.createRelation({
     followerId,
     followingId,
     status,
   });
+
+  return {
+    isFollowing: status === FOLLOW_STATUS.ACCEPTED,
+    isPending: status === FOLLOW_STATUS.PENDING,
+  };
 }
 
 // ========================================
