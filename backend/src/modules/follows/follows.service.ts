@@ -19,6 +19,9 @@ export async function createRelation(
   followerId: number,
   username: string,
 ) {
+  if (!username) {
+    throw new Error("El usuario no existe");
+  }
 
   const targetUser = await getExistingUserByUsername(username);
 
@@ -57,13 +60,16 @@ export async function createRelation(
 }
 
 // ========================================
-// OBTENER RELACIÓN
+// COMPROBAR RELACIÓN
 // ========================================
-export async function findRelation(
+export async function findStatus(
   followerId: number,
   username: string
 ) {
-  
+  if (!username) {
+    throw new Error("El usuario no existe");
+  }
+
   const targetUser = await getExistingUserByUsername(username);
 
   if (!targetUser) {
@@ -72,10 +78,12 @@ export async function findRelation(
 
   const followingId = targetUser.id;
 
-  return await followRepository.findRelation(
+  const relation = await followRepository.findRelation(
     followerId,
     followingId
   );
+
+  return relation?.status;
 }
 
 // ========================================

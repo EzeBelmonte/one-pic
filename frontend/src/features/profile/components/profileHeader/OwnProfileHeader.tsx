@@ -5,14 +5,10 @@ import { useProfile } from "@/app/hooks/useProfile";
 import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const OwnProfileHeader = () => {
-  const { profile, isLoading } = useProfile();
-
-  if (isLoading) {
-    return <p className="text-white">Cargando el perfil</p>;
-  }
+  const { profile } = useProfile();
 
   if (!profile) {
-    return <p className="text-white">No existe el usuario</p>;
+    return <p className="text-white">Cargando perfil...</p>;
   }
 
   return (

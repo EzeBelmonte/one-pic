@@ -31,6 +31,7 @@ export interface ProfileContextType {
     image: File | null,
     data: UpdateProfile
   ) => Promise<void>;
+   clearProfile: () => void;
 }
 
 // ========================================

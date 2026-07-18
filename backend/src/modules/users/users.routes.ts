@@ -19,6 +19,8 @@ router.get("/me", authenticate, authController.getMe);
 router.post("/:username/follow", authenticate, followsController.createRelation);
 router.delete("/:username/follow", authenticate, followsController.deleteRelation);
 
+router.get("/:username/follow-status", authenticate, followsController.getStatus);
+
 router.get("/:username/followers", authenticate, followsController.getFollowers);
 router.get("/:username/following", authenticate, followsController.getFollowing);
 

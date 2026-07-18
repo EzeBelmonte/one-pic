@@ -47,7 +47,7 @@ export function ProfileProvider({ children }: Props) {
 
   useEffect(() => {
     getProfile();
-  }, [getProfile]);
+  }, []); // [getProfile]
 
   // ========================================
   // ACTUALIZAR PERFIL
@@ -71,9 +71,25 @@ export function ProfileProvider({ children }: Props) {
       setError(getErrorMessage(error));
     } finally {
       setIsLoading(false);
-      setLoaded(false);
     }
   }, []);
+
+  // ========================================
+  // LIMPIAR ESTADOS
+  // ========================================
+  const clearProfile = useCallback(() => {
+    setProfile(null);
+    setLoaded(false);
+    setError(null);
+  }, []);
+  /*useEffect(() => {
+    if (!token) {
+      clearProfile();
+      return;
+    }
+
+    getProfile(true);
+  }, [token]);*/
 
   const value = useMemo(
     () => ({
@@ -85,8 +101,9 @@ export function ProfileProvider({ children }: Props) {
       // Acciones
       getProfile,
       updateProfile,
+      clearProfile,
     }),
-    [profile, isLoading, error, getProfile, updateProfile]
+    [profile, isLoading, error, getProfile, updateProfile, clearProfile]
   );
 
   return (

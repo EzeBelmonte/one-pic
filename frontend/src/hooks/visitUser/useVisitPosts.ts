@@ -39,6 +39,7 @@ export function useVisitPosts() {
     isLoading,
     error,
 
+    // Acciones
     getUserPosts,
   };
 }

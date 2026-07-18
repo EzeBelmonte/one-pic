@@ -157,8 +157,8 @@ const ConfigPage = () => {
             rounded
             text-white
             font-semibold
-            px-2
-            mt-10
+            px-2 mt-10
+            cursor-pointer
           "
         >
           Actualizar

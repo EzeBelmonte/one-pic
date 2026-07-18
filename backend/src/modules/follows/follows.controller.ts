@@ -20,18 +20,45 @@ export async function createRelation(
     // Usuario que quiero seguir
     const { username } = req.params;
 
-    if (!username) {
-      throw new Error("El usuario no existe");
-    }
-
     const relation =
       await followService.createRelation(
         followerId,
         username
       );
     
-    console.log(relation);
     return res.status(201).json(relation);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// COMPROBAR RELACIÓN
+// ========================================
+export async function getStatus(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    // Usuario autenticado (el que sigue)
+    const followerId = req.user.userId;
+
+    // Usuario que quiero seguir
+    const { username } = req.params;
+
+    const relation = followService.findStatus(
+      followerId,
+      username
+    );
+
+    console.log(relation)
+
+    return res.status(200).json(relation);
   } catch (error) {
     return res.status(400).json({
       message:
@@ -154,6 +181,11 @@ export async function deleteRelation(
     const followerId = req.user.userId;
     const { username } = req.params;
 
+    await followService.rejectRequest(
+      followerId,
+      username
+    );
+    
     await followService.deleteRelation(
       followerId,
       username
