@@ -68,6 +68,33 @@ export async function createRelation(
 }
 
 // ========================================
+// ELIMINAR RELACIÓN
+// ========================================
+export async function deleteRelation(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    const followerId = req.user.userId;
+    const { username } = req.params;
+ 
+    await followService.deleteRelation(
+      followerId,
+      username
+    );
+
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
 // ACEPTAR SOLICITUD
 // ========================================
 export async function acceptRequest(
@@ -158,38 +185,6 @@ export async function getFollowing(
     const response = await followService.findFollowing(username);
 
     return res.status(201).json(response);
-  } catch (error) {
-    return res.status(400).json({
-      message:
-        error instanceof Error
-          ? error.message
-          : "Error desconocido",
-    });
-  }
-}
-
-// ========================================
-// ELIMINAR RELACIÓN
-// ========================================
-export async function deleteRelation(
-  req: Request<{ username: string }>,
-  res: Response
-) {
-  try {
-    const followerId = req.user.userId;
-    const { username } = req.params;
-
-    await followService.rejectRequest(
-      followerId,
-      username
-    );
-    
-    await followService.deleteRelation(
-      followerId,
-      username
-    );
-
-    return res.sendStatus(204);
   } catch (error) {
     return res.status(400).json({
       message:

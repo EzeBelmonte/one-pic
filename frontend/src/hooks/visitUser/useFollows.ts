@@ -12,8 +12,7 @@ export function useFollows() {
   // ========================================
   // ESTADOS
   // ========================================
-  const [status, setStatus] = useState<FollowState | null>(null);
-
+  const [relation, setRelation] = useState<FollowState | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,7 +28,53 @@ export function useFollows() {
 
       const response = await followApi.getRelation(username);
 
-      setStatus(response);
+      setRelation(response);
+    } catch (error) {
+      setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // ========================================
+  // CREAR RELACIÓN
+  // ========================================
+  async function createRelation(
+    username: string
+  ) {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Crear relación
+      await followApi.createRelation(username);
+
+      // Obtener el nuevo estado de la relacón
+      const response = await followApi.getRelation(username);
+      setRelation(response);
+    } catch (error) {
+      setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // ========================================
+  // ELIMINAR RELACIÓN
+  // ========================================
+  async function deleteRelation(
+    username: string
+  ) {
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Crear relación
+      await followApi.deleteRelation(username);
+
+      // Obtener el nuevo estado de la relacón
+      const response = await followApi.getRelation(username);
+      setRelation(response);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
@@ -39,11 +84,13 @@ export function useFollows() {
 
   return {
     // Estado
-    status,
+    relation,
     isLoading,
     error,
 
     // Acciones
     getRelation,
+    createRelation,
+    deleteRelation,
   };
 }

@@ -10,7 +10,7 @@ import ProfileHeaderBase from "./ProfileHeaderBase";
 
 const VisitorProfileHeader = () => {
   const { selectedProfile, getUserProfile } = useVisitProfile();
-  const { status, getRelation } = useFollows();
+  const { relation, getRelation, createRelation, deleteRelation } = useFollows();
   
   const { username } = useParams();
 
@@ -36,6 +36,23 @@ const VisitorProfileHeader = () => {
     return <p>No existe el usuario</p>;
   }
 
+  // Función para seguir/dejar de seguir
+  const handleRelation = async() => {
+    !relation?.isFollowing 
+      ? await createRelation(username)
+      : await deleteRelation(username);
+  }
+
+  const status = 
+    relation?.isFollowing
+      ? "Siguiendo"
+      : relation?.isPending
+        ? "Cancelar"
+        : "Seguir"
+
+  console.log("following: " + relation?.isFollowing);
+  console.log("pending: " + relation?.isPending)
+
   // Estilo de botón seguir
   const followButton = "border border-white/20 px-3 rounded bg-[rgba(34,34,34,0.8)] text-white cursor-pointer";
 
@@ -53,14 +70,10 @@ const VisitorProfileHeader = () => {
 
       <div className="flex gap-3">
         <Button
+          onClick={handleRelation}
           className={followButton}
         >
-          {status?.isFollowing
-            ? "Siguiendo"
-            : status?.isPending
-              ? "Cancelar"
-              : "Seguir"
-          }
+          {status}
         </Button>
 
         <Button

@@ -28,19 +28,11 @@ export async function createRelation(
 // ========================================
 // ELIMINAR RELACIÓN
 // ========================================
-/*export async function deleteRelation(
+export async function deleteRelation(
   username: string
 ) {
   const response = 
-    await api.delete(`/users/${username}/follow`);
-  
-  return response.data;
-}*/
-export async function rejectRelation(
-  username: string
-) {
-  const response = 
-    await api.delete(`/users/${username}/follow/reject`);
+    await api.delete(`/users/${username}/unfollow`);
   
   return response.data;
 }

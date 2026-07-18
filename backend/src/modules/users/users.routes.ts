@@ -17,7 +17,7 @@ router.get("/me", authenticate, authController.getMe);
 // RUTAS DEL MÓDULO FOLLOWS
 // ========================================
 router.post("/:username/follow", authenticate, followsController.createRelation);
-router.delete("/:username/follow", authenticate, followsController.deleteRelation);
+router.delete("/:username/unfollow", authenticate, followsController.deleteRelation);
 
 router.get("/:username/follow-status", authenticate, followsController.getRelation);
 
