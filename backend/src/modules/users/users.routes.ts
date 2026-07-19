@@ -20,9 +20,7 @@ router.post("/:username/follow", authenticate, followsController.createRelation)
 router.delete("/:username/unfollow", authenticate, followsController.deleteRelation);
 
 router.get("/:username/follow-status", authenticate, followsController.getRelation);
-
-router.get("/:username/followers", authenticate, followsController.getFollowers);
-router.get("/:username/following", authenticate, followsController.getFollowing);
+router.get("/followers-pendig", authenticate, followsController.getPendingRequest);
 
 router.patch("/:username/follow-accept", authenticate, followsController.acceptRequest);
 router.delete("/:username/follow-reject", authenticate, followsController.rejectRequest);

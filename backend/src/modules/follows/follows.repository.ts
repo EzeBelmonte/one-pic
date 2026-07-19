@@ -5,6 +5,7 @@ import { db } from "../../infrastructure/database/db.js";
 import { follows } from "../../infrastructure/database/schemas/follows.js";
 
 import type { FollowStatus } from "@shared/index.js";
+import { FOLLOW_STATUS } from "../../constants/follow.js";
 
 type NewFollow = InferInsertModel<typeof follows>;
 
@@ -64,15 +65,35 @@ export async function updateStatus(
 }
 
 // ========================================
+// OBTENER PENDIENTES
+// ========================================
+export async function findPendingRequest(
+  userId: number
+) {
+  return await db.query.follows.findMany({
+    where: (follows, { and, eq }) =>
+      and(
+        eq(follows.followingId, userId),
+        eq(follows.status, FOLLOW_STATUS.PENDING)
+      ),
+    with: {
+      follower: true,
+    },
+  });
+}
+
+// ========================================
 // OBTENER SEGUIDORES
 // ========================================
 export async function findFollowers(
   userId: number
 ) {
   return await db.query.follows.findMany({
-    where: (follows, { eq }) => 
-      eq(follows.followingId, userId),
-  
+    where: (follows, { and, eq }) => 
+      and(
+        eq(follows.followingId, userId),
+        eq(follows.status, FOLLOW_STATUS.ACCEPTED)
+      ),
     with: {
       follower: true,
     },

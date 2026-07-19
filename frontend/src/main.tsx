@@ -6,6 +6,7 @@ import App from './App.tsx'
 import { AuthProvider } from './app/providers/AuthProvider.tsx'
 import { ProfileProvider } from './app/providers/ProfileProvider.tsx'
 import { PostsProvider } from './app/providers/PostsProvider.tsx'
+import { FollowsProvider } from './app/providers/FollowsProvider.tsx'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')!).render(
     <AuthProvider>
       <PostsProvider>
         <ProfileProvider>
-          <App />
+          <FollowsProvider>
+            <App />
+          </FollowsProvider>
         </ProfileProvider>
       </PostsProvider>
     </AuthProvider>

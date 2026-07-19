@@ -1,5 +1,4 @@
 import type { InferSelectModel } from "drizzle-orm";
-import type { FollowStatus } from "@shared/index.js";
 
 import { users } from "../../infrastructure/database/schemas/users.js";
 

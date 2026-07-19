@@ -1,5 +1,10 @@
-import type { MyProfile, UpdateProfile, User } from "@shared/index";
-import type { Post } from "@shared/index";
+import type { 
+  MyProfile, 
+  UpdateProfile, 
+  User, 
+  Post,
+  PendingFollowers,
+} from "@shared/index";
 import type { PostSchema } from "../schemas/post.schema";
 
 // ========================================
@@ -52,4 +57,20 @@ export interface PostContextType {
 
   deletePost: (postId: number) => Promise<void>;
   clearPosts: () => void;
+}
+
+// ========================================
+// FOLLOWS
+// ========================================
+export interface FollowsContextType {
+  // Estado
+  pending: PendingFollowers[];
+  isLoading: boolean;
+  error: string | null;
+
+  // Acciones
+  getPending: (force?: boolean) => Promise<void>;
+  acceptRequest: (username: string) => Promise<void>;
+  rejectRequest: (username: string) => Promise<void>;
+  clearFollows: () => void;
 }

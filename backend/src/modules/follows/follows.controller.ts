@@ -105,13 +105,20 @@ export async function acceptRequest(
     const userId = req.user.userId;
     const { username } = req.params;
 
+    await followService.acceptRequest(
+      userId,
+      username
+    );
+
+    return res.sendStatus(204);
+    /*
     const response =
       await followService.acceptRequest(
         userId,
         username
       );
-
-    return res.status(200).json(response);
+    
+    return res.status(200).json(response);*/
   } catch (error) {
     return res.status(400).json({
       message:
@@ -139,6 +146,31 @@ export async function rejectRequest(
     );
 
     return res.sendStatus(204);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
+// OBTENER PENDIENTES
+// ========================================
+export async function getPendingRequest(
+  req: Request,
+  res: Response
+) {
+  try {
+    const followerId = req.user.userId;
+
+    const response = await followService.findPendingRequest(
+      followerId,
+    );
+
+    return res.status(201).json(response);
   } catch (error) {
     return res.status(400).json({
       message:

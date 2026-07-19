@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { UserLock, User } from "lucide-react";
 
 import { useVisitProfile } from "@/hooks/visitUser/useVisitProfile";
-import { useFollows } from "@/hooks/visitUser/useFollows";
+import { useVisitFollows } from "@/hooks/visitUser/useVisitFollows";
 
 import { Button } from "@/components";
 import ProfileHeaderBase from "./ProfileHeaderBase";
@@ -13,7 +13,7 @@ const VisitorProfileHeader = () => {
   const { 
     relation, getRelation, 
     createRelation, deleteRelation,
-  } = useFollows();
+  } = useVisitFollows();
   
   const { username } = useParams();
 

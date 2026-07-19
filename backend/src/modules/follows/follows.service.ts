@@ -1,16 +1,18 @@
 import * as followRepository from "../follows/follows.repository.js";
 
 import { 
+  getExistingUserById,
   getExistingUserByUsername 
 } from "../../shared/helpers/getExistingUser.js";
 
 import type { 
   Follow,
+  FollowBase,
 } from "@shared/index.js";
 
 import { FOLLOW_STATUS, type FollowStatus } from "../../constants/follow.js";
 
-import { toFollowDTO } from "../../shared/mappers/follow.mapper.js";
+import { toFollowDTO, toPendingFollowDTO } from "../../shared/mappers/follow.mapper.js";
 
 // ========================================
 // COMPROBAR RELACIÓN
@@ -19,8 +21,10 @@ export async function findRelation(
   followerId: number,
   username: string
 ) {
-  if (!username) {
-    throw new Error("El usuario no existe");
+  const userExisting= getExistingUserById(followerId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
   }
 
   const targetUser = await getExistingUserByUsername(username);
@@ -49,8 +53,10 @@ export async function createRelation(
   followerId: number,
   username: string,
 ) {
-  if (!username) {
-    throw new Error("El usuario no existe");
+  const userExisting = getExistingUserById(followerId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
   }
 
   const targetUser = await getExistingUserByUsername(username);
@@ -101,6 +107,11 @@ export async function acceptRequest(
   userId: number,
   username: string
 ) {
+  const userExisting = getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
+  }
 
   // Usuario que envió la solicitud
   const follower =
@@ -135,6 +146,12 @@ export async function rejectRequest(
   userId: number,
   username: string
 ) {
+  const userExisting = getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
+  }
+
   // Usuario que envio la solicitud
   const follower =
     await getExistingUserByUsername(username);
@@ -153,6 +170,27 @@ export async function rejectRequest(
   return await followRepository.deleteRelation(
     follower.id,
     userId
+  );
+}
+
+// ========================================
+// OBTENER PENDIENTES
+// ========================================
+export async function findPendingRequest(
+  userId: number
+): Promise<FollowBase[]> {
+  const userExisting = getExistingUserById(userId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
+  }
+
+  const pending = await followRepository.findPendingRequest(
+    userId
+  );
+  
+  return pending.map((relation) =>
+    toPendingFollowDTO(relation.follower)
   );
 }
 
@@ -197,7 +235,12 @@ export async function deleteRelation(
   followerId: number,
   username: string
 ) {
+  const userExisting = getExistingUserById(followerId);
 
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
+  }
+  
   const targetUser = await getExistingUserByUsername(username);
 
   if (!targetUser) {

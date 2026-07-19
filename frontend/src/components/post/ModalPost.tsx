@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
-import { Button } from "../../components"
+import { Button } from ".."
 
 type ModalProps = {
   isOpen: boolean;
@@ -13,7 +13,7 @@ type ModalProps = {
 };
 
 
-const Modal = ({
+const ModalPost = ({
   isOpen,
   onClose,
   children,
@@ -141,4 +141,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default ModalPost;

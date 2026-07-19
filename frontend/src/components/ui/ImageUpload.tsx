@@ -57,7 +57,7 @@ export default function ImageUpload({
           flex items-center 
           gap-2 px-2 py-1
           bg-[rgba(0,0,0,0.4)] rounded
-          text-white
+          text-white cursor-pointer
         ">
         <Camera size={18} />
       </Button>

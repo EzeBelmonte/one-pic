@@ -59,19 +59,8 @@ export async function getUserProfile(username: string) {
       throw new Error("El usuario no existe");
     }
   
-  const followingId = targetUser.id;
-  
   const followersCount = await followRepository.countFollowers(user.id);
   const followingCount = await followRepository.countFollowing(user.id);
-
-  /*const relation = await followRepository.findRelation(
-    followingId,
-    user.id
-  );
-
-  if (relation?.status === undefined) {
-    throw new Error("Relación indefinida");
-  }*/
 
   // Obtener cantidad de fotos
   const postsCount = await postsRepository.countPost(user.id);

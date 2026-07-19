@@ -36,3 +36,31 @@ export async function deleteRelation(
   
   return response.data;
 }
+
+// ========================================
+// OBTENER PENDIENTES
+// ========================================
+export async function getPending() {
+  const response = 
+    await api.get("/users/followers-pendig");
+  
+  return response.data;
+}
+
+// ========================================
+// ACEPTAR SOLICITUD
+// ========================================
+export async function acceptRequest(
+  username: string
+) {
+  await api.patch(`/users/${username}/follow-accept`);
+}
+
+// ========================================
+// RECHAZAR SOLICITUD
+// ========================================
+export async function rejectRequest(
+  username: string
+) {
+  await api.delete(`/users/${username}/follow-reject`);
+}

@@ -3,12 +3,9 @@ import { useState } from "react";
 import * as followApi from "@/api/follow.api";
 import { getErrorMessage } from "@/utils/getErrorMessage";
 
-type FollowState = {
-  isFollowing: boolean;
-  isPending: boolean;
-}
+import type { FollowState } from "@shared/index";
 
-export function useFollows() {
+export function useVisitFollows() {
   // ========================================
   // ESTADOS
   // ========================================
