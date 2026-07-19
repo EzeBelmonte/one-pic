@@ -1,17 +1,21 @@
 import { useNavigate } from "react-router-dom";
 
-import { useFollows } from "@/app/hooks/useFollows";
-
 import type { Follow } from "@shared/index";
 
-import { Button, Image } from "@/components";
+import { cn } from "@/utils/cn";
+import { Image, Button } from "@/components";
 
 type Props = {
   data: Follow;
+  label: string;
+  onClick: (username: string) => void;
 }
 
-const PendingCard = ({ data }: Props) => {
-  const { acceptRequest, rejectRequest } = useFollows();
+const FollowCard = ({ 
+  data,
+  label,
+  onClick,
+}: Props) => {
   const navigate = useNavigate();
 
   const handleGoProfile = (
@@ -22,19 +26,20 @@ const PendingCard = ({ data }: Props) => {
 
   return (
     <div className="
-      w-full
+      w-full max-w-[320px]
       flex items-center
       border border-[rgb(63,91,102)]
-      bg-[rgb(29,49,56)]
+      bg-[rgb(18,27,31)]
       rounded
       px-3 py-2 gap-2
       text-white
     ">
-  
-      <div className="w-full flex flex-col gap-2">
+      <div 
+        className="w-full flex justify-between items-center gap-2"
+      >
         {/* Datos del usuario */}
         <div 
-          onClick={() => handleGoProfile(data.username)}
+           onClick={() => handleGoProfile(data.username)}
           className="flex gap-2 items-center"
         >
           <Image 
@@ -49,23 +54,23 @@ const PendingCard = ({ data }: Props) => {
           </div>
         </div>
 
-        {/* Botones */}
-        <div className="w-full flex text-[.8rem] justify-between">
-          <Button
-            onClick={() => acceptRequest(data.username)}
-          >
-            Aceptar
-          </Button>
-
-          <Button
-            onClick={() => rejectRequest(data.username)}
-          >
-            Rechazar
-          </Button>
-        </div>
+        <Button
+          onClick={() => onClick(data.username)}
+          className={cn(`
+              h-[26px] px-2
+              "text-[.8rem] cursor-pointer
+              rounded
+            `,
+            label === "Mensaje" 
+              ? "bg-[#244870]"
+              : "bg-[#472525] "
+          )}
+        >
+          {label}
+        </Button>
       </div>
     </div>
   );
 }
 
-export default PendingCard
+export default FollowCard;

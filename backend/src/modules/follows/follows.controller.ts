@@ -111,14 +111,6 @@ export async function acceptRequest(
     );
 
     return res.sendStatus(204);
-    /*
-    const response =
-      await followService.acceptRequest(
-        userId,
-        username
-      );
-    
-    return res.status(200).json(response);*/
   } catch (error) {
     return res.status(400).json({
       message:
@@ -185,13 +177,13 @@ export async function getPendingRequest(
 // OBTENER SEGUIDORES
 // ========================================
 export async function getFollowers(
-  req: Request<{ username: string }>,
+  req: Request,
   res: Response
 ) {
   try {
-    const { username } = req.params;
+    const userId = req.user.userId;
 
-    const response = await followService.findFollowers(username);
+    const response = await followService.findFollowers(userId);
 
     return res.status(201).json(response);
   } catch (error) {
@@ -208,13 +200,13 @@ export async function getFollowers(
 // OBTENER SEGUIDOS
 // ========================================
 export async function getFollowing(
-  req: Request<{ username: string }>,
+  req: Request,
   res: Response
 ) {
   try {
-    const { username } = req.params;
+    const userId = req.user.userId;
 
-    const response = await followService.findFollowing(username);
+    const response = await followService.findFollowing(userId);
 
     return res.status(201).json(response);
   } catch (error) {

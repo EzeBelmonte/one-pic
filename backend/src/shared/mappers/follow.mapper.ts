@@ -1,6 +1,6 @@
 import type { InferSelectModel } from "drizzle-orm";
 
-import type { Follow, PendingFollowers } from "@shared/index.js";
+import type { Follow } from "@shared/index.js";
 
 import { users } from "../../infrastructure/database/schemas/users.js"
 
@@ -16,12 +16,11 @@ export function toFollowDTO(user: Users): Follow  {
   }
 }
 
-export function toPendingFollowDTO(user: Users): PendingFollowers {
+export function toPendingFollowDTO(user: Users): Follow {
   return {
     id: user.id,
     username: user.username,
     nickname: user.nickname ?? "",
     profileImageUrl: user.profileImageUrl,
-    status: "pending",
   }
 }

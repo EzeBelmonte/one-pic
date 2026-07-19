@@ -7,7 +7,6 @@ import {
 
 import type { 
   Follow,
-  FollowBase,
 } from "@shared/index.js";
 
 import { FOLLOW_STATUS, type FollowStatus } from "../../constants/follow.js";
@@ -178,7 +177,7 @@ export async function rejectRequest(
 // ========================================
 export async function findPendingRequest(
   userId: number
-): Promise<FollowBase[]> {
+): Promise<Follow[]> {
   const userExisting = getExistingUserById(userId);
 
   if (!userExisting) {
@@ -198,10 +197,10 @@ export async function findPendingRequest(
 // OBTENER SEGUIDORES
 // ========================================
 export async function findFollowers(
-  username: string
+  userId: number
 ): Promise<Follow[]> {
 
-  const targetUser = await getExistingUserByUsername(username);
+  const targetUser = await getExistingUserById(userId);
 
   const followers =
     await followRepository.findFollowers(targetUser.id);
@@ -215,10 +214,10 @@ export async function findFollowers(
 // OBTENER SEGUIDOS
 // ========================================
 export async function findFollowing(
-  username: string
+  userId: number
 ): Promise<Follow[]> {
 
-  const targetUser = await getExistingUserByUsername(username);
+  const targetUser = await getExistingUserById(userId);
 
   const following 
     = await followRepository.findFollowing(targetUser.id);
@@ -235,7 +234,8 @@ export async function deleteRelation(
   followerId: number,
   username: string
 ) {
-  const userExisting = getExistingUserById(followerId);
+
+  const userExisting = await getExistingUserById(followerId);
 
   if (!userExisting) {
     throw new Error("El usuario no existe")
@@ -251,8 +251,8 @@ export async function deleteRelation(
 
   const relation = 
     await followRepository.findRelation(
-      followerId,
-      followingId
+      followingId,
+      followerId
     );
   
   if (!relation) {

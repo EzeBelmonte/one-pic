@@ -3,7 +3,7 @@ import type {
   UpdateProfile, 
   User, 
   Post,
-  PendingFollowers,
+  Follow,
 } from "@shared/index";
 import type { PostSchema } from "../schemas/post.schema";
 
@@ -64,13 +64,18 @@ export interface PostContextType {
 // ========================================
 export interface FollowsContextType {
   // Estado
-  pending: PendingFollowers[];
+  pending: Follow[];
+  followers: Follow[];
+  following: Follow[];
   isLoading: boolean;
   error: string | null;
 
   // Acciones
   getPending: (force?: boolean) => Promise<void>;
+  getFollowers: (force?: boolean) => Promise<void>;
+  getFollowing: (force?: boolean) => Promise<void>;
   acceptRequest: (username: string) => Promise<void>;
   rejectRequest: (username: string) => Promise<void>;
+  deleteRelation: (username: string) => Promise<void>;
   clearFollows: () => void;
 }

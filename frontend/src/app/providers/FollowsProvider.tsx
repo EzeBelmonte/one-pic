@@ -3,7 +3,7 @@ import { createContext, useCallback, useMemo, useState, useEffect, type ReactNod
 import * as followsApi from "@/api/follow.api";
 
 import type { FollowsContextType } from "../types/app.type";
-import type { PendingFollowers } from "@shared/index";
+import type { Follow } from "@shared/index";
 
 import { getErrorMessage } from "@/utils/getErrorMessage";
 
@@ -18,16 +18,20 @@ export function FollowsProvider({ children }: Props) {
   // ========================================
   // ESTADOS
   // ========================================
-  const [pending, setPending] = useState<PendingFollowers[]>([]);
+  const [pending, setPending] = useState<Follow[]>([]);
+  const [followers, setFollowers] = useState<Follow[]>([]);
+  const [following, setFollowing] =  useState<Follow[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const [pendingLoaded, setPendingLoaded] = useState(false);
+  const [followersLoaded, setFollowersLoaded] = useState(false);
+  const [followingLoaded, setFollowingLoaded] = useState(false);
 
   // ========================================
   // OBTENER PENDIENTES
   // ========================================
   const getPending = useCallback(async (force = false) => {
-    if (loaded && !force) return;
+    if (pendingLoaded && !force) return;
 
     try {
       setIsLoading(true);
@@ -36,17 +40,17 @@ export function FollowsProvider({ children }: Props) {
       const result = await followsApi.getPending();
 
       setPending(result);
-      setLoaded(true);
+      setPendingLoaded(true);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
       setIsLoading(false);
     }
-  }, [loaded]);
+  }, [pendingLoaded]);
 
   useEffect(() => {
     getPending();
-  }, []);
+  }, [getPending]);
 
   // ========================================
   // ACEPTAR SOLICITUD
@@ -61,7 +65,7 @@ export function FollowsProvider({ children }: Props) {
       await followsApi.acceptRequest(username);
       await getPending(true);
       
-      setLoaded(true);
+      setPendingLoaded(true);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
@@ -82,7 +86,7 @@ export function FollowsProvider({ children }: Props) {
       await followsApi.rejectRequest(username);
       await getPending(true);
 
-      setLoaded(true);
+      setPendingLoaded(true);
     } catch (error) {
       setError(getErrorMessage(error));
     } finally {
@@ -91,11 +95,87 @@ export function FollowsProvider({ children }: Props) {
   }
 
   // ========================================
+  // ELIMINAR RELACIÓN
+  // ========================================
+  async function deleteRelation(
+    username: string
+  ) {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      await followsApi.deleteRelation(username);
+
+      setFollowing(prev =>
+        prev.filter(user => user.username !== username)
+      );
+    } catch (error) {
+      setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // ========================================
+  // OBTENER SEGUIDORES
+  // ========================================
+  const getFollowers = useCallback(async (force = false) => {
+    if (followersLoaded && !force) return;
+
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const result = await followsApi.getFollowers();
+
+      setFollowers(result);
+      setFollowersLoaded(true);
+    } catch (error) {
+      setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [followersLoaded]);
+
+  useEffect(() => {
+    getFollowers();
+  }, [getFollowers]);
+
+  // ========================================
+  // OBTENER SEGUIDOS
+  // ========================================
+  const getFollowing = useCallback(async (force = false) => {
+    if (followingLoaded && !force) return;
+
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const result = await followsApi.getFollowing();
+
+      setFollowing(result);
+      setFollowingLoaded(true);
+    } catch (error) {
+      setError(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
+  }, [followingLoaded]);
+
+  useEffect(() => {
+    getFollowing();
+  }, [getFollowing]);
+
+  // ========================================
   // LIMPIAR ESTADOS
   // ========================================
   const clearFollows = useCallback(() => {
     setPending([]);
-    setLoaded(false);
+    setFollowers([]);
+    setFollowing([]);
+    setPendingLoaded(false);
+    setFollowersLoaded(false);
+    setFollowingLoaded(false);
     setError(null);
   }, []);
 
@@ -103,16 +183,26 @@ export function FollowsProvider({ children }: Props) {
     () => ({
       // Estado
       pending,
+      followers,
+      following,
       isLoading,
       error,
 
       //Acciones
       getPending,
-      clearFollows,
+      getFollowers,
+      getFollowing,
       acceptRequest,
       rejectRequest,
+      deleteRelation,
+      clearFollows,
     }),
-    [pending, isLoading, error, getPending, clearFollows, acceptRequest, rejectRequest]
+    [
+      pending, isLoading, error, 
+      getPending, getFollowers, getFollowing,
+      acceptRequest, rejectRequest, deleteRelation,
+      clearFollows,
+    ]
   );
 
   return (

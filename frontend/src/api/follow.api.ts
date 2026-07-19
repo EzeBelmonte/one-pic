@@ -31,10 +31,7 @@ export async function createRelation(
 export async function deleteRelation(
   username: string
 ) {
-  const response = 
-    await api.delete(`/users/${username}/unfollow`);
-  
-  return response.data;
+  await api.delete(`/users/${username}/unfollow`);
 }
 
 // ========================================
@@ -63,4 +60,24 @@ export async function rejectRequest(
   username: string
 ) {
   await api.delete(`/users/${username}/follow-reject`);
+}
+
+// ========================================
+// OBTENER SEGUIDORES
+// ========================================
+export async function getFollowers() {
+  const response = 
+    await api.get("/users/followers");
+
+  return response.data
+}
+
+// ========================================
+// OBTENER SEGUIDOS
+// ========================================
+export async function getFollowing() {
+  const response = 
+    await api.get("/users/following");
+
+  return response.data
 }

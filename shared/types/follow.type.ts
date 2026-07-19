@@ -17,17 +17,9 @@ export interface CreateFollow {
   status?: FollowStatus;
 }
 
-export interface FollowBase {
+export interface Follow {
   id: number;
   username: string;
   nickname: string;
   profileImageUrl: string;
-}
-
-export interface PendingFollowers extends FollowBase {
-  status: "pending";
-}
-
-export interface Follow extends FollowBase {
-
 }
