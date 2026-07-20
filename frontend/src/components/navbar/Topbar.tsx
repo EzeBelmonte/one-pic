@@ -6,7 +6,7 @@ import { useProfile } from "@/app/hooks/useProfile";
 import { useFollows } from "@/app/hooks/useFollows";
 import { useScroll } from "@/hooks/shared/useScroll";
 
-import { Button, ModalFollowsList, PendingCard } from "@/components";
+import { Button, ModalList, PendingCard } from "@/components";
 
 const Topbar = () => {
   const { logout } = useAuth();
@@ -70,7 +70,7 @@ const Topbar = () => {
         </Button>
       </nav>
       
-      <ModalFollowsList
+      <ModalList
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Solicitudes pendientes"
@@ -82,7 +82,7 @@ const Topbar = () => {
             data={item}
           />
         ))}
-      </ModalFollowsList>
+      </ModalList>
     </>
   );
 }

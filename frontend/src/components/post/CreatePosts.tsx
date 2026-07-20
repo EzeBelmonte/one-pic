@@ -25,7 +25,7 @@ const CreatePosts = ({
 
   return (
     <>
-      <div 
+      <li
         onClick={handleOpenModal}
         className={cn(
           baseStyle,
@@ -36,7 +36,7 @@ const CreatePosts = ({
         {!mobile &&
           "Publicar"
         }
-      </div>
+      </li>
 
       {/* Modal que abre la creación de la publicación */}
       <ModalPost

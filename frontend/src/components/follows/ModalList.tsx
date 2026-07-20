@@ -10,7 +10,7 @@ type ModalProps = {
   title?: string;
 };
 
-const ModalFollowsList = ({
+const ModalList = ({
   isOpen,
   onClose,
   children,
@@ -53,7 +53,7 @@ const ModalFollowsList = ({
       <div
         className="
           w-[300px]
-          max-h-[60vh]
+          max-h-[70vh]
           bg-zinc-800
           rounded-lg
           shadow-xl
@@ -81,4 +81,4 @@ const ModalFollowsList = ({
   );
 };
 
-export default ModalFollowsList;
+export default ModalList;

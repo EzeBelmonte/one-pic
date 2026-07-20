@@ -19,6 +19,17 @@ const FollowersList = () => {
     return <p className="text-white">Sin seguidores</p>
   }
 
+  const items = [];
+  for (let i = 0; i < 10; i++) {
+    const data = {
+      id: i + 1,
+      username: "Hola",
+      profileImageUrl: "",
+      nickname: "Chau",
+    }
+    items.push(data);
+  }
+
   return (
     <>
       {followers.map((item) => (

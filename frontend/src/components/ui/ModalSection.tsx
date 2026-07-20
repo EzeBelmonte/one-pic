@@ -81,6 +81,7 @@ const ModalSection = ({
             className="
               relative
               w-full md:w-[700px]
+              max-h-[70vh]
               rounded
               bg-[rgba(32,36,37,0.88)]
               px-2 pb-6 pt-4

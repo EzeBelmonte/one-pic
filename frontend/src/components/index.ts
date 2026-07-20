@@ -19,5 +19,5 @@ export { default as CreatePostForm } from "./post/CreatePostForm";
 export { default as ModalPost } from "./post/ModalPost";
 
 // FOLLOWS
-export { default as ModalFollowsList } from "./follows/ModalFollowsList";
+export { default as ModalList } from "./follows/ModalList";
 export { default as PendingCard } from "./follows/PendingCard";
