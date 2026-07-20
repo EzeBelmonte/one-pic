@@ -21,8 +21,10 @@ export function FollowsProvider({ children }: Props) {
   const [pending, setPending] = useState<Follow[]>([]);
   const [followers, setFollowers] = useState<Follow[]>([]);
   const [following, setFollowing] =  useState<Follow[]>([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
   const [pendingLoaded, setPendingLoaded] = useState(false);
   const [followersLoaded, setFollowersLoaded] = useState(false);
   const [followingLoaded, setFollowingLoaded] = useState(false);

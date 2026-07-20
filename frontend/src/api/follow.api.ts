@@ -14,6 +14,19 @@ export async function getRelation(
 }
 
 // ========================================
+// VERIFICAR SI TAMBIÉN ME SIGUE
+// ========================================
+export async function getRelationToo(
+  username: string
+) {
+
+  const response =
+    await api.get(`/users/${username}/follow-status-too`);
+
+  return response.data;
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(

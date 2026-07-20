@@ -37,6 +37,36 @@ export async function getRelation(
 }
 
 // ========================================
+// VERIFICAR SI TAMBIÉN ME SIGUE
+// ========================================
+export async function getRelationToo(
+  req: Request<{ username: string }>,
+  res: Response
+) {
+  try {
+    // Usuario autenticado (el que sigue)
+    const followerId = req.user.userId;
+
+    // Usuario que quiero seguir
+    const { username } = req.params;
+
+    const response = await followService.findRelationToo(
+      followerId,
+      username
+    );
+
+    return res.status(200).json(response.isFollowingToo);
+  } catch (error) {
+    return res.status(400).json({
+      message:
+        error instanceof Error
+          ? error.message
+          : "Error desconocido",
+    });
+  }
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(

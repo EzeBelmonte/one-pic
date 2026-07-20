@@ -20,8 +20,9 @@ router.post("/:username/follow", authenticate, followsController.createRelation)
 router.delete("/:username/unfollow", authenticate, followsController.deleteRelation);
 
 router.get("/:username/follow-status", authenticate, followsController.getRelation);
-router.get("/followers-pendig", authenticate, followsController.getPendingRequest);
+router.get("/:username/follow-status-too", authenticate, followsController.getRelationToo);
 
+router.get("/followers-pendig", authenticate, followsController.getPendingRequest);
 router.get("/followers", authenticate, followsController.getFollowers);
 router.get("/following", authenticate, followsController.getFollowing);
 

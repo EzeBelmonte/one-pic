@@ -6,12 +6,14 @@ import { useVisitProfile } from "@/hooks/visitUser/useVisitProfile";
 import { useVisitFollows } from "@/hooks/visitUser/useVisitFollows";
 
 import { Button, Image } from "@/components";
+import { useFollows } from "@/app/hooks/useFollows";
 
 const VisitorProfileHeader = () => {
   const { selectedProfile, getUserProfile } = useVisitProfile();
+  const { deleteRelation } = useFollows();
   const { 
-    relation, getRelation, 
-    createRelation, deleteRelation,
+    relation, getRelation, isFollowingToo, getIsFollowingToo,
+    createRelation,
   } = useVisitFollows();
   
   const { username } = useParams();
@@ -29,6 +31,7 @@ const VisitorProfileHeader = () => {
   useEffect(() => {
     const loadUsers = async () => {
       await getRelation(username);
+      await getIsFollowingToo(username);
     };
 
     loadUsers();
@@ -38,13 +41,16 @@ const VisitorProfileHeader = () => {
     return <p>No existe el usuario</p>;
   }
 
+  console.log(isFollowingToo, typeof isFollowingToo);
   const status = 
     relation?.isFollowing
       ? "Siguiendo"
       : relation?.isPending
         ? "Pendiente"
-        : "Seguir"
-
+        : isFollowingToo
+          ? "Seguir también"
+          : "Seguir"
+  
   // Función para seguir, dejar de seguir o cancelar la solicitud
   const handleRelation = async () => {
     if (relation?.isFollowing) {

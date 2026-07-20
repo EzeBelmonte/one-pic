@@ -46,6 +46,35 @@ export async function findRelation(
 }
 
 // ========================================
+// VERIFICAR SI TAMBIÉN ME SIGUE
+// ========================================
+export async function findRelationToo(
+  followerId: number,
+  username: string
+) {
+  const userExisting= getExistingUserById(followerId);
+
+  if (!userExisting) {
+    throw new Error("El usuario no existe")
+  }
+
+  const targetUser = await getExistingUserByUsername(username);
+
+  if (!targetUser) {
+    throw new Error("El usuario no existe");
+  }
+
+  const relation = await followRepository.findRelation(
+    targetUser.id, // El otro usuario
+    followerId     // Yo
+  );
+
+  return {
+    isFollowingToo: relation?.status === "accepted",
+  };
+}
+
+// ========================================
 // CREAR RELACIÓN
 // ========================================
 export async function createRelation(
@@ -234,13 +263,12 @@ export async function deleteRelation(
   followerId: number,
   username: string
 ) {
-
   const userExisting = await getExistingUserById(followerId);
 
   if (!userExisting) {
-    throw new Error("El usuario no existe")
+    throw new Error("El usuario no existe");
   }
-  
+
   const targetUser = await getExistingUserByUsername(username);
 
   if (!targetUser) {
@@ -249,12 +277,11 @@ export async function deleteRelation(
 
   const followingId = targetUser.id;
 
-  const relation = 
-    await followRepository.findRelation(
-      followingId,
-      followerId
-    );
-  
+  const relation = await followRepository.findRelation(
+    followerId,
+    followingId
+  );
+
   if (!relation) {
     throw new Error("La relación no existe");
   }
