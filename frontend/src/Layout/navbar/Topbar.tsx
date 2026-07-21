@@ -4,9 +4,11 @@ import { LogOut, Bell, BellRing } from "lucide-react";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useProfile } from "@/app/hooks/useProfile";
 import { useFollows } from "@/app/hooks/useFollows";
-import { useScroll } from "@/hooks/shared/useScroll";
+import { useScroll } from "@/hooks/useScroll";
 
-import { Button, ModalList, PendingCard } from "@/components";
+import { Button } from "@/components";
+import ModalList from "@/components/ui/ModalList";
+import PendingCard from "@/features/follows/PendingCard";
 
 const Topbar = () => {
   const { logout } = useAuth();

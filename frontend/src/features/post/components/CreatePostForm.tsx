@@ -45,6 +45,7 @@ const CreatePostForm = ({ onClose }: CreatePostsProps) => {
       w-full sm:w-[550px]
       px-2 pt-4 pb-2 mt-5
       bg-[rgba(111,112,112,0.17)]
+      border border-white/20 rounded
     ">
       <Textarea 
         value={description}

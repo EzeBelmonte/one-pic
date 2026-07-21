@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { UserLock, User } from "lucide-react";
 
-import { useVisitProfile } from "@/hooks/visitUser/useVisitProfile";
-import { useVisitFollows } from "@/hooks/visitUser/useVisitFollows";
+import { useVisitProfile } from "@/features/profile/hooks/useVisitProfile";
+import { useVisitFollows } from "@/features/profile/hooks/useVisitFollows";
 
 import { Button, Image } from "@/components";
 import { useFollows } from "@/app/hooks/useFollows";

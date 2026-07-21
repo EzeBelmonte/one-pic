@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 import { useAuth } from "@/app/hooks/useAuth";
 import { usePosts } from "@/app/hooks/usePosts";
 
-import { Navbar, Topbar, Logoutbar } from "@/components";
-import { useEffect } from "react";
+import Navbar from "./navbar/Navbar";
+import Topbar from "./navbar/Topbar";
 
 const MainLayout = () => {
   const { isAuthenticated } = useAuth();
@@ -18,12 +19,8 @@ const MainLayout = () => {
 
   return (
     <div className="min-h-screen">ç
-      {isAuthenticated ? (
-        <Topbar />
-      ): (
-        <Logoutbar />
-      )}
-
+      <Topbar />
+      
       <div className="mt-10 grid min-h-[calc(100vh-2.5rem)] grid-cols-1 sm:grid-cols-[220px_minmax(0,1fr)]">
         <Navbar />
 

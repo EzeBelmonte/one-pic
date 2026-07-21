@@ -3,7 +3,8 @@ import { DiamondPlus } from "lucide-react";
 
 import { cn } from "@/utils/cn";
 
-import { ModalPost, CreatePostForm } from "@/components";
+import ModalPost from "./ModalPost";
+import CreatePostForm from "./CreatePostForm";
 
 type Props = {
   linkClassName?: string;

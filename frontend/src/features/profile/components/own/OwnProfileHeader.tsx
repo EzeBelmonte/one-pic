@@ -4,8 +4,8 @@ import { LockKeyhole, LockOpen } from "lucide-react";
 import { useProfile } from "@/app/hooks/useProfile";
 
 import { Image, Button, ModalSection } from "@/components";
-import FollowersList from "../follows/FollowersList";
-import FollowingList from "../follows/FollowingList";
+import FollowersList from "../../../follows/FollowersList";
+import FollowingList from "../../../follows/FollowingList";
 
 
 const OwnProfileHeader = () => {
@@ -39,7 +39,7 @@ const OwnProfileHeader = () => {
     <>
       <div className="
         w-full max-w-[550px]
-        flex flex-col 
+        flex flex-col
         gap-7
         text-white
       ">

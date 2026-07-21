@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 
-import { Button } from ".."
+import { Button } from "@/components"
 
 type ModalProps = {
   isOpen: boolean;
@@ -81,6 +81,7 @@ const ModalPost = ({
             className="
               relative
               w-full md:w-[700px]
+              border border-white/30
               rounded
               bg-[rgba(32,36,37,0.88)]
               px-2 pb-6 pt-4

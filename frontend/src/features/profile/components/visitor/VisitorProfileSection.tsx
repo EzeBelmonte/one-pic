@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-import { useVisitPosts } from "@/hooks/visitUser/useVisitPosts";
+import { useVisitPosts } from "@/features/profile/hooks/useVisitPosts";
 
-import ProfileSection from "./ProfileSection";
+import ProfileSection from "../ProfileSection";
 
 type Props = {
   username: string;

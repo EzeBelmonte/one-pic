@@ -1,16 +1,20 @@
-import NavMenu from "./NavMenu";
+import NavMenu from "../NavMenu";
+
 
 const DesktopMenu = () => {
 
   return (
     <div className="
       h-screen max-w-[220px]
-      mt-10">
+      mt-10"
+    >
       <nav className="
         flex flex-col
         h-screen
         px-3 py-5
       ">
+        
+
         <NavMenu 
           className="
             flex flex-col

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { usePosts } from "@/app/hooks/usePosts";
 
-import ProfileSection from "./ProfileSection";
+import ProfileSection from "../ProfileSection";
 
 const OwnProfileSection = () => {
   const { posts, getPosts, isLoading } = usePosts();
@@ -11,7 +11,7 @@ const OwnProfileSection = () => {
     getPosts()
   }, []);
 
-  if (!posts) {
+  if (posts.length === 0) {
     return (
       <div
         className="

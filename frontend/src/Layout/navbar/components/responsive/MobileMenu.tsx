@@ -1,6 +1,6 @@
-import { useScroll } from "@/hooks/shared/useScroll";
+import { useScroll } from "@/hooks/useScroll";
 
-import { NavMenu } from "./";
+import { NavMenu } from "../";
 
 const MobileMenu = () => {
 

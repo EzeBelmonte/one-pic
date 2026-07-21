@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { cn } from "@/utils/cn";
 import { navItems } from "../constants/navItems";
 
-import { CreatePosts } from "@/components";
+import CreatePosts from "@/features/post/components/CreatePosts";
 
 type NavMenuProps = {
   className?: string;

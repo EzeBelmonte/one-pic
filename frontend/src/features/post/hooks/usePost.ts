@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import * as postApi from "@/api/post.api";
-import { getErrorMessage } from "../../utils/getErrorMessage";
+import { getErrorMessage } from "../../../utils/getErrorMessage";
 
 import type { Post } from "@shared/index";
 

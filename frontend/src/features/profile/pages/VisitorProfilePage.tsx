@@ -1,8 +1,8 @@
 
 import { useParams } from "react-router-dom";
 
-import VisitorProfileHeader from "../components/profileHeader/VisitorProfileHeader";
-import VisitorProfileSection from "../components/profileSection/VisitorProfileSection";
+import VisitorProfileHeader from "../components/visitor/VisitorProfileHeader";
+import VisitorProfileSection from "../components/visitor/VisitorProfileSection";
 
 const VisitorProfilePage = () => {
 
