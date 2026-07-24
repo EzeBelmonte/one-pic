@@ -91,7 +91,7 @@ export async function getLikes(
   postId: number
 ) {
   const response =
-    await api.get<Post>(`/posts/${postId}/count`);
+    await api.get(`/posts/${postId}/count`);
 
   return response.data;
 }
@@ -103,7 +103,7 @@ export async function addLike(
   postId: number
 ) {
 
-  await api.post<Post>(`/posts/${postId}/add-like`);
+  await api.post(`/posts/${postId}/add-like`);
 
 }
 
@@ -114,7 +114,7 @@ export async function removeLike(
   postId: number
 ) {
 
-  await api.post<Post>(`/posts/${postId}/remove-like`);
+  await api.post(`/posts/${postId}/remove-like`);
 
 }
 
@@ -125,7 +125,7 @@ export async function hasLiked(
   postId: number
 ) {
   const response =
-    await api.get<Post>(`/posts/${postId}/has-liked`);
+    await api.get(`/posts/${postId}/has-liked`);
 
   return response.data;
 }
